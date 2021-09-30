@@ -27,6 +27,11 @@ public class CharacterEdit : MonoBehaviour
                 GameObject ojosAvatar = avatar.transform.Find("AvatarOjos").gameObject;
                 ojosAvatar.GetComponent<SpriteRenderer>().color = selectedItem.GetComponent<Image>().color;
                 break;
+
+            //Cambio del color del pelo
+            case "ColorPelo":
+                Debug.Log("Coming soon...");
+                break;
         }
     }
 

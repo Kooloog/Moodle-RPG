@@ -20,6 +20,7 @@ public class GetCustomColour : MonoBehaviour, IPointerDownHandler
 
         selectedColor = GetComponent<Image>().sprite.texture.GetPixel((int)localCursor.x * 12, (int)localCursor.y * 12);
         GameObject.Find("AvatarPelo").gameObject.GetComponent<SpriteRenderer>().color = selectedColor;
+        CharacterEdit.customHairColour(ColorUtility.ToHtmlStringRGB(selectedColor));
     }
 
     public void returnToHairMenu()

@@ -10,6 +10,7 @@ public class EnableCustomizationMenus : MonoBehaviour
     public GameObject menuCara;
     public GameObject menuPelo;
     public GameObject menuColorPelo;
+    public GameObject menuCamisetas;
 
     private static List<GameObject> menus = new List<GameObject>();
     public static string currentMenu;
@@ -57,6 +58,10 @@ public class EnableCustomizationMenus : MonoBehaviour
                 menuPelo.SetActive(true);
                 currentMenu = menuPelo.gameObject.name;
                 break;
+            case "CAMISETAS":
+                menuCamisetas.SetActive(true);
+                currentMenu = menuCamisetas.gameObject.name;
+                break;
         }
     }
 
@@ -67,6 +72,7 @@ public class EnableCustomizationMenus : MonoBehaviour
         menus.Add(menuCara);           //ID = 1
         menus.Add(menuPelo);           //ID = 2
         menus.Add(menuColorPelo);      //ID = 3
+        menus.Add(menuCamisetas);      //ID = 4
     }
 
     // Update is called once per frame

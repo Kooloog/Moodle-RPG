@@ -8,6 +8,12 @@ public class CharacterEdit : MonoBehaviour
 {  
     private GameObject avatar;
 
+    //Attribute IDs, one by one
+    private static int skinTone;
+    private static int eyeColor;
+    private static string hairColor;
+    private static int hairStyle;
+
     //Cambia, uno por uno, los diferentes rasgos del personaje.
     public void changeAttribute()
     {
@@ -30,31 +36,59 @@ public class CharacterEdit : MonoBehaviour
 
             //Cambio del color del pelo
             case "ColorPelo":
-                Color hairColour = selectedItem.GetComponent<Image>().color;
+                Color color = selectedItem.GetComponent<Image>().color;
                 GameObject getHairstyles = GameObject.Find("Peinado");
                 foreach(Transform button in getHairstyles.transform)
                 {
-                    button.GetChild(0).gameObject.GetComponent<Image>().color = hairColour;
+                    button.GetChild(0).gameObject.GetComponent<Image>().color = color;
                 }
 
-                GameObject.Find("AvatarPelo").gameObject.GetComponent<SpriteRenderer>().color = hairColour;
+                hairColor = ColorUtility.ToHtmlStringRGB(color);
+                GameObject.Find("AvatarPelo").gameObject.GetComponent<SpriteRenderer>().color = color;
+                Debug.Log("ColorPelo: " + hairColor);
                 break;
 
             //Cambio del peinado
             case "Peinado":
-                int current = 0;
-                foreach(Transform button in selectedCategory.transform)
-                {
-                    if (button == selectedButton.transform)
-                    {
-                        GameObject.Find("AvatarPelo").gameObject.GetComponent<SpriteRenderer>().sprite =
-                            SpriteListsCharacter.pelosFinal[current];
-                    }
-                    current++;
-                }
-
                 break;
         }
+
+        if (selectedCategory.name != "ColorPelo")
+        {
+            findAttributeID(selectedCategory, selectedButton, selectedCategory.name);
+        }
+    }
+
+    private void findAttributeID(GameObject selCategory, GameObject selButton, string attribute)
+    {
+        int current = 0;
+        foreach (Transform button in selCategory.transform)
+        {
+            if (button == selButton.transform)
+            {
+                switch(attribute)
+                {
+                    case "TonoPiel":
+                        skinTone = current; break;
+                    case "ColorOjos":
+                        eyeColor = current; break;
+                    case "Peinado":
+                        hairStyle = current;
+                        GameObject.Find("AvatarPelo").gameObject.GetComponent<SpriteRenderer>().sprite =
+                            SpriteListsCharacter.pelosFinal[current];
+                        break;
+                }
+                break;
+            }
+            current++;
+        }
+        Debug.Log(attribute + ": " + current);
+    }
+
+    public static void customHairColour(string hex)
+    {
+        hairColor = hex;
+        Debug.Log("ColorPelo: " + hairColor);
     }
 
     public void enableHairColours()

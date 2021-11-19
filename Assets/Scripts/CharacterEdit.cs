@@ -106,6 +106,6 @@ public class CharacterEdit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

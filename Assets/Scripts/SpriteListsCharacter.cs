@@ -5,11 +5,14 @@ using UnityEngine;
 public class SpriteListsCharacter : MonoBehaviour
 {
     [SerializeField] public Sprite[] pelos;
+    [SerializeField] public Sprite[] camisetasBasicas;
     public static Sprite[] pelosFinal;
+    public static Sprite[] camisetasBasicasFinal;
 
     private void Start()
     {
         pelosFinal = pelos;
+        camisetasBasicasFinal = camisetasBasicas;
     }
 
     private void Update()

@@ -9,7 +9,7 @@ public class EnableCustomizationMenus : MonoBehaviour
     public GameObject menuBotones;
     public GameObject menuCara;
     public GameObject menuPelo;
-    public GameObject menuColorPelo;
+    public GameObject menuColores;
     public GameObject menuCamisetas;
 
     private static List<GameObject> menus = new List<GameObject>();
@@ -35,7 +35,16 @@ public class EnableCustomizationMenus : MonoBehaviour
                 menus[2].SetActive(true);
                 break;
             case "COLOR PELO":
+                GetCustomColour.attributeToChange = "AvatarPelo";
                 menus[3].SetActive(true);
+                break;
+            case "COLOR CAMISETA":
+                GetCustomColour.attributeToChange = "AvatarCamiseta";
+                menus[3].SetActive(true);
+                break;
+            case "CAMISETAS":
+                GetCustomColour.attributeToChange = "AvatarCamiseta";
+                menus[4].SetActive(true);
                 break;
         }
     }
@@ -71,7 +80,7 @@ public class EnableCustomizationMenus : MonoBehaviour
         menus.Add(menuBotones);        //ID = 0
         menus.Add(menuCara);           //ID = 1
         menus.Add(menuPelo);           //ID = 2
-        menus.Add(menuColorPelo);      //ID = 3
+        menus.Add(menuColores);        //ID = 3
         menus.Add(menuCamisetas);      //ID = 4
     }
 

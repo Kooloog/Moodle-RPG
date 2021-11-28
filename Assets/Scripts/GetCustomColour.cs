@@ -8,6 +8,7 @@ public class GetCustomColour : MonoBehaviour, IPointerDownHandler
 {
     private static Color selectedColor;
 
+    public static string attributeToChange;
     public static GameObject previousEventSystemStatic;
     public GameObject previousEventSystem;
 
@@ -19,20 +20,32 @@ public class GetCustomColour : MonoBehaviour, IPointerDownHandler
             return;
 
         selectedColor = GetComponent<Image>().sprite.texture.GetPixel((int)localCursor.x * 12, (int)localCursor.y * 12);
-        GameObject.Find("AvatarPelo").gameObject.GetComponent<SpriteRenderer>().color = selectedColor;
-        CharacterEdit.customHairColour(ColorUtility.ToHtmlStringRGB(selectedColor));
+        GameObject.Find(attributeToChange).gameObject.GetComponent<SpriteRenderer>().color = selectedColor;
+        CharacterEdit.customColour(ColorUtility.ToHtmlStringRGB(selectedColor));
     }
 
-    public void returnToHairMenu()
+    public void returnToMenu()
     {
         EnableCustomizationMenus.hideEverything();
-        EnableCustomizationMenus.enableSingleMenu("PELO");
         EnableCustomizationMenus.enableSingleMenu("BOTONES");
         previousEventSystemStatic.SetActive(true);
 
-        foreach (Transform button in GameObject.Find("Peinado").transform)
-        {
-            button.GetChild(0).gameObject.GetComponent<Image>().color = selectedColor;
+        switch (attributeToChange) {
+            case "AvatarPelo":
+                EnableCustomizationMenus.enableSingleMenu("PELO");
+                foreach (Transform button in GameObject.Find("Peinado").transform)
+                {
+                    button.GetChild(0).gameObject.GetComponent<Image>().color = selectedColor;
+                }
+                break;
+
+            case "AvatarCamiseta":
+                EnableCustomizationMenus.enableSingleMenu("CAMISETAS");
+                foreach (Transform button in GameObject.Find("CamisetaBasica").transform)
+                {
+                    button.GetChild(0).gameObject.GetComponent<Image>().color = selectedColor;
+                }
+                break;
         }
     }
 

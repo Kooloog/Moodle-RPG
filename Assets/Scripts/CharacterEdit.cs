@@ -13,6 +13,8 @@ public class CharacterEdit : MonoBehaviour
     private static int eyeColor;
     private static string hairColor;
     private static int hairStyle;
+    private static string shirtColor;
+    private static int shirtStyle;
 
     //Cambia, uno por uno, los diferentes rasgos del personaje.
     public void changeAttribute()
@@ -36,20 +38,37 @@ public class CharacterEdit : MonoBehaviour
 
             //Cambio del color del pelo
             case "ColorPelo":
-                Color color = selectedItem.GetComponent<Image>().color;
+                Color colorHair = selectedItem.GetComponent<Image>().color;
                 GameObject getHairstyles = GameObject.Find("Peinado");
                 foreach(Transform button in getHairstyles.transform)
                 {
-                    button.GetChild(0).gameObject.GetComponent<Image>().color = color;
+                    button.GetChild(0).gameObject.GetComponent<Image>().color = colorHair;
                 }
 
-                hairColor = ColorUtility.ToHtmlStringRGB(color);
-                GameObject.Find("AvatarPelo").gameObject.GetComponent<SpriteRenderer>().color = color;
+                hairColor = ColorUtility.ToHtmlStringRGB(colorHair);
+                GameObject.Find("AvatarPelo").gameObject.GetComponent<SpriteRenderer>().color = colorHair;
                 Debug.Log("ColorPelo: " + hairColor);
+                break;
+
+            //Cambio del color de la camiseta
+            case "ColorCamiseta":
+                Color colorShirt = selectedItem.GetComponent<Image>().color;
+                GameObject getShirts = GameObject.Find("CamisetaBasica");
+                foreach (Transform button in getShirts.transform)
+                {
+                    button.GetChild(0).gameObject.GetComponent<Image>().color = colorShirt;
+                }
+
+                shirtColor = ColorUtility.ToHtmlStringRGB(colorShirt);
+                GameObject.Find("AvatarCamiseta").gameObject.GetComponent<SpriteRenderer>().color = colorShirt;
+                Debug.Log("ColorCamiseta: " + shirtColor);
                 break;
 
             //Cambio del peinado
             case "Peinado":
+                break;
+
+            case "CamisetaBasica":
                 break;
         }
 
@@ -77,6 +96,11 @@ public class CharacterEdit : MonoBehaviour
                         GameObject.Find("AvatarPelo").gameObject.GetComponent<SpriteRenderer>().sprite =
                             SpriteListsCharacter.pelosFinal[current];
                         break;
+                    case "CamisetaBasica":
+                        shirtStyle = current;
+                        GameObject.Find("AvatarCamiseta").gameObject.GetComponent<SpriteRenderer>().sprite =
+                            SpriteListsCharacter.camisetasBasicasFinal[current];
+                        break;
                 }
                 break;
             }
@@ -85,16 +109,31 @@ public class CharacterEdit : MonoBehaviour
         Debug.Log(attribute + ": " + current);
     }
 
-    public static void customHairColour(string hex)
+    public static void customColour(string hex)
     {
-        hairColor = hex;
-        Debug.Log("ColorPelo: " + hairColor);
+        switch(GetCustomColour.attributeToChange)
+        {
+            case "AvatarPelo":
+                hairColor = hex;
+                Debug.Log("ColorPelo: " + hairColor);
+                break;
+            case "AvatarCamiseta":
+                shirtColor = hex;
+                Debug.Log("ColorCamiseta: " + shirtColor);
+                break;
+        }
     }
 
     public void enableHairColours()
     {
         EnableCustomizationMenus.hideEverything();
         EnableCustomizationMenus.enableSingleMenu("COLOR PELO");
+    }
+
+    public void enableShirtColours()
+    {
+        EnableCustomizationMenus.hideEverything();
+        EnableCustomizationMenus.enableSingleMenu("COLOR CAMISETA");
     }
 
     // Start is called before the first frame update

@@ -6,13 +6,16 @@ public class SpriteListsCharacter : MonoBehaviour
 {
     [SerializeField] public Sprite[] pelos;
     [SerializeField] public Sprite[] camisetasBasicas;
+    [SerializeField] public Sprite[] pantalones;
     public static Sprite[] pelosFinal;
     public static Sprite[] camisetasBasicasFinal;
+    public static Sprite[] pantalonesFinal;
 
     private void Start()
     {
         pelosFinal = pelos;
         camisetasBasicasFinal = camisetasBasicas;
+        pantalonesFinal = pantalones;
     }
 
     private void Update()

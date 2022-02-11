@@ -11,6 +11,7 @@ public class EnableCustomizationMenus : MonoBehaviour
     public GameObject menuPelo;
     public GameObject menuColores;
     public GameObject menuCamisetas;
+    public GameObject menuPantalon;
 
     private static List<GameObject> menus = new List<GameObject>();
     public static string currentMenu;
@@ -42,9 +43,21 @@ public class EnableCustomizationMenus : MonoBehaviour
                 GetCustomColour.attributeToChange = "AvatarCamiseta";
                 menus[3].SetActive(true);
                 break;
+            case "COLOR PANTALON":
+                GetCustomColour.attributeToChange = "AvatarPantalon";
+                menus[3].SetActive(true);
+                break;
+            case "COLOR CALZADO":
+                GetCustomColour.attributeToChange = "AvatarCalzado";
+                menus[3].SetActive(true);
+                break;
             case "CAMISETAS":
                 GetCustomColour.attributeToChange = "AvatarCamiseta";
                 menus[4].SetActive(true);
+                break;
+            case "PANTALONES":
+                GetCustomColour.attributeToChange = "AvatarPantalon";
+                menus[5].SetActive(true);
                 break;
         }
     }
@@ -71,6 +84,10 @@ public class EnableCustomizationMenus : MonoBehaviour
                 menuCamisetas.SetActive(true);
                 currentMenu = menuCamisetas.gameObject.name;
                 break;
+            case "PANTALONES":
+                menuPantalon.SetActive(true);
+                currentMenu = menuPantalon.gameObject.name;
+                break;
         }
     }
 
@@ -82,6 +99,7 @@ public class EnableCustomizationMenus : MonoBehaviour
         menus.Add(menuPelo);           //ID = 2
         menus.Add(menuColores);        //ID = 3
         menus.Add(menuCamisetas);      //ID = 4
+        menus.Add(menuPantalon);       //ID = 5
     }
 
     // Update is called once per frame

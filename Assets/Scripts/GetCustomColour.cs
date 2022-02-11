@@ -46,6 +46,22 @@ public class GetCustomColour : MonoBehaviour, IPointerDownHandler
                     button.GetChild(0).gameObject.GetComponent<Image>().color = selectedColor;
                 }
                 break;
+
+            case "AvatarPantalon":
+                EnableCustomizationMenus.enableSingleMenu("PANTALONES");
+                foreach (Transform button in GameObject.Find("Pantalones").transform)
+                {
+                    button.GetChild(0).gameObject.GetComponent<Image>().color = selectedColor;
+                }
+                break;
+
+            case "AvatarCalzado":
+                EnableCustomizationMenus.enableSingleMenu("PANTALONES");
+                foreach (Transform button in GameObject.Find("Calzado").transform)
+                {
+                    button.GetChild(0).gameObject.GetComponent<Image>().color = selectedColor;
+                }
+                break;
         }
     }
 

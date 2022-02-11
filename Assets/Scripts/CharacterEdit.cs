@@ -9,12 +9,16 @@ public class CharacterEdit : MonoBehaviour
     private GameObject avatar;
 
     //Attribute IDs, one by one
-    private static int skinTone;
-    private static int eyeColor;
-    private static string hairColor;
-    private static int hairStyle;
-    private static string shirtColor;
-    private static int shirtStyle;
+    public static int skinTone;
+    public static int eyeColor;
+    public static string hairColor;
+    public static int hairStyle;
+    public static string shirtColor;
+    public static int shirtStyle;
+    public static string pantsColor;
+    public static int pantsStyle;
+    public static string shoeColor;
+    public static int shoeStyle;
 
     //Cambia, uno por uno, los diferentes rasgos del personaje.
     public void changeAttribute()
@@ -50,20 +54,6 @@ public class CharacterEdit : MonoBehaviour
                 Debug.Log("ColorPelo: " + hairColor);
                 break;
 
-            //Cambio del color de la camiseta
-            case "ColorCamiseta":
-                Color colorShirt = selectedItem.GetComponent<Image>().color;
-                GameObject getShirts = GameObject.Find("CamisetaBasica");
-                foreach (Transform button in getShirts.transform)
-                {
-                    button.GetChild(0).gameObject.GetComponent<Image>().color = colorShirt;
-                }
-
-                shirtColor = ColorUtility.ToHtmlStringRGB(colorShirt);
-                GameObject.Find("AvatarCamiseta").gameObject.GetComponent<SpriteRenderer>().color = colorShirt;
-                Debug.Log("ColorCamiseta: " + shirtColor);
-                break;
-
             //Cambio del peinado
             case "Peinado":
                 break;
@@ -72,7 +62,8 @@ public class CharacterEdit : MonoBehaviour
                 break;
         }
 
-        if (selectedCategory.name != "ColorPelo")
+        if (selectedCategory.name != "ColorPelo" && selectedCategory.name != "ColorCamiseta" &&
+            selectedCategory.name != "ColorPantalon" && selectedCategory.name != "ColorCalzado")
         {
             findAttributeID(selectedCategory, selectedButton, selectedCategory.name);
         }
@@ -101,6 +92,11 @@ public class CharacterEdit : MonoBehaviour
                         GameObject.Find("AvatarCamiseta").gameObject.GetComponent<SpriteRenderer>().sprite =
                             SpriteListsCharacter.camisetasBasicasFinal[current];
                         break;
+                    case "Pantalones":
+                        pantsStyle = current;
+                        GameObject.Find("AvatarPantalon").gameObject.GetComponent<SpriteRenderer>().sprite =
+                            SpriteListsCharacter.pantalonesFinal[current];
+                        break;
                 }
                 break;
             }
@@ -121,6 +117,14 @@ public class CharacterEdit : MonoBehaviour
                 shirtColor = hex;
                 Debug.Log("ColorCamiseta: " + shirtColor);
                 break;
+            case "AvatarPantalon":
+                pantsColor = hex;
+                Debug.Log("ColorPantalon: " + pantsColor);
+                break;
+            case "AvatarCalzado":
+                shoeColor = hex;
+                Debug.Log("ColorCalzado: " + shoeColor);
+                break;
         }
     }
 
@@ -134,6 +138,18 @@ public class CharacterEdit : MonoBehaviour
     {
         EnableCustomizationMenus.hideEverything();
         EnableCustomizationMenus.enableSingleMenu("COLOR CAMISETA");
+    }
+
+    public void enablePantsColours()
+    {
+        EnableCustomizationMenus.hideEverything();
+        EnableCustomizationMenus.enableSingleMenu("COLOR PANTALON");
+    }
+
+    public void enableShoeColours()
+    {
+        EnableCustomizationMenus.hideEverything();
+        EnableCustomizationMenus.enableSingleMenu("COLOR CALZADO");
     }
 
     // Start is called before the first frame update

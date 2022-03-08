@@ -53,13 +53,6 @@ public class CharacterEdit : MonoBehaviour
                 GameObject.Find("AvatarPelo").gameObject.GetComponent<SpriteRenderer>().color = colorHair;
                 Debug.Log("ColorPelo: " + hairColor);
                 break;
-
-            //Cambio del peinado
-            case "Peinado":
-                break;
-
-            case "CamisetaBasica":
-                break;
         }
 
         if (selectedCategory.name != "ColorPelo" && selectedCategory.name != "ColorCamiseta" &&
@@ -76,6 +69,7 @@ public class CharacterEdit : MonoBehaviour
         {
             if (button == selButton.transform)
             {
+                button.GetComponent<Image>().color = new Color(1f, 0.5f, 0.5f);
                 switch(attribute)
                 {
                     case "TonoPiel":
@@ -97,9 +91,14 @@ public class CharacterEdit : MonoBehaviour
                         GameObject.Find("AvatarPantalon").gameObject.GetComponent<SpriteRenderer>().sprite =
                             SpriteListsCharacter.pantalonesFinal[current];
                         break;
+                    case "Calzado":
+                        shoeStyle = current;
+                        GameObject.Find("AvatarCalzado").gameObject.GetComponent<SpriteRenderer>().sprite =
+                            SpriteListsCharacter.calzadoFinal[current];
+                        break;
                 }
-                break;
             }
+            else button.GetComponent<Image>().color = new Color(255, 255, 255);
             current++;
         }
         Debug.Log(attribute + ": " + current);

@@ -19,6 +19,12 @@ public class CharacterEdit : MonoBehaviour
     public static int pantsStyle;
     public static string shoeColor;
     public static int shoeStyle;
+    public static string facehairColor;
+    public static int facehairStyle;
+    public static float facehairAlpha;
+    public static string glassesColor;
+    public static int glassesStyle;
+    public static int otherStyle;
 
     //Cambia, uno por uno, los diferentes rasgos del personaje.
     public void changeAttribute()
@@ -52,6 +58,25 @@ public class CharacterEdit : MonoBehaviour
                 hairColor = ColorUtility.ToHtmlStringRGB(colorHair);
                 GameObject.Find("AvatarPelo").gameObject.GetComponent<SpriteRenderer>().color = colorHair;
                 Debug.Log("ColorPelo: " + hairColor);
+                break;
+
+            //Cambio del color del vello facial
+            case "ColorVello":
+                Color colorFacialHair = selectedItem.GetComponent<Image>().color;
+                GameObject getFacialHairs = GameObject.Find("Vello");
+                float alphaValue = GameObject.Find("SliderVello").GetComponent<Slider>().value;
+
+                foreach (Transform button in getFacialHairs.transform)
+                {
+                    button.GetChild(0).gameObject.GetComponent<Image>().color = colorFacialHair;
+                }
+
+                facehairColor = ColorUtility.ToHtmlStringRGB(colorFacialHair);
+                facehairAlpha = alphaValue;
+
+                colorFacialHair.a = alphaValue;
+                GameObject.Find("AvatarVello").gameObject.GetComponent<SpriteRenderer>().color = colorFacialHair;
+                Debug.Log("ColorVello: " + facehairColor);
                 break;
         }
 
@@ -96,6 +121,11 @@ public class CharacterEdit : MonoBehaviour
                         GameObject.Find("AvatarCalzado").gameObject.GetComponent<SpriteRenderer>().sprite =
                             SpriteListsCharacter.calzadoFinal[current];
                         break;
+                    case "Vello":
+                        facehairStyle = current;
+                        GameObject.Find("AvatarVello").gameObject.GetComponent<SpriteRenderer>().sprite =
+                            SpriteListsCharacter.velloFinal[current];
+                        break;
                 }
             }
             else button.GetComponent<Image>().color = new Color(255, 255, 255);
@@ -125,6 +155,13 @@ public class CharacterEdit : MonoBehaviour
                 Debug.Log("ColorCalzado: " + shoeColor);
                 break;
         }
+    }
+
+    public void changeFacialHairTransparency()
+    {
+        SpriteRenderer vello = GameObject.Find("AvatarVello").gameObject.GetComponent<SpriteRenderer>();
+        Slider slider = GameObject.Find("SliderVello").GetComponent<Slider>();
+        vello.color = new Color(vello.color.r, vello.color.g, vello.color.b, slider.value);
     }
 
     public void enableHairColours()

@@ -10,14 +10,14 @@ public class SpriteListsCharacter : MonoBehaviour
     [SerializeField] public Sprite[] calzado;
     [SerializeField] public Sprite[] vello;
     [SerializeField] public Sprite[] gafas;
-    [SerializeField] public Sprite[] otros;
+    [SerializeField] public Sprite[] collares;
     public static Sprite[] pelosFinal;
     public static Sprite[] camisetasBasicasFinal;
     public static Sprite[] pantalonesFinal;
     public static Sprite[] calzadoFinal;
     public static Sprite[] velloFinal;
     public static Sprite[] gafasFinal;
-    public static Sprite[] otrosFinal;
+    public static Sprite[] collaresFinal;
 
     private void Start()
     {
@@ -27,7 +27,7 @@ public class SpriteListsCharacter : MonoBehaviour
         calzadoFinal = calzado;
         velloFinal = vello;
         gafasFinal = gafas;
-        otrosFinal = otros;
+        collaresFinal = collares;
     }
 
     private void Update()

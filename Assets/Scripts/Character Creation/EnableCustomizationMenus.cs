@@ -13,6 +13,7 @@ public class EnableCustomizationMenus : MonoBehaviour
     public GameObject menuCamisetas;
     public GameObject menuPantalon;
     public GameObject menuAccesorios;
+    public GameObject menuFinal;
 
     private static List<GameObject> menus = new List<GameObject>();
     public static string currentMenu;
@@ -28,6 +29,7 @@ public class EnableCustomizationMenus : MonoBehaviour
 
     public static void enableSingleMenu(string op)
     {
+        Debug.Log(op);
         switch(op)
         {
             case "BOTONES":
@@ -64,6 +66,14 @@ public class EnableCustomizationMenus : MonoBehaviour
                 GetCustomColour.attributeToChange = "AvatarAccesorio";
                 menus[6].SetActive(true);
                 break;
+            case "COLOR GAFAS":
+                GetCustomColour.attributeToChange = "AvatarGafas";
+                menus[3].SetActive(true);
+                break;
+            case "COLOR COLLAR":
+                GetCustomColour.attributeToChange = "AvatarCollar";
+                menus[3].SetActive(true);
+                break;
         }
     }
 
@@ -97,6 +107,10 @@ public class EnableCustomizationMenus : MonoBehaviour
                 menuAccesorios.SetActive(true);
                 currentMenu = menuAccesorios.gameObject.name;
                 break;
+            case "FINALIZAR":
+                menuFinal.SetActive(true);
+                currentMenu = menuFinal.gameObject.name;
+                break;
         }
     }
 
@@ -110,6 +124,7 @@ public class EnableCustomizationMenus : MonoBehaviour
         menus.Add(menuCamisetas);      //ID = 4
         menus.Add(menuPantalon);       //ID = 5
         menus.Add(menuAccesorios);     //ID = 6
+        menus.Add(menuFinal);          //ID = 7
     }
 
     // Update is called once per frame

@@ -24,7 +24,10 @@ public class CharacterEdit : MonoBehaviour
     public static float facehairAlpha;
     public static string glassesColor;
     public static int glassesStyle;
-    public static int otherStyle;
+    public static string collarColor;
+    public static int collarStyle;
+    public static string characterName;
+    public static string characterGender;
 
     //Cambia, uno por uno, los diferentes rasgos del personaje.
     public void changeAttribute()
@@ -126,6 +129,16 @@ public class CharacterEdit : MonoBehaviour
                         GameObject.Find("AvatarVello").gameObject.GetComponent<SpriteRenderer>().sprite =
                             SpriteListsCharacter.velloFinal[current];
                         break;
+                    case "Gafas":
+                        glassesStyle = current;
+                        GameObject.Find("AvatarGafas").gameObject.GetComponent<SpriteRenderer>().sprite =
+                            SpriteListsCharacter.gafasFinal[current];
+                        break;
+                    case "Collares":
+                        collarStyle = current;
+                        GameObject.Find("AvatarCollar").gameObject.GetComponent<SpriteRenderer>().sprite =
+                            SpriteListsCharacter.collaresFinal[current];
+                        break;
                 }
             }
             else button.GetComponent<Image>().color = new Color(255, 255, 255);
@@ -153,6 +166,14 @@ public class CharacterEdit : MonoBehaviour
             case "AvatarCalzado":
                 shoeColor = hex;
                 Debug.Log("ColorCalzado: " + shoeColor);
+                break;
+            case "AvatarGafas":
+                glassesColor = hex;
+                Debug.Log("ColorGafas: " + glassesColor);
+                break;
+            case "AvatarCollar":
+                collarColor = hex;
+                Debug.Log("ColorCollar: " + collarColor);
                 break;
         }
     }
@@ -188,15 +209,51 @@ public class CharacterEdit : MonoBehaviour
         EnableCustomizationMenus.enableSingleMenu("COLOR CALZADO");
     }
 
+    public void enableGlassesColours()
+    {
+        EnableCustomizationMenus.hideEverything();
+        EnableCustomizationMenus.enableSingleMenu("COLOR GAFAS");
+    }
+
+    public void enableCollarColours()
+    {
+        EnableCustomizationMenus.hideEverything();
+        EnableCustomizationMenus.enableSingleMenu("COLOR COLLAR");
+    }
+
+    public void changeCharacterName()
+    {
+        characterName = GameObject.Find("NameText").GetComponent<Text>().text.ToUpper();
+        
+        if(characterName.Length > 0)
+        {
+            GameObject.Find("Acabar").GetComponent<Button>().interactable = true;
+        }
+        else
+        {
+            GameObject.Find("Acabar").GetComponent<Button>().interactable = false;
+        }
+    }
+
+    public void changeCharacterGender()
+    {
+        GameObject selectedButton = EventSystem.current.currentSelectedGameObject;
+        characterGender = selectedButton.name;
+        selectedButton.GetComponent<Image>().color = new Color(1f, 0.5f, 0.5f);
+
+        if (characterGender == "Male")
+        {
+            GameObject.Find("Female").GetComponent<Image>().color = new Color(255, 255, 255);
+        }
+        else
+        {
+            GameObject.Find("Male").GetComponent<Image>().color = new Color(255, 255, 255);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         avatar = GameObject.Find("Avatar");
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

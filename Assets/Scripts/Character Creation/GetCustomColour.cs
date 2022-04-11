@@ -38,7 +38,6 @@ public class GetCustomColour : MonoBehaviour, IPointerDownHandler
                     button.GetChild(0).gameObject.GetComponent<Image>().color = selectedColor;
                 }
                 break;
-
             case "AvatarCamiseta":
                 EnableCustomizationMenus.enableSingleMenu("CAMISETAS");
                 foreach (Transform button in GameObject.Find("CamisetaBasica").transform)
@@ -46,7 +45,6 @@ public class GetCustomColour : MonoBehaviour, IPointerDownHandler
                     button.GetChild(0).gameObject.GetComponent<Image>().color = selectedColor;
                 }
                 break;
-
             case "AvatarPantalon":
                 EnableCustomizationMenus.enableSingleMenu("PANTALONES");
                 foreach (Transform button in GameObject.Find("Pantalones").transform)
@@ -54,10 +52,23 @@ public class GetCustomColour : MonoBehaviour, IPointerDownHandler
                     button.GetChild(0).gameObject.GetComponent<Image>().color = selectedColor;
                 }
                 break;
-
             case "AvatarCalzado":
                 EnableCustomizationMenus.enableSingleMenu("PANTALONES");
                 foreach (Transform button in GameObject.Find("Calzado").transform)
+                {
+                    button.GetChild(0).gameObject.GetComponent<Image>().color = selectedColor;
+                }
+                break;
+            case "AvatarGafas":
+                EnableCustomizationMenus.enableSingleMenu("ACCESORIOS");
+                foreach (Transform button in GameObject.Find("Gafas").transform)
+                {
+                    button.GetChild(0).gameObject.GetComponent<Image>().color = selectedColor;
+                }
+                break;
+            case "AvatarCollar":
+                EnableCustomizationMenus.enableSingleMenu("ACCESORIOS");
+                foreach (Transform button in GameObject.Find("Collares").transform)
                 {
                     button.GetChild(0).gameObject.GetComponent<Image>().color = selectedColor;
                 }

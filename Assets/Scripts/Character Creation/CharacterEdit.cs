@@ -224,6 +224,7 @@ public class CharacterEdit : MonoBehaviour
     public void changeCharacterName()
     {
         characterName = GameObject.Find("NameText").GetComponent<Text>().text.ToUpper();
+        Debug.Log(characterName);
         
         if(characterName.Length > 0)
         {
@@ -240,6 +241,7 @@ public class CharacterEdit : MonoBehaviour
         GameObject selectedButton = EventSystem.current.currentSelectedGameObject;
         characterGender = selectedButton.name;
         selectedButton.GetComponent<Image>().color = new Color(1f, 0.5f, 0.5f);
+        Debug.Log(characterGender);
 
         if (characterGender == "Male")
         {
@@ -255,5 +257,6 @@ public class CharacterEdit : MonoBehaviour
     void Start()
     {
         avatar = GameObject.Find("Avatar");
+        DontDestroyOnLoad(avatar);
     }
 }

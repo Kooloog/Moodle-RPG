@@ -81,7 +81,7 @@ public class CharacterEdit : MonoBehaviour
                 break;
         }
 
-        if (selectedCategory.name != "ColorCamiseta" &&
+        if (selectedCategory.name != "ColorPelo" && selectedCategory.name != "ColorCamiseta" &&
             selectedCategory.name != "ColorPantalon" && selectedCategory.name != "ColorCalzado")
         {
             findAttributeID(selectedCategory, selectedButton, selectedCategory.name);

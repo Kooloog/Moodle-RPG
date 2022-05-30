@@ -35,6 +35,9 @@ public class EnableCustomizationMenus : MonoBehaviour
             case "BOTONES":
                 menus[0].SetActive(true);
                 break;
+            case "CARA":
+                menus[1].SetActive(true);
+                break;
             case "PELO":
                 menus[2].SetActive(true);
                 break;
@@ -73,6 +76,9 @@ public class EnableCustomizationMenus : MonoBehaviour
             case "COLOR COLLAR":
                 GetCustomColour.attributeToChange = "AvatarCollar";
                 menus[3].SetActive(true);
+                break;
+            case "FINAL":
+                menus[7].SetActive(true);
                 break;
         }
     }

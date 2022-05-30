@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Editor Personajes.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Mapa.unity
+    guid: 9f8c1e0b1acc8e64e98759f65f80aa8f
   m_configObjects: {}

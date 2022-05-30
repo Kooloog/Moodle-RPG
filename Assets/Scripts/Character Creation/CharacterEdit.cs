@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -83,7 +81,7 @@ public class CharacterEdit : MonoBehaviour
                 break;
         }
 
-        if (selectedCategory.name != "ColorPelo" && selectedCategory.name != "ColorCamiseta" &&
+        if (selectedCategory.name != "ColorCamiseta" &&
             selectedCategory.name != "ColorPantalon" && selectedCategory.name != "ColorCalzado")
         {
             findAttributeID(selectedCategory, selectedButton, selectedCategory.name);
@@ -187,6 +185,13 @@ public class CharacterEdit : MonoBehaviour
 
     public void enableHairColours()
     {
+        GameObject selectedButton = EventSystem.current.currentSelectedGameObject;
+        foreach (Transform button in selectedButton.transform.parent.gameObject.transform)
+        {
+            button.GetComponent<Image>().color = new Color(255, 255, 255);
+        }
+        selectedButton.transform.GetComponent<Image>().color = new Color(1f, 0.5f, 0.5f);
+
         EnableCustomizationMenus.hideEverything();
         EnableCustomizationMenus.enableSingleMenu("COLOR PELO");
     }
@@ -256,6 +261,33 @@ public class CharacterEdit : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Valores por defecto
+        skinTone = 0;
+        eyeColor = 0;
+        hairColor = "181717";
+        hairStyle = 0;
+        shirtColor = "FFFFFF";
+        shirtStyle = 0;
+        pantsColor = "FFFFFF";
+        pantsStyle = 0;
+        shoeColor = "FFFFFF";
+        shoeStyle = 0;
+        facehairColor = "181717";
+        facehairStyle = 6;
+        facehairAlpha = 1.0f;
+        glassesColor = "000000";
+        glassesStyle = 5;
+        collarColor = "000000";
+        collarStyle = 4;
+        characterGender = "Male";
+
+        if (GameObject.Find("SaveLoadHandler") == null)
+        {
+            GameObject load = new GameObject("SaveLoadHandler");
+            SaveLoadCharacter loadCharacter = load.AddComponent<SaveLoadCharacter>();
+            loadCharacter.loadCharacter();
+        }
+
         avatar = GameObject.Find("Avatar");
         DontDestroyOnLoad(avatar);
     }

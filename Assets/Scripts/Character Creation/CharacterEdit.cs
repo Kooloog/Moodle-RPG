@@ -27,12 +27,15 @@ public class CharacterEdit : MonoBehaviour
     public static string characterName;
     public static string characterGender;
 
+    private AudioSource itemSelect;
+
     //Cambia, uno por uno, los diferentes rasgos del personaje.
     public void changeAttribute()
     {
         GameObject selectedButton = EventSystem.current.currentSelectedGameObject;
         GameObject selectedItem = selectedButton.transform.GetChild(0).gameObject;
         GameObject selectedCategory = selectedButton.transform.parent.gameObject;
+        itemSelect.Play();
 
         switch(selectedCategory.name)
         {
@@ -58,7 +61,6 @@ public class CharacterEdit : MonoBehaviour
 
                 hairColor = ColorUtility.ToHtmlStringRGB(colorHair);
                 GameObject.Find("AvatarPelo").gameObject.GetComponent<SpriteRenderer>().color = colorHair;
-                Debug.Log("ColorPelo: " + hairColor);
                 break;
 
             //Cambio del color del vello facial
@@ -77,7 +79,6 @@ public class CharacterEdit : MonoBehaviour
 
                 colorFacialHair.a = alphaValue;
                 GameObject.Find("AvatarVello").gameObject.GetComponent<SpriteRenderer>().color = colorFacialHair;
-                Debug.Log("ColorVello: " + facehairColor);
                 break;
         }
 
@@ -142,37 +143,18 @@ public class CharacterEdit : MonoBehaviour
             else button.GetComponent<Image>().color = new Color(255, 255, 255);
             current++;
         }
-        Debug.Log(attribute + ": " + current);
     }
 
     public static void customColour(string hex)
     {
         switch(GetCustomColour.attributeToChange)
         {
-            case "AvatarPelo":
-                hairColor = hex;
-                Debug.Log("ColorPelo: " + hairColor);
-                break;
-            case "AvatarCamiseta":
-                shirtColor = hex;
-                Debug.Log("ColorCamiseta: " + shirtColor);
-                break;
-            case "AvatarPantalon":
-                pantsColor = hex;
-                Debug.Log("ColorPantalon: " + pantsColor);
-                break;
-            case "AvatarCalzado":
-                shoeColor = hex;
-                Debug.Log("ColorCalzado: " + shoeColor);
-                break;
-            case "AvatarGafas":
-                glassesColor = hex;
-                Debug.Log("ColorGafas: " + glassesColor);
-                break;
-            case "AvatarCollar":
-                collarColor = hex;
-                Debug.Log("ColorCollar: " + collarColor);
-                break;
+            case "AvatarPelo": hairColor = hex; break;
+            case "AvatarCamiseta": shirtColor = hex; break;
+            case "AvatarPantalon": pantsColor = hex; break;
+            case "AvatarCalzado": shoeColor = hex; break;
+            case "AvatarGafas": glassesColor = hex; break;
+            case "AvatarCollar": collarColor = hex; break;
         }
     }
 
@@ -192,36 +174,42 @@ public class CharacterEdit : MonoBehaviour
         }
         selectedButton.transform.GetComponent<Image>().color = new Color(1f, 0.5f, 0.5f);
 
+        EnableCustomizationMenus.changeToColorView();
         EnableCustomizationMenus.hideEverything();
         EnableCustomizationMenus.enableSingleMenu("COLOR PELO");
     }
 
     public void enableShirtColours()
     {
+        EnableCustomizationMenus.changeToColorView();
         EnableCustomizationMenus.hideEverything();
         EnableCustomizationMenus.enableSingleMenu("COLOR CAMISETA");
     }
 
     public void enablePantsColours()
     {
+        EnableCustomizationMenus.changeToColorView();
         EnableCustomizationMenus.hideEverything();
         EnableCustomizationMenus.enableSingleMenu("COLOR PANTALON");
     }
 
     public void enableShoeColours()
     {
+        EnableCustomizationMenus.changeToColorView();
         EnableCustomizationMenus.hideEverything();
         EnableCustomizationMenus.enableSingleMenu("COLOR CALZADO");
     }
 
     public void enableGlassesColours()
     {
+        EnableCustomizationMenus.changeToColorView();
         EnableCustomizationMenus.hideEverything();
         EnableCustomizationMenus.enableSingleMenu("COLOR GAFAS");
     }
 
     public void enableCollarColours()
     {
+        EnableCustomizationMenus.changeToColorView();
         EnableCustomizationMenus.hideEverything();
         EnableCustomizationMenus.enableSingleMenu("COLOR COLLAR");
     }
@@ -229,7 +217,6 @@ public class CharacterEdit : MonoBehaviour
     public void changeCharacterName()
     {
         characterName = GameObject.Find("NameText").GetComponent<Text>().text.ToUpper();
-        Debug.Log(characterName);
         
         if(characterName.Length > 0)
         {
@@ -246,7 +233,6 @@ public class CharacterEdit : MonoBehaviour
         GameObject selectedButton = EventSystem.current.currentSelectedGameObject;
         characterGender = selectedButton.name;
         selectedButton.GetComponent<Image>().color = new Color(1f, 0.5f, 0.5f);
-        Debug.Log(characterGender);
 
         if (characterGender == "Male")
         {
@@ -288,6 +274,7 @@ public class CharacterEdit : MonoBehaviour
             loadCharacter.loadCharacter();
         }
 
+        itemSelect = GameObject.Find("ItemSelect").GetComponent<AudioSource>();
         avatar = GameObject.Find("Avatar");
         DontDestroyOnLoad(avatar);
     }

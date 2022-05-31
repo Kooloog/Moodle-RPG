@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -15,7 +14,13 @@ public class EnableCustomizationMenus : MonoBehaviour
     public GameObject menuAccesorios;
     public GameObject menuFinal;
 
+    public AudioSource menuChange;
+
+    public GameObject blackWindowMenus;
+    public GameObject blackWindowColors;
+
     private static List<GameObject> menus = new List<GameObject>();
+    private static List<GameObject> blackWindows = new List<GameObject>();
     public static string currentMenu;
 
     public static void hideEverything()
@@ -29,7 +34,6 @@ public class EnableCustomizationMenus : MonoBehaviour
 
     public static void enableSingleMenu(string op)
     {
-        Debug.Log(op);
         switch(op)
         {
             case "BOTONES":
@@ -118,6 +122,20 @@ public class EnableCustomizationMenus : MonoBehaviour
                 currentMenu = menuFinal.gameObject.name;
                 break;
         }
+
+        menuChange.Play();
+    }
+
+    public static void changeToMenuView()
+    {
+        blackWindows[0].SetActive(true);
+        blackWindows[1].SetActive(false);
+    }
+
+    public static void changeToColorView()
+    {
+        blackWindows[1].SetActive(true);
+        blackWindows[0].SetActive(false);
     }
 
     // Start is called before the first frame update
@@ -131,6 +149,9 @@ public class EnableCustomizationMenus : MonoBehaviour
         menus.Add(menuPantalon);       //ID = 5
         menus.Add(menuAccesorios);     //ID = 6
         menus.Add(menuFinal);          //ID = 7
+
+        blackWindows.Add(blackWindowMenus);     //ID = 0
+        blackWindows.Add(blackWindowColors);    //ID = 1
     }
 
     // Update is called once per frame

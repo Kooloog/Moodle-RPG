@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -26,8 +24,10 @@ public class GetCustomColour : MonoBehaviour, IPointerDownHandler
 
     public void returnToMenu()
     {
+        EnableCustomizationMenus.changeToMenuView();
         EnableCustomizationMenus.hideEverything();
         EnableCustomizationMenus.enableSingleMenu("BOTONES");
+        GameObject.Find("MenuSelect").GetComponent<AudioSource>().Play();
         previousEventSystemStatic.SetActive(true);
 
         switch (attributeToChange) {

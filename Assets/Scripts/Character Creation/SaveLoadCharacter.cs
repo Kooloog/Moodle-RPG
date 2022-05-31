@@ -310,7 +310,7 @@ public class SaveLoadCharacter : MonoBehaviour
             Color collarColor;
             if (ColorUtility.TryParseHtmlString("#" + charData["COLLARCOLOR"] + "FF", out collarColor))
             {
-                avatarGafas.GetComponent<SpriteRenderer>().color = collarColor;
+                avatarCollar.GetComponent<SpriteRenderer>().color = collarColor;
             }
             CharacterEdit.collarColor = charData["COLLARCOLOR"];
 
@@ -330,6 +330,7 @@ public class SaveLoadCharacter : MonoBehaviour
             //Atributo 18: Nombre
             GameObject.Find("NombrePersonaje").GetComponent<InputField>().text = charData["CHARNAME"];
             CharacterEdit.characterName = charData["CHARNAME"];
+            GameObject.Find("Acabar").GetComponent<Button>().interactable = true;
 
             //Atributo 19: Género
             if (charData["CHARGENDER"] == "Male")
@@ -343,11 +344,11 @@ public class SaveLoadCharacter : MonoBehaviour
                 GameObject.Find("Male").GetComponent<Image>().color = new Color(255, 255, 255);
             }
             CharacterEdit.characterGender = charData["CHARGENDER"];
-
-            //Abriendo menú por defecto
-            EnableCustomizationMenus.hideEverything();
-            EnableCustomizationMenus.enableSingleMenu("BOTONES");
-            EnableCustomizationMenus.enableSingleMenu("CARA");
         }
+
+        //Abriendo menú por defecto
+        EnableCustomizationMenus.hideEverything();
+        EnableCustomizationMenus.enableSingleMenu("BOTONES");
+        EnableCustomizationMenus.enableSingleMenu("CARA");
     }
 }

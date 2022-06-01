@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class CharacterEdit : MonoBehaviour
 {  
-    private GameObject avatar;
+    public static GameObject avatar;
 
     //Attribute IDs, one by one
     public static int skinTone;

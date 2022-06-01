@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SaveLoadCharacter : MonoBehaviour
@@ -56,6 +57,7 @@ public class SaveLoadCharacter : MonoBehaviour
         StartCoroutine(sendCharacter(postURL));
 
         Debug.Log("Done!");
+        SceneManager.LoadScene(1);
     }
 
     public void loadCharacter()

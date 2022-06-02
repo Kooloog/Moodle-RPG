@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CharacterEdit : MonoBehaviour
@@ -269,6 +270,7 @@ public class CharacterEdit : MonoBehaviour
 
         if (GameObject.Find("SaveLoadHandler") == null)
         {
+            Debug.Log("Starting");
             GameObject load = new GameObject("SaveLoadHandler");
             SaveLoadCharacter loadCharacter = load.AddComponent<SaveLoadCharacter>();
             loadCharacter.loadCharacter();
@@ -276,6 +278,12 @@ public class CharacterEdit : MonoBehaviour
 
         itemSelect = GameObject.Find("ItemSelect").GetComponent<AudioSource>();
         avatar = GameObject.Find("Avatar");
+
         DontDestroyOnLoad(avatar);
+    }
+
+    void Update()
+    {
+
     }
 }

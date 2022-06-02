@@ -624,6 +624,7 @@ GameObject:
   - component: {fileID: 51804273}
   - component: {fileID: 51804272}
   - component: {fileID: 51804274}
+  - component: {fileID: 51804277}
   - component: {fileID: 51804275}
   - component: {fileID: 51804276}
   m_Layer: 0
@@ -766,6 +767,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.22, y: 0.2}
   m_EdgeRadius: 0
+--- !u!114 &51804277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 51804271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6381a20186fe8944baffad8a61c8c44a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &69886609
 GameObject:
   m_ObjectHideFlags: 0
@@ -1095,7 +1108,6 @@ GameObject:
   m_Component:
   - component: {fileID: 86341914}
   - component: {fileID: 86341916}
-  - component: {fileID: 86341915}
   m_Layer: 0
   m_Name: AvatarCamiseta
   m_TagString: Untagged
@@ -1117,18 +1129,6 @@ Transform:
   m_Father: {fileID: 51804273}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &86341915
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 86341913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982b9461afddbeb45a297d4bd3fe5d41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &86341916
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5619,7 +5619,6 @@ GameObject:
   m_Component:
   - component: {fileID: 376153434}
   - component: {fileID: 376153436}
-  - component: {fileID: 376153435}
   m_Layer: 0
   m_Name: AvatarCollar
   m_TagString: Untagged
@@ -5641,18 +5640,6 @@ Transform:
   m_Father: {fileID: 51804273}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &376153435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 376153433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982b9461afddbeb45a297d4bd3fe5d41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &376153436
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6690,7 +6677,6 @@ GameObject:
   m_Component:
   - component: {fileID: 447332934}
   - component: {fileID: 447332936}
-  - component: {fileID: 447332935}
   m_Layer: 0
   m_Name: AvatarVello
   m_TagString: Untagged
@@ -6712,18 +6698,6 @@ Transform:
   m_Father: {fileID: 51804273}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &447332935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 447332933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982b9461afddbeb45a297d4bd3fe5d41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &447332936
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6923,7 +6897,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &455160296
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9774,7 +9748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &757446492
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10145,7 +10119,6 @@ GameObject:
   m_Component:
   - component: {fileID: 796613733}
   - component: {fileID: 796613735}
-  - component: {fileID: 796613734}
   m_Layer: 0
   m_Name: AvatarPelo
   m_TagString: Untagged
@@ -10167,18 +10140,6 @@ Transform:
   m_Father: {fileID: 51804273}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &796613734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 796613732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982b9461afddbeb45a297d4bd3fe5d41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &796613735
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11535,7 +11496,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1020014902}
   - component: {fileID: 1020014904}
-  - component: {fileID: 1020014903}
   m_Layer: 0
   m_Name: AvatarGafas
   m_TagString: Untagged
@@ -11557,18 +11517,6 @@ Transform:
   m_Father: {fileID: 51804273}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1020014903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1020014901}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982b9461afddbeb45a297d4bd3fe5d41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1020014904
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11708,7 +11656,7 @@ GameObject:
   - component: {fileID: 1041675160}
   - component: {fileID: 1041675159}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasEditor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12085,7 +12033,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -13702,7 +13650,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1196985679
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14599,7 +14547,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1283717709
 Transform:
   m_ObjectHideFlags: 0
@@ -16256,7 +16204,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1396099315}
   - component: {fileID: 1396099317}
-  - component: {fileID: 1396099316}
   m_Layer: 0
   m_Name: AvatarPantalon
   m_TagString: Untagged
@@ -16278,18 +16225,6 @@ Transform:
   m_Father: {fileID: 51804273}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1396099316
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1396099314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982b9461afddbeb45a297d4bd3fe5d41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1396099317
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16770,7 +16705,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1432201199
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16806,7 +16741,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1440613067}
   - component: {fileID: 1440613069}
-  - component: {fileID: 1440613068}
   m_Layer: 0
   m_Name: AvatarCalzado
   m_TagString: Untagged
@@ -16828,18 +16762,6 @@ Transform:
   m_Father: {fileID: 51804273}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1440613068
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1440613066}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 982b9461afddbeb45a297d4bd3fe5d41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1440613069
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17194,7 +17116,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1464725206
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19227,7 +19149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1618811928
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20207,7 +20129,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: c7a4082d859762f40ba9de3a3fe691a0, type: 3}
   - {fileID: 21300000, guid: 37c719d5a0bda034aac760934756dbcb, type: 3}
   - {fileID: 21300000, guid: 4cafbfbcf6f49244ba1346fb1789b8ba, type: 3}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 53afdfee5334edb4ea557e35b9b8f685, type: 3}
 --- !u!4 &1687448883
 Transform:
   m_ObjectHideFlags: 0
@@ -28122,7 +28044,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1907398050
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28519,8 +28441,8 @@ RectTransform:
   m_Father: {fileID: 1690275209}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

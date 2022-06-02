@@ -103,13 +103,13 @@ public class SaveLoadCharacter : MonoBehaviour
             GameObject avatarGafas = GameObject.Find("AvatarGafas");
             GameObject avatarCollar = GameObject.Find("AvatarCollar");
 
-            //Abriendo todos los menús
+            /*Abriendo todos los menús
             EnableCustomizationMenus.enableSingleMenu("CARA");
             EnableCustomizationMenus.enableSingleMenu("PELO");
             EnableCustomizationMenus.enableSingleMenu("CAMISETAS");
             EnableCustomizationMenus.enableSingleMenu("PANTALONES");
             EnableCustomizationMenus.enableSingleMenu("ACCESORIOS");
-            EnableCustomizationMenus.enableSingleMenu("FINAL");
+            EnableCustomizationMenus.enableSingleMenu("FINAL");*/
 
             //Atributo 1: Tono de piel
             GameObject tonosPiel = GameObject.Find("TonoPiel");

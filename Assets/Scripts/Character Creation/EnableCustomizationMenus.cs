@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -5,31 +6,32 @@ using UnityEngine.UI;
 
 public class EnableCustomizationMenus : MonoBehaviour
 {
-    public GameObject menuBotones;
-    public GameObject menuCara;
-    public GameObject menuPelo;
-    public GameObject menuColores;
-    public GameObject menuCamisetas;
-    public GameObject menuPantalon;
-    public GameObject menuAccesorios;
-    public GameObject menuFinal;
+    [NonSerialized] public static GameObject menuBotones;
+    [NonSerialized] public static GameObject menuCara;
+    [NonSerialized] public static GameObject menuPelo;
+    [NonSerialized] public static GameObject menuColores;
+    [NonSerialized] public static GameObject menuCamisetas;
+    [NonSerialized] public static GameObject menuPantalon;
+    [NonSerialized] public static GameObject menuAccesorios;
+    [NonSerialized] public static GameObject menuFinal;
+
+    [NonSerialized] public static GameObject blackWindowMenus;
+    [NonSerialized] public static GameObject blackWindowColors;
 
     public AudioSource menuChange;
 
-    public GameObject blackWindowMenus;
-    public GameObject blackWindowColors;
-
-    private static List<GameObject> menus = new List<GameObject>();
-    private static List<GameObject> blackWindows = new List<GameObject>();
     public static string currentMenu;
 
     public static void hideEverything()
     {
-        foreach (GameObject menu in menus)
-        {
-            if (menu == null) break;
-            menu.SetActive(false);
-        }
+        menuBotones.SetActive(false);
+        menuCara.SetActive(false);
+        menuPelo.SetActive(false);
+        menuColores.SetActive(false);
+        menuCamisetas.SetActive(false);
+        menuPantalon.SetActive(false);
+        menuAccesorios.SetActive(false);
+        menuFinal.SetActive(false);
     }
 
     public static void enableSingleMenu(string op)
@@ -37,52 +39,52 @@ public class EnableCustomizationMenus : MonoBehaviour
         switch(op)
         {
             case "BOTONES":
-                menus[0].SetActive(true);
+                menuBotones.SetActive(true);
                 break;
             case "CARA":
-                menus[1].SetActive(true);
+                menuCara.SetActive(true);
                 break;
             case "PELO":
-                menus[2].SetActive(true);
+                menuPelo.SetActive(true);
                 break;
             case "COLOR PELO":
                 GetCustomColour.attributeToChange = "AvatarPelo";
-                menus[3].SetActive(true);
+                menuColores.SetActive(true);
                 break;
             case "COLOR CAMISETA":
                 GetCustomColour.attributeToChange = "AvatarCamiseta";
-                menus[3].SetActive(true);
+                menuColores.SetActive(true);
                 break;
             case "COLOR PANTALON":
                 GetCustomColour.attributeToChange = "AvatarPantalon";
-                menus[3].SetActive(true);
+                menuColores.SetActive(true);
                 break;
             case "COLOR CALZADO":
                 GetCustomColour.attributeToChange = "AvatarCalzado";
-                menus[3].SetActive(true);
+                menuColores.SetActive(true);
                 break;
             case "CAMISETAS":
                 GetCustomColour.attributeToChange = "AvatarCamiseta";
-                menus[4].SetActive(true);
+                menuCamisetas.SetActive(true);
                 break;
             case "PANTALONES":
                 GetCustomColour.attributeToChange = "AvatarPantalon";
-                menus[5].SetActive(true);
+                menuPantalon.SetActive(true);
                 break;
             case "ACCESORIOS":
                 GetCustomColour.attributeToChange = "AvatarAccesorio";
-                menus[6].SetActive(true);
+                menuAccesorios.SetActive(true);
                 break;
             case "COLOR GAFAS":
                 GetCustomColour.attributeToChange = "AvatarGafas";
-                menus[3].SetActive(true);
+                menuColores.SetActive(true);
                 break;
             case "COLOR COLLAR":
                 GetCustomColour.attributeToChange = "AvatarCollar";
-                menus[3].SetActive(true);
+                menuColores.SetActive(true);
                 break;
             case "FINAL":
-                menus[7].SetActive(true);
+                menuFinal.SetActive(true);
                 break;
         }
     }
@@ -128,35 +130,37 @@ public class EnableCustomizationMenus : MonoBehaviour
 
     public static void changeToMenuView()
     {
-        blackWindows[0].SetActive(true);
-        blackWindows[1].SetActive(false);
+        blackWindowMenus.SetActive(true);
+        blackWindowColors.SetActive(false);
     }
 
     public static void changeToColorView()
     {
-        blackWindows[1].SetActive(true);
-        blackWindows[0].SetActive(false);
+        blackWindowColors.SetActive(true);
+        blackWindowMenus.SetActive(false);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        menus.Add(menuBotones);        //ID = 0
-        menus.Add(menuCara);           //ID = 1
-        menus.Add(menuPelo);           //ID = 2
-        menus.Add(menuColores);        //ID = 3
-        menus.Add(menuCamisetas);      //ID = 4
-        menus.Add(menuPantalon);       //ID = 5
-        menus.Add(menuAccesorios);     //ID = 6
-        menus.Add(menuFinal);          //ID = 7
+        menuBotones = GameObject.Find("Botones");
+        menuCara = GameObject.Find("MenuCara");
+        menuPelo = GameObject.Find("MenuPelo");
+        menuColores = GameObject.Find("MenuColores");
+        menuCamisetas = GameObject.Find("MenuCamiseta");
+        menuPantalon = GameObject.Find("MenuPantalon");
+        menuAccesorios = GameObject.Find("MenuAccesorios");
+        menuFinal = GameObject.Find("MenuFinal");
 
-        blackWindows.Add(blackWindowMenus);     //ID = 0
-        blackWindows.Add(blackWindowColors);    //ID = 1
+        blackWindowMenus = GameObject.Find("BlackWindow");
+        blackWindowColors = GameObject.Find("BlackWindowColors");
+
+        blackWindowColors.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StatLoader : MonoBehaviour
@@ -32,10 +33,11 @@ public class StatLoader : MonoBehaviour
         string statDataText = statGet.downloadHandler.text;
         Debug.Log(statDataText);
 
-        if (statDataText.Contains("doesn't exist"))
+        if (statDataText.Contains("doesn't exist") || statDataText.Contains("null"))
         {
             UnityWebRequest statPost = UnityWebRequest.Post(manageStatsURL, "");
             yield return statPost.SendWebRequest();
+
             StartCoroutine(loadStats());
         }
         else
@@ -49,12 +51,19 @@ public class StatLoader : MonoBehaviour
                 statData[currentField[0]] = currentField[1];
             }
 
-            txtVida.text = statData["HEALTH"] + "/" + statData["MAXHEALTH"];
-            txtPuntos.text = statData["SCORE"];
-            txtMonedas.text = statData["COINS"];
+            Stats.health = int.Parse(statData["HEALTH"]);
+            Stats.maxHealth = int.Parse(statData["MAXHEALTH"]);
+            Stats.score = int.Parse(statData["SCORE"]);
+            Stats.coins = int.Parse(statData["COINS"]);
+            Stats.attack = int.Parse(statData["ATTACK"]);
+            Stats.defense = int.Parse(statData["DEFENSE"]);
 
-            sliderVida.maxValue = float.Parse(statData["MAXHEALTH"]);
-            sliderVida.value = float.Parse(statData["HEALTH"]);
+            txtVida.text = Stats.health + "/" + Stats.maxHealth;
+            txtPuntos.text = Stats.score.ToString();
+            txtMonedas.text = Stats.coins.ToString();
+
+            sliderVida.maxValue = Stats.maxHealth;
+            sliderVida.value = Stats.health;
         }
     }
 }

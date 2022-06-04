@@ -18,7 +18,7 @@ public class AvatarMovement : MonoBehaviour
 
         //Re-escalando al personaje
         avatar.transform.localScale = 
-            new Vector2(avatar.transform.localScale.x / 5, avatar.transform.localScale.y / 5);
+            new Vector2(4.35f, 4.23f);
 
         //Reposicionando al personaje
         avatar.transform.position = new Vector2(0, 0);

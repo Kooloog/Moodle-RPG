@@ -23,10 +23,30 @@ public class MapTriggers : MonoBehaviour
                 currentPlaceText.text = "Casa de " + CharacterEdit.characterName;
                 openWindow = 1;
                 break;
+            case "ForjaTrigger":
+                currentPlace.SetActive(true);
+                currentPlaceText.text = "Forja de armas";
+                openWindow = 2;
+                break;
+            case "TiendaTrigger":
+                currentPlace.SetActive(true);
+                currentPlaceText.text = "Tienda";
+                openWindow = 3;
+                break;
+            case "TablonTrigger":
+                currentPlace.SetActive(true);
+                currentPlaceText.text = "Clasificaciones";
+                openWindow = 4;
+                break;
+            case "CofreTrigger":
+                currentPlace.SetActive(true);
+                currentPlaceText.text = "Cofre magico";
+                openWindow = 5;
+                break;
             case "AdventureTrigger":
                 currentPlace.SetActive(true);
                 currentPlaceText.text = "Aventura";
-                openWindow = 5;
+                openWindow = 6;
                 break;
         }
     }
@@ -64,6 +84,21 @@ public class MapTriggers : MonoBehaviour
                 case 1:
                     if(this.gameObject != null) Destroy(this.gameObject);
                     SceneManager.LoadScene(0, LoadSceneMode.Single); 
+                    break;
+                case 2:
+                    Debug.Log("Abriendo forja");
+                    break;
+                case 3:
+                    Debug.Log("Abriendo tienda");
+                    break;
+                case 4:
+                    Debug.Log("Clasificaciones");
+                    break;
+                case 5:
+                    Debug.Log("Abriendo cofre mágico");
+                    break;
+                case 6:
+                    Debug.Log("Abriendo aventura");
                     break;
             }
         }

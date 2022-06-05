@@ -42,6 +42,9 @@ public class AvatarMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        avatarRB.MovePosition(avatarRB.position + movement * speed * Time.fixedDeltaTime);
+        if (!MapHandler.activated)
+        {
+            avatarRB.MovePosition(avatarRB.position + movement * speed * Time.fixedDeltaTime);
+        }
     }
 }

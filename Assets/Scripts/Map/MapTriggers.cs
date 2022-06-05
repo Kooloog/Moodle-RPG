@@ -11,7 +11,12 @@ public class MapTriggers : MonoBehaviour
     public static Text currentPlaceText;
 
     //0 = No activar nada
-    //1 = Activar ventana casa del jugador
+    //1 = Activar ventana casa
+    //2 = Activar ventana forja
+    //3 = Activar ventana tienda
+    //4 = Activar ventana tablón
+    //5 = Activar ventana cofre
+    //6 = Activar ventana aventura
     private int openWindow = 0;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -82,8 +87,7 @@ public class MapTriggers : MonoBehaviour
             switch(openWindow)
             {
                 case 1:
-                    if(this.gameObject != null) Destroy(this.gameObject);
-                    SceneManager.LoadScene(0, LoadSceneMode.Single); 
+                    MapHandler.activateCanvas(1);
                     break;
                 case 2:
                     Debug.Log("Abriendo forja");

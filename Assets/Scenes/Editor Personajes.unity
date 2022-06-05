@@ -696,8 +696,8 @@ Transform:
   m_LocalPosition: {x: -5.39, y: 0.19, z: 0}
   m_LocalScale: {x: 21.79166, y: 21.188856, z: 1}
   m_Children:
-  - {fileID: 247307897}
   - {fileID: 391960669}
+  - {fileID: 247307897}
   - {fileID: 796613733}
   - {fileID: 86341914}
   - {fileID: 1396099315}
@@ -3743,7 +3743,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 51804273}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &247307898
 SpriteRenderer:
@@ -5795,7 +5795,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 51804273}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &391960670
 SpriteRenderer:
@@ -28965,17 +28965,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b83182f9ee651994190f61fa9add89f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuBotones: {fileID: 1432201198}
-  menuCara: {fileID: 1196985678}
-  menuPelo: {fileID: 1907398049}
-  menuColores: {fileID: 1422954642}
-  menuCamisetas: {fileID: 1464725205}
-  menuPantalon: {fileID: 455160295}
-  menuAccesorios: {fileID: 1618811927}
-  menuFinal: {fileID: 757446491}
   menuChange: {fileID: 1515528547}
-  blackWindowMenus: {fileID: 185994057}
-  blackWindowColors: {fileID: 1283717708}
 --- !u!1 &1984517882
 GameObject:
   m_ObjectHideFlags: 0

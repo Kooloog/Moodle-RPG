@@ -10,6 +10,7 @@ public class StatManager : MonoBehaviour
     private Text txtMonedas;
     private Slider sliderVida;
 
+    private GameObject avatar;
     private string manageStatsURL = "http://localhost/moodle/unity/UIStatsManager.php";
 
     public void decreaseHealth(int amount)
@@ -19,6 +20,7 @@ public class StatManager : MonoBehaviour
 
         txtVida.text = Stats.health + "/" + Stats.maxHealth;
         sliderVida.value = Stats.health;
+        StartCoroutine(playerRedFlash());
         StartCoroutine(updateStats("health", Stats.health));
     }
 
@@ -94,6 +96,18 @@ public class StatManager : MonoBehaviour
         Debug.Log(statPost.responseCode);
         Debug.Log(statPost.downloadHandler.text);
     }
+    IEnumerator playerRedFlash()
+    {
+        Color originalColour = avatar.GetComponent<SpriteRenderer>().material.color;
+        for (int i = 0; i < 3; i++)
+        {
+            avatar.GetComponent<SpriteRenderer>().material.color = Color.red;
+            yield return new WaitForSeconds(0.02f);
+            avatar.GetComponent<SpriteRenderer>().material.color = originalColour;
+            yield return new WaitForSeconds(0.02f);
+        }
+        StopCoroutine("EnemyFlash");
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -102,6 +116,7 @@ public class StatManager : MonoBehaviour
         txtPuntos = GameObject.Find("TextPuntos").GetComponent<Text>();
         txtMonedas = GameObject.Find("TextMonedas").GetComponent<Text>();
         sliderVida = GameObject.Find("SliderVida").GetComponent<Slider>();
+        avatar = GameObject.Find("Avatar");
     }
 
     void Update()

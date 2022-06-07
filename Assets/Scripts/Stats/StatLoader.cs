@@ -64,6 +64,11 @@ public class StatLoader : MonoBehaviour
 
             sliderVida.maxValue = Stats.maxHealth;
             sliderVida.value = Stats.health;
+
+            if(GameObject.Find("ItemUnlocks"))
+            {
+                ItemUnlocks.shopLockItems();
+            }
         }
     }
 }

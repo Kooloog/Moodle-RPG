@@ -10,13 +10,21 @@ public class MapHandler : MonoBehaviour
     public static bool activated;
 
     public static GameObject houseCanvas;
+    public static GameObject forjaCanvas;
+
     public static GameObject avatarCanvas;
+    public static GameObject ataqueCanvas;
+    public static GameObject defensaCanvas;
 
     // Start is called before the first frame update
     void Start()
     {
         houseCanvas = GameObject.Find("HouseCanvas");
+        forjaCanvas = GameObject.Find("ForjaCanvas");
+
         avatarCanvas = GameObject.Find("AvatarCanvas");
+        ataqueCanvas = GameObject.Find("AtaqueCanvas");
+        defensaCanvas = GameObject.Find("DefensaCanvas");
 
         MapTriggers.linkMapTriggers();
 
@@ -37,7 +45,10 @@ public class MapHandler : MonoBehaviour
 
         GameObject.Find("HousePlayerName").GetComponent<Text>().text = CharacterEdit.characterName;
 
+        //Preparando canvas de la forja (armas)
+
         houseCanvas.SetActive(false);
+        forjaCanvas.SetActive(false);
 
         activated = false;
     }
@@ -52,6 +63,9 @@ public class MapHandler : MonoBehaviour
                 GameObject.Find("HouseAttackAmount").GetComponent<Text>().text = Stats.attack.ToString();
                 GameObject.Find("HouseDefenseAmount").GetComponent<Text>().text = Stats.defense.ToString();
                 break;
+            case 2:
+                forjaCanvas.SetActive(true);
+                break;
         }
     }
 
@@ -61,6 +75,7 @@ public class MapHandler : MonoBehaviour
         switch(EventSystem.current.currentSelectedGameObject.name)
         {
             case "HouseX": houseCanvas.SetActive(false); break;
+            case "ForjaX": forjaCanvas.SetActive(false); break;
         }
     }
 

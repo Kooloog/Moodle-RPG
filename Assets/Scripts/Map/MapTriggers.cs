@@ -90,7 +90,7 @@ public class MapTriggers : MonoBehaviour
                     MapHandler.activateCanvas(1);
                     break;
                 case 2:
-                    Debug.Log("Abriendo forja");
+                    MapHandler.activateCanvas(2);
                     break;
                 case 3:
                     Debug.Log("Abriendo tienda");

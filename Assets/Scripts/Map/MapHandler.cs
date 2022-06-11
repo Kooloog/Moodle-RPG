@@ -16,6 +16,8 @@ public class MapHandler : MonoBehaviour
     public static GameObject ataqueCanvas;
     public static GameObject defensaCanvas;
 
+    private static GameObject noDinero;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,8 +25,10 @@ public class MapHandler : MonoBehaviour
         forjaCanvas = GameObject.Find("ForjaCanvas");
 
         avatarCanvas = GameObject.Find("AvatarCanvas");
-        ataqueCanvas = GameObject.Find("AtaqueCanvas");
-        defensaCanvas = GameObject.Find("DefensaCanvas");
+        ataqueCanvas = GameObject.Find("MenuAtaque");
+        defensaCanvas = GameObject.Find("MenuDefensa");
+
+        noDinero = GameObject.Find("NoDinero");
 
         MapTriggers.linkMapTriggers();
 
@@ -49,6 +53,7 @@ public class MapHandler : MonoBehaviour
 
         houseCanvas.SetActive(false);
         forjaCanvas.SetActive(false);
+        noDinero.SetActive(false);
 
         activated = false;
     }
@@ -65,6 +70,7 @@ public class MapHandler : MonoBehaviour
                 break;
             case 2:
                 forjaCanvas.SetActive(true);
+                forjaAttackMenu();
                 break;
         }
     }
@@ -88,5 +94,30 @@ public class MapHandler : MonoBehaviour
     {
         if(GameObject.Find("Avatar").gameObject != null) Destroy(GameObject.Find("Avatar").gameObject);
         SceneManager.LoadScene(0, LoadSceneMode.Single); 
+    }
+
+    public static void forjaAttackMenu()
+    {
+        ataqueCanvas.SetActive(true);
+        defensaCanvas.SetActive(false);
+
+        GameObject.Find("AtaqueButton").GetComponent<Image>().color = new Color(1f, 0.5f, 0.5f);
+        GameObject.Find("DefensaButton").GetComponent<Image>().color = new Color(255, 255, 255);
+    }
+
+    public static void forjaDefenseMenu()
+    {
+        ataqueCanvas.SetActive(false);
+        defensaCanvas.SetActive(true);
+
+        GameObject.Find("DefensaButton").GetComponent<Image>().color = new Color(1f, 0.5f, 0.5f);
+        GameObject.Find("AtaqueButton").GetComponent<Image>().color = new Color(255, 255, 255);
+    }
+
+    public static IEnumerator notEnoughMoney()
+    {
+        noDinero.SetActive(true);
+        yield return new WaitForSeconds(1.3f);
+        noDinero.SetActive(false);
     }
 }

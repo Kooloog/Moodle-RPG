@@ -34,9 +34,48 @@ public class InventoryManager : MonoBehaviour
             GameObject pickedSword = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
             int swordNumber = int.Parse(pickedSword.name.Split('_')[1]);
             Sword swordAux = new Sword(ObjectLists.swordsFinal[swordNumber]);
-            swords.Add(swordAux);
 
-            instance.StartCoroutine(instance.AddInventoryItem("sword", swordNumber));
+            if (swordAux.cost > Stats.coins)
+            {
+                instance.StartCoroutine(MapHandler.notEnoughMoney());
+            }
+            else
+            {
+                swords.Add(swordAux);
+
+                GameObject load = new GameObject("InventoryPurchaseHandler");
+                StatManager makePurchase = load.AddComponent<StatManager>();
+                makePurchase.decreaseCoins(swordAux.cost);
+                Destroy(load);
+
+                instance.StartCoroutine(instance.AddInventoryItem("sword", swordNumber));
+            }
+        }
+    }
+
+    public static void purchaseShield()
+    {
+        if(shields.Count < 10)
+        {
+            GameObject pickedShield = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
+            int shieldNumber = int.Parse(pickedShield.name.Split('_')[1]);
+            Shield shieldAux = new Shield(ObjectLists.shieldsFinal[shieldNumber]);
+
+            if(shieldAux.cost > Stats.coins)
+            {
+                instance.StartCoroutine(MapHandler.notEnoughMoney());
+            }
+            else
+            {
+                shields.Add(shieldAux);
+
+                GameObject load = new GameObject("InventoryPurchaseHandler");
+                StatManager makePurchase = load.AddComponent<StatManager>();
+                makePurchase.decreaseCoins(shieldAux.cost);
+                Destroy(load);
+
+                instance.StartCoroutine(instance.AddInventoryItem("shield", shieldNumber));
+            }
         }
     }
 
@@ -83,11 +122,12 @@ public class InventoryManager : MonoBehaviour
                     case "sword":
                         int swordNumber = int.Parse(entry["ITEMID"]);
                         Sword swordAux = new Sword(ObjectLists.swordsFinal[swordNumber]);
-                        swordAux.usesLeft = int.Parse(entry["USES"]) - 2;
                         swords.Add(swordAux);
-                        Debug.Log(swords[0].usesLeft);
                         break;
                     case "shield":
+                        int shieldNumber = int.Parse(entry["ITEMID"]);
+                        Shield shieldAux = new Shield(ObjectLists.shieldsFinal[shieldNumber]);
+                        shields.Add(shieldAux);
                         break;
                     case "item":
                         break;

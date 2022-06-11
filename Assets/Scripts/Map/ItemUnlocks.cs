@@ -19,6 +19,7 @@ public class ItemUnlocks : MonoBehaviour
     void Start()
     {
         swords = GameObject.Find("MenuAtaque");
+        shields = GameObject.Find("MenuDefensa");
 
         swordExpUnlocksFinal = swordExpUnlocks;
         shieldExpUnlocksFinal = shieldExpUnlocks;
@@ -32,6 +33,14 @@ public class ItemUnlocks : MonoBehaviour
             if (Stats.score < swordExpUnlocksFinal[i])
             {
                 swords.transform.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+
+        for (int i = 0; i < shields.transform.childCount; i++)
+        {
+            if (Stats.score < shieldExpUnlocksFinal[i])
+            {
+                shields.transform.GetChild(i).gameObject.SetActive(false);
             }
         }
     }

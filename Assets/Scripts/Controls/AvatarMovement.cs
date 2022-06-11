@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AvatarMovement : MonoBehaviour
 {
@@ -13,6 +12,11 @@ public class AvatarMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if (GameObject.Find("Avatar") == null)
+        {
+            SceneManager.LoadScene(0, LoadSceneMode.Single);
+        }
+
         avatar = GameObject.Find("Avatar");
         avatarRB = avatar.GetComponent<Rigidbody2D>();
 

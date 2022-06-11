@@ -11,6 +11,7 @@ using UnityEngine.UI;
         attack = s.attack;
         uses = s.uses;
         usesLeft = s.usesLeft;
+        cost = s.cost;
         sprite = s.sprite;
     }
 
@@ -18,5 +19,6 @@ using UnityEngine.UI;
     public int attack;
     public int uses;
     public int usesLeft;
+    public int cost;
     public Sprite sprite;
 }

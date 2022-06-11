@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class StatManager : MonoBehaviour
 {
-    private Text txtVida;
-    private Text txtPuntos;
-    private Text txtMonedas;
-    private Slider sliderVida;
+    private static Text txtVida;
+    private static Text txtPuntos;
+    private static Text txtMonedas;
+    private static Slider sliderVida;
 
     private GameObject avatar;
     private string manageStatsURL = "http://localhost/moodle/unity/UIStatsManager.php";
@@ -47,6 +47,7 @@ public class StatManager : MonoBehaviour
         Stats.coins -= amount;
         if (Stats.coins < 0) Stats.coins = 0;
 
+        Debug.Log(txtMonedas.text);
         txtMonedas.text = Stats.coins.ToString();
         StartCoroutine(updateStats("coins", Stats.coins));
     }
@@ -55,8 +56,8 @@ public class StatManager : MonoBehaviour
     {
         Stats.coins += amount;
 
-        txtMonedas.text = Stats.score.ToString();
-        StartCoroutine(updateStats("score", Stats.score));
+        txtMonedas.text = Stats.coins.ToString();
+        StartCoroutine(updateStats("coins", Stats.coins));
     }
 
     public void decreaseAttack(int amount)
@@ -96,6 +97,7 @@ public class StatManager : MonoBehaviour
         Debug.Log(statPost.responseCode);
         Debug.Log(statPost.downloadHandler.text);
     }
+
     IEnumerator playerRedFlash()
     {
         Color originalColour = avatar.GetComponent<SpriteRenderer>().material.color;

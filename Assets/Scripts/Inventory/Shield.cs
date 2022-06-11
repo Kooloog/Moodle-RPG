@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class Shield : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public Shield(Shield s)
     {
-        
+        shieldName = s.shieldName;
+        defense = s.defense;
+        uses = s.uses;
+        usesLeft = s.usesLeft;
+        cost = s.cost;
+        sprite = s.sprite;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string shieldName;
+    public int defense;
+    public int uses;
+    public int usesLeft;
+    public int cost;
+    public Sprite sprite;
 }

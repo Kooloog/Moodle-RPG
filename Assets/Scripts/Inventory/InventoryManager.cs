@@ -79,11 +79,43 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public static void purchaseItem()
+    {
+        if(items.Count < 10)
+        {
+            GameObject pickedItem = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
+            int itemNumber = int.Parse(pickedItem.name.Split('_')[1]);
+            Item itemAux = new Item(ObjectLists.itemsFinal[itemNumber]);
+
+            if(itemAux.cost > Stats.coins)
+            {
+                instance.StartCoroutine(MapHandler.notEnoughMoney());
+            }
+            else
+            {
+                items.Add(itemAux);
+
+                GameObject load = new GameObject("InventoryPurchaseHandler");
+                StatManager makePurchase = load.AddComponent<StatManager>();
+                makePurchase.decreaseCoins(itemAux.cost);
+                Destroy(load);
+
+                instance.StartCoroutine(instance.AddInventoryItem("item", itemNumber));
+            }
+        }
+    }
+
     IEnumerator AddInventoryItem(string type, int number)
     {
         string fullPostURL = saveInventoryURL +
-            "?itemtype=" + type + "&itemid=" + number +
-            "&uses=" + ObjectLists.swordsFinal[number].uses;
+            "?itemtype=" + type + "&itemid=" + number;
+
+        switch(type)
+        {
+            case "sword": fullPostURL += "&uses=" + ObjectLists.swordsFinal[number].uses; break;
+            case "shield": fullPostURL += "&uses=" + ObjectLists.shieldsFinal[number].uses; break;
+            case "item": fullPostURL += "&uses=1"; break;
+        }
 
         UnityWebRequest statPost = UnityWebRequest.Post(fullPostURL, "");
         yield return statPost.SendWebRequest();
@@ -130,6 +162,9 @@ public class InventoryManager : MonoBehaviour
                         shields.Add(shieldAux);
                         break;
                     case "item":
+                        int itemNumber = int.Parse(entry["ITEMID"]);
+                        Item itemAux = new Item(ObjectLists.itemsFinal[itemNumber]);
+                        items.Add(itemAux);
                         break;
                 }
             }

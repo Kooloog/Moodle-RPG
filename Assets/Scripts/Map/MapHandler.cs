@@ -11,6 +11,7 @@ public class MapHandler : MonoBehaviour
 
     public static GameObject houseCanvas;
     public static GameObject forjaCanvas;
+    public static GameObject tiendaCanvas;
 
     public static GameObject avatarCanvas;
     public static GameObject ataqueCanvas;
@@ -23,6 +24,7 @@ public class MapHandler : MonoBehaviour
     {
         houseCanvas = GameObject.Find("HouseCanvas");
         forjaCanvas = GameObject.Find("ForjaCanvas");
+        tiendaCanvas = GameObject.Find("TiendaCanvas");
 
         avatarCanvas = GameObject.Find("AvatarCanvas");
         ataqueCanvas = GameObject.Find("MenuAtaque");
@@ -53,6 +55,7 @@ public class MapHandler : MonoBehaviour
 
         houseCanvas.SetActive(false);
         forjaCanvas.SetActive(false);
+        tiendaCanvas.SetActive(false);
         noDinero.SetActive(false);
 
         activated = false;
@@ -72,6 +75,9 @@ public class MapHandler : MonoBehaviour
                 forjaCanvas.SetActive(true);
                 forjaAttackMenu();
                 break;
+            case 3:
+                tiendaCanvas.SetActive(true);
+                break;
         }
     }
 
@@ -82,6 +88,7 @@ public class MapHandler : MonoBehaviour
         {
             case "HouseX": houseCanvas.SetActive(false); break;
             case "ForjaX": forjaCanvas.SetActive(false); break;
+            case "TiendaX": tiendaCanvas.SetActive(false); break;
         }
     }
 

@@ -87,7 +87,7 @@ public class MapTriggers : MonoBehaviour
                     MapHandler.activateCanvas(2);
                     break;
                 case 3:
-                    Debug.Log("Abriendo tienda");
+                    MapHandler.activateCanvas(3);
                     break;
                 case 4:
                     Debug.Log("Clasificaciones");

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Shield : MonoBehaviour
+[System.Serializable] public class Shield
 {
     public Shield(Shield s)
     {

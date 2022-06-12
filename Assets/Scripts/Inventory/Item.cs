@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+[System.Serializable] public class Item
 {
-    // Start is called before the first frame update
-    void Start()
+    public Item(Item i)
     {
-        
+        itemName = i.itemName;
+        cost = i.cost;
+        sprite = i.sprite;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string itemName;
+    public int cost;
+    public Sprite sprite;
 }

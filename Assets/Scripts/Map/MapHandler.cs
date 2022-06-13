@@ -17,6 +17,8 @@ public class MapHandler : MonoBehaviour
     public static GameObject ataqueCanvas;
     public static GameObject defensaCanvas;
 
+    public static GameObject inventoryCanvas;
+
     private static GameObject noDinero;
 
     // Start is called before the first frame update
@@ -29,6 +31,8 @@ public class MapHandler : MonoBehaviour
         avatarCanvas = GameObject.Find("AvatarCanvas");
         ataqueCanvas = GameObject.Find("MenuAtaque");
         defensaCanvas = GameObject.Find("MenuDefensa");
+
+        inventoryCanvas = GameObject.Find("InventoryCanvas");
 
         noDinero = GameObject.Find("NoDinero");
 
@@ -89,12 +93,14 @@ public class MapHandler : MonoBehaviour
             case "HouseX": houseCanvas.SetActive(false); break;
             case "ForjaX": forjaCanvas.SetActive(false); break;
             case "TiendaX": tiendaCanvas.SetActive(false); break;
+            case "InventoryX": inventoryCanvas.SetActive(false); break;
         }
     }
 
     public static void openInventory()
     {
-        Debug.Log("Opening Inventory");
+        inventoryCanvas.SetActive(true);
+        InventoryMenu.swordInventory();
     }
 
     public static void openCharacterEditor()

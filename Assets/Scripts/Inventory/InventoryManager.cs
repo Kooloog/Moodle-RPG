@@ -127,7 +127,7 @@ public class InventoryManager : MonoBehaviour
         yield return inventoryGet.SendWebRequest();
 
         string inventoryDataText = inventoryGet.downloadHandler.text;
-        Debug.Log(inventoryDataText);
+        Debug.Log("RECIBIDO: " + inventoryDataText);
 
         if (!inventoryDataText.Contains("doesn't exist") && !inventoryDataText.Contains("null"))
         {
@@ -137,7 +137,7 @@ public class InventoryManager : MonoBehaviour
             foreach (string entry in inventoryEntries)
             {
                 Dictionary<string, string> inventoryData = new Dictionary<string, string>();
-                string[] inventoryFields = inventoryDataText.Split('\n');
+                string[] inventoryFields = entry.Split('\n');
                 foreach (string field in inventoryFields)
                 {
                     string[] currentField = field.Split(',');
@@ -149,7 +149,7 @@ public class InventoryManager : MonoBehaviour
 
             foreach(Dictionary<string, string> entry in inventory)
             {
-                switch(entry["ITEMTYPE"])
+                switch (entry["ITEMTYPE"])
                 {
                     case "sword":
                         int swordNumber = int.Parse(entry["ITEMID"]);
@@ -169,5 +169,7 @@ public class InventoryManager : MonoBehaviour
                 }
             }
         }
+
+        InventoryMenu.swordInventory();
     }
 }

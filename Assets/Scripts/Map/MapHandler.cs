@@ -18,6 +18,7 @@ public class MapHandler : MonoBehaviour
     public static GameObject defensaCanvas;
 
     public static GameObject inventoryCanvas;
+    public static GameObject gradeCanvas;
 
     private static GameObject noDinero;
 
@@ -33,6 +34,7 @@ public class MapHandler : MonoBehaviour
         defensaCanvas = GameObject.Find("MenuDefensa");
 
         inventoryCanvas = GameObject.Find("InventoryCanvas");
+        gradeCanvas = GameObject.Find("GradeCheckCanvas");
 
         noDinero = GameObject.Find("NoDinero");
 
@@ -60,9 +62,13 @@ public class MapHandler : MonoBehaviour
         houseCanvas.SetActive(false);
         forjaCanvas.SetActive(false);
         tiendaCanvas.SetActive(false);
+        gradeCanvas.SetActive(false);
         noDinero.SetActive(false);
 
         activated = false;
+
+        //Llamando a la función para obtener calificaciones recientes y convertirlas a monedas
+        StartCoroutine(CheckGrades.checkDBGrades());
     }
 
     public static void activateCanvas(int id)
@@ -94,6 +100,7 @@ public class MapHandler : MonoBehaviour
             case "ForjaX": forjaCanvas.SetActive(false); break;
             case "TiendaX": tiendaCanvas.SetActive(false); break;
             case "InventoryX": inventoryCanvas.SetActive(false); break;
+            case "GradeX": gradeCanvas.SetActive(false); break;
         }
     }
 

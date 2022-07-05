@@ -27,7 +27,8 @@
         echo("SCORE," . $character['SCORE'] . "\n");
         echo("COINS," . $character['COINS'] . "\n");
         echo("ATTACK," . $character['ATTACK'] . "\n");
-        echo("DEFENSE," . $character['DEFENSE']);
+        echo("DEFENSE," . $character['DEFENSE'] . "\n");
+        echo("MAPLEVEL," . $character['MAPLEVEL']);
     }
     else echo("null");
 ?>

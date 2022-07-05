@@ -96,7 +96,7 @@ public class MapTriggers : MonoBehaviour
                     Debug.Log("Abriendo cofre mágico");
                     break;
                 case 6:
-                    Debug.Log("Abriendo aventura");
+                    MapHandler.activateCanvas(6);
                     break;
             }
         }

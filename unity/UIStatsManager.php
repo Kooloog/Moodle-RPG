@@ -51,6 +51,9 @@
             case "defense":
                 $query = "UPDATE game_UI_stats SET defense = '" . $_GET['defense'] . "' WHERE userid = " . $USER->id;
                 break;
+            case "maplevel":
+                $query = "UPDATE game_UI_stats SET maplevel = '" . $_GET['maplevel'] . "' WHERE userid = " . $USER->id;
+                break;
             default:
                 echo("Invalid stat."); break;
         }

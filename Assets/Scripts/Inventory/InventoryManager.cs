@@ -13,6 +13,8 @@ public class InventoryManager : MonoBehaviour
     private string saveInventoryURL = "http://localhost/moodle/unity/uploadInventory.php";
     private string loadInventoryURL = "http://localhost/moodle/unity/loadInventory.php";
 
+    private static AudioSource purchaseSound;
+
     static InventoryManager instance;
 
     // Start is called before the first frame update
@@ -21,6 +23,8 @@ public class InventoryManager : MonoBehaviour
         swords = new List<Sword>();
         shields = new List<Shield>();
         items = new List<Item>();
+
+        purchaseSound = GameObject.Find("ItemPurchaseSound").GetComponent<AudioSource>();
 
         instance = this;
 
@@ -49,6 +53,7 @@ public class InventoryManager : MonoBehaviour
                 Destroy(load);
 
                 instance.StartCoroutine(instance.AddInventoryItem("sword", swordNumber));
+                purchaseSound.Play();
             }
         }
     }
@@ -75,6 +80,7 @@ public class InventoryManager : MonoBehaviour
                 Destroy(load);
 
                 instance.StartCoroutine(instance.AddInventoryItem("shield", shieldNumber));
+                purchaseSound.Play();
             }
         }
     }
@@ -101,6 +107,7 @@ public class InventoryManager : MonoBehaviour
                 Destroy(load);
 
                 instance.StartCoroutine(instance.AddInventoryItem("item", itemNumber));
+                purchaseSound.Play();
             }
         }
     }
@@ -170,6 +177,8 @@ public class InventoryManager : MonoBehaviour
             }
         }
 
+        InventoryMenu.playSound = false;
         InventoryMenu.swordInventory();
+        InventoryMenu.playSound = true;
     }
 }

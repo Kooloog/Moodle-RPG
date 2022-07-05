@@ -16,11 +16,13 @@ public class MapHandler : MonoBehaviour
     public static GameObject avatarCanvas;
     public static GameObject ataqueCanvas;
     public static GameObject defensaCanvas;
-
     public static GameObject inventoryCanvas;
     public static GameObject gradeCanvas;
+    public static GameObject adventureCanvas;
 
+    private static AudioSource menuSound;
     private static GameObject noDinero;
+    private static bool playSound;
 
     // Start is called before the first frame update
     void Start()
@@ -32,10 +34,11 @@ public class MapHandler : MonoBehaviour
         avatarCanvas = GameObject.Find("AvatarCanvas");
         ataqueCanvas = GameObject.Find("MenuAtaque");
         defensaCanvas = GameObject.Find("MenuDefensa");
-
         inventoryCanvas = GameObject.Find("InventoryCanvas");
         gradeCanvas = GameObject.Find("GradeCheckCanvas");
+        adventureCanvas = GameObject.Find("AdventureCanvas");
 
+        menuSound = GameObject.Find("MenuSelect").GetComponent<AudioSource>();
         noDinero = GameObject.Find("NoDinero");
 
         MapTriggers.linkMapTriggers();
@@ -57,12 +60,13 @@ public class MapHandler : MonoBehaviour
 
         GameObject.Find("HousePlayerName").GetComponent<Text>().text = CharacterEdit.characterName;
 
-        //Preparando canvas de la forja (armas)
 
+        //Desactivando canvas
         houseCanvas.SetActive(false);
         forjaCanvas.SetActive(false);
         tiendaCanvas.SetActive(false);
         gradeCanvas.SetActive(false);
+        adventureCanvas.SetActive(false);
         noDinero.SetActive(false);
 
         activated = false;
@@ -83,10 +87,19 @@ public class MapHandler : MonoBehaviour
                 break;
             case 2:
                 forjaCanvas.SetActive(true);
+                playSound = false;
                 forjaAttackMenu();
+                playSound = true;
                 break;
             case 3:
                 tiendaCanvas.SetActive(true);
+                break;
+            case 6:
+                adventureCanvas.SetActive(true);
+                GameObject.Find("CurrentMapLevel").GetComponent<Text>().text = Stats.mapLevel.ToString();
+                GameObject.Find("CurrentBattle").GetComponent<Text>().text = "Batalla " + Stats.mapLevel.ToString();
+                GameObject.Find("AventuraAtaqueText").GetComponent<Text>().text = Stats.attack.ToString();
+                GameObject.Find("AventuraDefensaText").GetComponent<Text>().text = Stats.defense.ToString();
                 break;
         }
     }
@@ -100,6 +113,7 @@ public class MapHandler : MonoBehaviour
             case "ForjaX": forjaCanvas.SetActive(false); break;
             case "TiendaX": tiendaCanvas.SetActive(false); break;
             case "InventoryX": inventoryCanvas.SetActive(false); break;
+            case "AdventureX": adventureCanvas.SetActive(false); break;
             case "GradeX": gradeCanvas.SetActive(false); break;
         }
     }
@@ -120,6 +134,7 @@ public class MapHandler : MonoBehaviour
     {
         ataqueCanvas.SetActive(true);
         defensaCanvas.SetActive(false);
+        if(playSound) menuSound.Play();
 
         GameObject.Find("AtaqueButton").GetComponent<Image>().color = new Color(1f, 0.5f, 0.5f);
         GameObject.Find("DefensaButton").GetComponent<Image>().color = new Color(255, 255, 255);
@@ -129,6 +144,7 @@ public class MapHandler : MonoBehaviour
     {
         ataqueCanvas.SetActive(false);
         defensaCanvas.SetActive(true);
+        menuSound.Play();
 
         GameObject.Find("DefensaButton").GetComponent<Image>().color = new Color(1f, 0.5f, 0.5f);
         GameObject.Find("AtaqueButton").GetComponent<Image>().color = new Color(255, 255, 255);

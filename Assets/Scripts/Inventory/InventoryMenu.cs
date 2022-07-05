@@ -12,6 +12,9 @@ public class InventoryMenu : MonoBehaviour
     public static GameObject shieldsButton;
     public static GameObject itemsButton;
 
+    private static AudioSource menuSound;
+    public static bool playSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +24,16 @@ public class InventoryMenu : MonoBehaviour
         shieldsButton = GameObject.Find("EscudosButton");
         itemsButton = GameObject.Find("ObjetosButton");
 
+        menuSound = GameObject.Find("MenuSelect").GetComponent<AudioSource>();
+
         //El menú de inventario debe desactivarse aquí para prevenir errores
         GameObject.Find("InventoryCanvas").SetActive(false);
     }
 
     public static void swordInventory()
     {
+        if(playSound) menuSound.Play();
+
         int currentElement = 0;
         foreach(Transform objectIcon in objectIcons.transform)
         {
@@ -58,6 +65,8 @@ public class InventoryMenu : MonoBehaviour
 
     public static void shieldInventory()
     {
+        menuSound.Play();
+
         int currentElement = 0;
         foreach (Transform objectIcon in objectIcons.transform)
         {
@@ -88,6 +97,8 @@ public class InventoryMenu : MonoBehaviour
 
     public static void itemInventory()
     {
+        menuSound.Play();
+
         int currentElement = 0;
         foreach (Transform objectIcon in objectIcons.transform)
         {

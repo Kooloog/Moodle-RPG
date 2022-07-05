@@ -10,4 +10,5 @@ public class Stats : MonoBehaviour
     public static int coins;
     public static int attack;
     public static int defense;
+    public static int mapLevel;
 }

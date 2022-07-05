@@ -34,6 +34,17 @@ public class StatManager : MonoBehaviour
         StartCoroutine(updateStats("health", Stats.health));
     }
 
+    public void increaseMaxHealth(int amount)
+    {
+        Stats.maxHealth += amount;
+        Stats.health = Stats.maxHealth;
+
+        sliderVida.maxValue = Stats.maxHealth;
+        sliderVida.value = Stats.health;
+        txtVida.text = Stats.health + "/" + Stats.maxHealth;
+        StartCoroutine(updateStats("maxhealth", Stats.maxHealth));
+    }
+
     public void increaseScore(int amount)
     {
         Stats.score += amount;
@@ -84,6 +95,12 @@ public class StatManager : MonoBehaviour
     {
         Stats.defense += amount;
         StartCoroutine(updateStats("defense", Stats.defense));
+    }
+
+    public void nextMapLevel()
+    {
+        Stats.mapLevel += 1;
+        StartCoroutine(updateStats("maplevel", Stats.mapLevel));
     }
 
     IEnumerator updateStats(string stat, int value)

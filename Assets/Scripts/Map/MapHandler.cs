@@ -60,6 +60,8 @@ public class MapHandler : MonoBehaviour
 
         GameObject.Find("HousePlayerName").GetComponent<Text>().text = CharacterEdit.characterName;
 
+        //Preparando canvas de la aventura
+        EnemyLoader.loadImageSlots();
 
         //Desactivando canvas
         houseCanvas.SetActive(false);
@@ -96,6 +98,7 @@ public class MapHandler : MonoBehaviour
                 break;
             case 6:
                 adventureCanvas.SetActive(true);
+                EnemyLoader.loadEnemies();
                 GameObject.Find("CurrentMapLevel").GetComponent<Text>().text = Stats.mapLevel.ToString();
                 GameObject.Find("CurrentBattle").GetComponent<Text>().text = "Batalla " + Stats.mapLevel.ToString();
                 GameObject.Find("AventuraAtaqueText").GetComponent<Text>().text = Stats.attack.ToString();

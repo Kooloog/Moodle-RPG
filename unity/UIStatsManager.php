@@ -21,6 +21,7 @@
         COINS int(11),
         ATTACK int(11),
         DEFENSE int(11),
+        MAPLEVEL int(11),
         PRIMARY KEY (ID),
         FOREIGN KEY (USERID) REFERENCES mdl_user(ID)
     )";
@@ -63,7 +64,7 @@
     }
     else {  
         $query = "INSERT INTO game_UI_stats VALUES (null,'" . $USER->id . "', ".
-            "'10', '10', '0', '0', '1', '1'" . 
+            "'10', '10', '0', '0', '1', '1', '1'" . 
         ")";
 
         echo(shell_exec("php loadUIstats.php"));

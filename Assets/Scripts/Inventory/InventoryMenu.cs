@@ -15,6 +15,9 @@ public class InventoryMenu : MonoBehaviour
     private static AudioSource menuSound;
     public static bool playSound;
 
+    public static List<GameObject> inventoryImages;
+    public static List<GameObject> inventoryInfoScreens;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,17 @@ public class InventoryMenu : MonoBehaviour
         itemsButton = GameObject.Find("ObjetosButton");
 
         menuSound = GameObject.Find("MenuSelect").GetComponent<AudioSource>();
+
+        inventoryImages = new List<GameObject>();
+        inventoryInfoScreens = new List<GameObject>();
+
+        foreach (Transform objectIcon in objectIcons.transform)
+        {
+            inventoryImages.Add(objectIcon.GetChild(1).gameObject);
+            inventoryInfoScreens.Add(objectIcon.GetChild(1).GetChild(0).gameObject);
+        }
+
+        foreach (GameObject g in inventoryInfoScreens) g.SetActive(false);
 
         //El menú de inventario debe desactivarse aquí para prevenir errores
         GameObject.Find("InventoryCanvas").SetActive(false);
@@ -39,17 +53,23 @@ public class InventoryMenu : MonoBehaviour
         {
             if(currentElement < InventoryManager.swords.Count)
             {
+                inventoryImages[currentElement].SetActive(true);
+                inventoryInfoScreens[currentElement].transform.GetChild(1).GetComponent<Text>().text =
+                    InventoryManager.swords[currentElement].swordName;
+
                 objectIcon.GetComponent<Button>().interactable = true;
-                objectIcon.GetChild(0).GetComponent<Image>().sprite = 
+                objectIcon.GetChild(1).GetComponent<Image>().sprite = 
                     InventoryManager.swords[currentElement].sprite;
-                objectIcon.GetChild(1).GetComponent<Text>().text = 
+                objectIcon.GetChild(0).GetComponent<Text>().text = 
                     InventoryManager.swords[currentElement].usesLeft.ToString();
             }
             else
             {
+                inventoryImages[currentElement].SetActive(false);
+
                 objectIcon.GetComponent<Button>().interactable = false;
-                objectIcon.GetChild(0).GetComponent<Image>().sprite = null;
-                objectIcon.GetChild(1).GetComponent<Text>().text = "";
+                objectIcon.GetChild(1).GetComponent<Image>().sprite = null;
+                objectIcon.GetChild(0).GetComponent<Text>().text = "";
             }
 
             ++currentElement;
@@ -72,17 +92,23 @@ public class InventoryMenu : MonoBehaviour
         {
             if (currentElement < InventoryManager.shields.Count)
             {
+                inventoryImages[currentElement].SetActive(true);
+                inventoryInfoScreens[currentElement].transform.GetChild(1).GetComponent<Text>().text =
+                    InventoryManager.shields[currentElement].shieldName;
+
                 objectIcon.GetComponent<Button>().interactable = true;
-                objectIcon.GetChild(0).GetComponent<Image>().sprite =
+                objectIcon.GetChild(1).GetComponent<Image>().sprite =
                     InventoryManager.shields[currentElement].sprite;
-                objectIcon.GetChild(1).GetComponent<Text>().text =
+                objectIcon.GetChild(0).GetComponent<Text>().text =
                     InventoryManager.shields[currentElement].usesLeft.ToString();
             }
             else
             {
+                inventoryImages[currentElement].SetActive(false);
+
                 objectIcon.GetComponent<Button>().interactable = false;
-                objectIcon.GetChild(0).GetComponent<Image>().sprite = null;
-                objectIcon.GetChild(1).GetComponent<Text>().text = "";
+                objectIcon.GetChild(1).GetComponent<Image>().sprite = null;
+                objectIcon.GetChild(0).GetComponent<Text>().text = "";
             }
 
             ++currentElement;
@@ -104,16 +130,22 @@ public class InventoryMenu : MonoBehaviour
         {
             if (currentElement < InventoryManager.items.Count)
             {
+                inventoryImages[currentElement].SetActive(true);
+                inventoryInfoScreens[currentElement].transform.GetChild(1).GetComponent<Text>().text =
+                    InventoryManager.items[currentElement].itemName;
+
                 objectIcon.GetComponent<Button>().interactable = true;
-                objectIcon.GetChild(0).GetComponent<Image>().sprite =
+                objectIcon.GetChild(1).GetComponent<Image>().sprite =
                     InventoryManager.items[currentElement].sprite;
-                objectIcon.GetChild(1).GetComponent<Text>().text = "";
+                objectIcon.GetChild(0).GetComponent<Text>().text = "";
             }
             else
             {
+                inventoryImages[currentElement].SetActive(false);
+
                 objectIcon.GetComponent<Button>().interactable = false;
-                objectIcon.GetChild(0).GetComponent<Image>().sprite = null;
-                objectIcon.GetChild(1).GetComponent<Text>().text = "";
+                objectIcon.GetChild(1).GetComponent<Image>().sprite = null;
+                objectIcon.GetChild(0).GetComponent<Text>().text = "";
             }
 
             ++currentElement;

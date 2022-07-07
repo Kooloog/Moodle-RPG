@@ -21,6 +21,7 @@ public class MapHandler : MonoBehaviour
     public static GameObject adventureCanvas;
 
     private static AudioSource menuSound;
+    private static AudioSource openMapSound;
     private static GameObject noDinero;
     private static bool playSound;
 
@@ -39,6 +40,7 @@ public class MapHandler : MonoBehaviour
         adventureCanvas = GameObject.Find("AdventureCanvas");
 
         menuSound = GameObject.Find("MenuSelect").GetComponent<AudioSource>();
+        openMapSound = GameObject.Find("OpenMap").GetComponent<AudioSource>();
         noDinero = GameObject.Find("NoDinero");
 
         MapTriggers.linkMapTriggers();
@@ -103,6 +105,7 @@ public class MapHandler : MonoBehaviour
                 GameObject.Find("CurrentBattle").GetComponent<Text>().text = "Batalla " + Stats.mapLevel.ToString();
                 GameObject.Find("AventuraAtaqueText").GetComponent<Text>().text = Stats.attack.ToString();
                 GameObject.Find("AventuraDefensaText").GetComponent<Text>().text = Stats.defense.ToString();
+                openMapSound.Play();
                 break;
         }
     }
@@ -116,7 +119,7 @@ public class MapHandler : MonoBehaviour
             case "ForjaX": forjaCanvas.SetActive(false); break;
             case "TiendaX": tiendaCanvas.SetActive(false); break;
             case "InventoryX": inventoryCanvas.SetActive(false); break;
-            case "AdventureX": adventureCanvas.SetActive(false); break;
+            case "AdventureX": adventureCanvas.SetActive(false); openMapSound.Play(); break;
             case "GradeX": gradeCanvas.SetActive(false); break;
         }
     }

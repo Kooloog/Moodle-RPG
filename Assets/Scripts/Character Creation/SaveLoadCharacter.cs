@@ -324,5 +324,9 @@ public class SaveLoadCharacter : MonoBehaviour
         EnableCustomizationMenus.hideEverything();
         EnableCustomizationMenus.enableSingleMenu("BOTONES");
         EnableCustomizationMenus.enableSingleMenu("CARA");
+
+        //Eliminando pantalla de carga
+        if (GameObject.Find("PantallaCarga"))
+            GameObject.Find("PantallaCarga").SetActive(false);
     }
 }

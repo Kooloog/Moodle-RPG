@@ -71,5 +71,9 @@ public class StatLoader : MonoBehaviour
                 ItemUnlocks.shopLockItems();
             }
         }
+
+        //Eliminando pantalla de carga
+        if(GameObject.Find("PantallaCarga"))
+            GameObject.Find("PantallaCarga").SetActive(false);
     }
 }

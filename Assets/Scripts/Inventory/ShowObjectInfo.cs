@@ -25,7 +25,6 @@ public class ShowObjectInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 break;
 
             case "Enemigos":
-
                 if (!BattleManager.attacking)
                 {
                     Enemy thisEnemy = EnemyLists.levelsFinal[Stats.mapLevel - 1].enemies
@@ -44,6 +43,9 @@ public class ShowObjectInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                 }
 
                 break;
+
+            default:
+                break;
         }
     }
 
@@ -57,6 +59,7 @@ public class ShowObjectInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         else if (SceneManager.GetActiveScene().name == "Battle")
         {
             enemyInfo.SetActive(false);
+            foreach (GameObject g in InventoryMenu.inventoryInfoScreens) g.SetActive(false);
         }
     }
 

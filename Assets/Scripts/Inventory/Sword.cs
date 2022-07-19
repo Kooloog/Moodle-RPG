@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[System.Serializable] public class Sword
+[System.Serializable] public class Sword : Object
 {
     public Sword(Sword s)
     {

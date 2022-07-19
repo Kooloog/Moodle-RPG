@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable] public class Item
+[System.Serializable] public class Item : Object
 {
     public Item(Item i)
     {

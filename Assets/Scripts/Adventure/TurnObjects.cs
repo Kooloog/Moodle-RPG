@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -10,12 +8,14 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
     public static GameObject secondObject;
 
     public static bool firstObjectPicked;
+    public static Object firstObjectTurn;
     public static bool secondObjectPicked;
+    public static Object secondObjectTurn;
 
     public static AudioSource selectSound;
     public static AudioSource eraseSound;
 
-    public void selectObject(Sprite sprite, string text)
+    public void selectObject(Sprite sprite, string text, int id)
     {
         if (!firstObjectPicked)
         {
@@ -24,8 +24,16 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
             selectSound.Play();
             firstObjectPicked = true;
 
+            //Guardando primer objeto
+            switch (GameObject.Find("MenuActualInventory").GetComponent<Text>().text)
+            {
+                case "ESPADAS": firstObjectTurn = InventoryManager.swords[id]; break;
+                case "ESCUDOS": firstObjectTurn = InventoryManager.shields[id]; break;
+                case "OBJETOS": firstObjectTurn = InventoryManager.items[id]; break;
+            }
+
             //A partir de este punto no se pueden elegir escudos.
-            if(text.StartsWith("Escudo")) InventoryMenu.swordInventory();
+            if (text.StartsWith("Escudo")) InventoryMenu.swordInventory();
             GameObject.Find("EscudosButton").GetComponent<Button>().interactable = false;
         }
         else
@@ -34,6 +42,14 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
             GameObject.Find("TextoObjeto2").GetComponent<Text>().text = text;
             selectSound.Play();
             secondObjectPicked = true;
+
+            //Guardando segundo objeto
+            switch (GameObject.Find("MenuActualInventory").GetComponent<Text>().text)
+            {
+                case "ESPADAS": secondObjectTurn = InventoryManager.swords[id]; break;
+                case "ESCUDOS": secondObjectTurn = InventoryManager.shields[id]; break;
+                case "OBJETOS": secondObjectTurn = InventoryManager.items[id]; break;
+            }
         }
     }
 
@@ -51,21 +67,61 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
             {
                 case "ESPADAS":
                     Sword pickedSword = InventoryManager.swords[selectedObjectNumber];
-                    selectObject(pickedSword.sprite, "Espada " + pickedSword.swordName);
+                    selectObject(pickedSword.sprite, "Espada " + pickedSword.swordName, selectedObjectNumber);
                     break;
                 case "ESCUDOS":
                     Shield pickedShield = InventoryManager.shields[selectedObjectNumber];
-                    selectObject(pickedShield.sprite, "Escudo " + pickedShield.shieldName);
+                    selectObject(pickedShield.sprite, "Escudo " + pickedShield.shieldName, selectedObjectNumber);
                     break;
                 case "OBJETOS":
                     Item pickedItem = InventoryManager.items[selectedObjectNumber];
-                    selectObject(pickedItem.sprite, pickedItem.itemName);
+                    selectObject(pickedItem.sprite, pickedItem.itemName, selectedObjectNumber);
                     break;
             }
         }
         else
         {
             Debug.Log("All objects picked.");
+        }
+    }
+
+    private void fillSelectedItemBox(int id, Object obj)
+    {
+        if(obj is Sword)
+        {
+            Sword sword = (Sword)obj;
+            if (id == 1) GameObject.Find("ObjetoElegido1").GetComponent<Image>().sprite = sword.sprite;
+            else GameObject.Find("ObjetoElegido2").GetComponent<Image>().sprite = sword.sprite;
+        }
+        else if(obj is Shield)
+        {
+            Shield shield = (Shield)obj;
+            if (id == 1) GameObject.Find("ObjetoElegido1").GetComponent<Image>().sprite = shield.sprite;
+            else GameObject.Find("ObjetoElegido2").GetComponent<Image>().sprite = shield.sprite;
+        }
+        else if(obj is Item)
+        {
+            Item item = (Item)obj;
+            if (id == 1) GameObject.Find("ObjetoElegido1").GetComponent<Image>().sprite = item.sprite;
+            else GameObject.Find("ObjetoElegido2").GetComponent<Image>().sprite = item.sprite;
+        }
+    }
+
+    public void finishTurn()
+    {
+        if (!firstObjectPicked)
+        {
+            StartCoroutine(BattleManager.showWarning(1));
+        }
+        else if (!secondObjectPicked)
+        {
+            StartCoroutine(BattleManager.showWarning(2));
+        }
+        else
+        {
+            fillSelectedItemBox(1, firstObjectTurn);
+            fillSelectedItemBox(2, secondObjectTurn);
+            GameObject.Find("BattleManager").GetComponent<BattleManager>().battleMove();
         }
     }
 

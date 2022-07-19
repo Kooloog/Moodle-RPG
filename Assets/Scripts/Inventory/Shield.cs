@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable] public class Shield
+[System.Serializable] public class Shield : Object
 {
     public Shield(Shield s)
     {

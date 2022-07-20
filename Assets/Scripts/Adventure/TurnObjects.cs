@@ -85,7 +85,7 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    private void fillSelectedItemBox(int id, Object obj)
+    private static void fillSelectedItemBox(int id, Object obj)
     {
         if(obj is Sword)
         {
@@ -107,6 +107,15 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
         }
     }
 
+    public static void callFillObjects()
+    {
+        fillSelectedItemBox(1, firstObjectTurn);
+
+        if (secondObjectPicked) fillSelectedItemBox(2, secondObjectTurn);
+        else GameObject.Find("ObjetoElegido2").GetComponent<Image>().sprite =
+                GameObject.Find("InventoryHandler").GetComponent<Image>().sprite;
+    }
+
     public void finishTurn()
     {
         if (!firstObjectPicked)
@@ -119,8 +128,6 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
         }
         else
         {
-            fillSelectedItemBox(1, firstObjectTurn);
-            fillSelectedItemBox(2, secondObjectTurn);
             GameObject.Find("BattleManager").GetComponent<BattleManager>().battleMove();
         }
     }

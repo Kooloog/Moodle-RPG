@@ -118,10 +118,11 @@ public class StatManager : MonoBehaviour
     IEnumerator playerRedFlash()
     {
         Color originalColour = avatar.GetComponent<SpriteRenderer>().material.color;
+        
         for (int i = 0; i < 3; i++)
         {
             avatar.GetComponent<SpriteRenderer>().material.color = Color.red;
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForSeconds(0.05f);
             avatar.GetComponent<SpriteRenderer>().material.color = originalColour;
             yield return new WaitForSeconds(0.02f);
         }

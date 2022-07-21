@@ -12,7 +12,10 @@ public class BattleManager : MonoBehaviour
     public GameObject pickedObjects;
     public GameObject objectWarning1;
     public GameObject objectWarning2;
+    public GameObject avatarDamage;
+    public GameObject enemyDamage;
     public GameObject screenFlash;
+    public GameObject eligeEnemigo;
     public AudioSource enemyHit;
 
     public static GameObject objectMenuFinal;
@@ -23,7 +26,9 @@ public class BattleManager : MonoBehaviour
     public static Vector2 defaultMenuPosition;
     public static Vector2 pickedObjectsPosition;
 
+    //Flags
     public static bool attacking;
+    public static bool canClickEnemy;
     public static bool firstMenuOpen;
     public static bool showingWarning;
 
@@ -99,9 +104,8 @@ public class BattleManager : MonoBehaviour
         objectWarning1Final.SetActive(false);
         objectWarning2Final.SetActive(false);
 
-        //Guardando instancia de StatManager y efectos de sonido
+        //Guardando instancia de StatManager
         statManager = GameObject.Find("StatsManager").GetComponent<StatManager>();
-        enemyHit = GameObject.Find("EnemyHit").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -115,6 +119,8 @@ public class BattleManager : MonoBehaviour
     public void battleMove()
     {
         TurnObjects.callFillObjects();
+        TurnObjects.changeOutline(1, false);
+        TurnObjects.changeOutline(2, false);
         hideWarnings();
         StartCoroutine(hideObjectMenu());
         StartCoroutine(showPickedObjects());
@@ -133,16 +139,66 @@ public class BattleManager : MonoBehaviour
         //Bucle que representa ambos posibles movimientos del jugador
         for(int move = 1; move <= 2; move++)
         {
-            if (move == 1) objectToUse = TurnObjects.firstObjectTurn;
-            else if (TurnObjects.secondObjectTurn != null) objectToUse = TurnObjects.secondObjectTurn;
+            if (move == 1)
+            {
+                objectToUse = TurnObjects.firstObjectTurn;
+                TurnObjects.changeOutline(1, true);
+            }
+            else if (TurnObjects.secondObjectTurn != null)
+            {
+                objectToUse = TurnObjects.secondObjectTurn;
+                TurnObjects.changeOutline(2, true);
+            }
 
             if (objectToUse is Sword)
             {
                 //Movimiento: Ataque con espada
                 Sword sword = (Sword)objectToUse;
 
+                eligeEnemigo.SetActive(true);
+                canClickEnemy = true;
+                while(!TargetEnemy.enemyTargeted) { yield return null; }
+                canClickEnemy = false;
+                eligeEnemigo.SetActive(false);
 
-                
+                Enemy target = TargetEnemy.targetEnemy;
+                GameObject targetObject = TargetEnemy.targetEnemyObject;
+                Vector2 targetObjectPosition = targetObject.transform.position;
+                Vector2 movement = new Vector2
+                    (targetObjectPosition.x - 1.5f, targetObjectPosition.y + 0.66f);
+
+                float timeToMove = 0.20f;
+                float progress = 0f;
+
+                //Ida
+                while (progress < 1)
+                {
+                    progress += Time.deltaTime / timeToMove;
+                    avatar.transform.position = Vector2.Lerp(avatarPosition, movement, progress);
+                    yield return null;
+                }
+
+                yield return new WaitForSeconds(0.15f);
+
+                //Cálculo del daño hecho, luego se resta
+                StartCoroutine(flashScreen());
+                enemyHit.Play();
+
+                int damageDealt = Stats.attack + sword.attack - target.defense;
+                target.health -= damageDealt;
+                statManager.increaseScore(damageDealt * 5);
+                StartCoroutine(showDamage("enemigo", damageDealt));
+
+                yield return new WaitForSeconds(0.20f);
+                progress = 0f;
+
+                //Vuelta
+                while (progress < 1)
+                {
+                    progress += Time.deltaTime / timeToMove;
+                    avatar.transform.position = Vector2.Lerp(movement, avatarPosition, progress);
+                    yield return null;
+                }
             }
             else if (objectToUse is Shield)
             {
@@ -156,6 +212,11 @@ public class BattleManager : MonoBehaviour
             {
                 //Movimiento: Uso de objeto
                 Item item = (Item)objectToUse;
+
+                switch(item.itemName)
+                {
+
+                }
             }
             else
             {
@@ -184,7 +245,10 @@ public class BattleManager : MonoBehaviour
                     //Cálculo del daño hecho, luego se resta
                     StartCoroutine(flashScreen());
                     enemyHit.Play();
-                    statManager.decreaseHealth(Mathf.Max((levelEnemies[i].attack - Stats.defense), 0));
+
+                    int damageDealt = Mathf.Max((levelEnemies[i].attack - Stats.defense), 0);
+                    statManager.decreaseHealth(damageDealt);
+                    StartCoroutine(showDamage("avatar", damageDealt));
 
                     yield return new WaitForSeconds(0.20f);
                     progress = 0f;
@@ -197,10 +261,13 @@ public class BattleManager : MonoBehaviour
                             avatar.transform.position, levelEnemiesPosition[i], progress);
                         yield return null;
                     }
-
-                    Stats.defense = defenseValue;
                 }
             }
+
+            Stats.defense = defenseValue;
+            TurnObjects.changeOutline(1, false);
+            TurnObjects.changeOutline(2, false);
+            TargetEnemy.untargetEnemy();
         }
 
         yield return new WaitForSeconds(1.0f);
@@ -289,11 +356,38 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    public IEnumerator showDamage(string type, int amount)
+    {
+        GameObject show = null;
+        if (type == "avatar") show = avatarDamage;
+        else if (type == "enemigo") show = enemyDamage;
+
+        show.transform.GetChild(0).gameObject.GetComponent<Text>().text = amount.ToString();
+        show.SetActive(true);
+
+        yield return new WaitForSeconds(1f);
+        float fadeTime = 1f;
+        float progress = 0f;
+        while (progress < 1)
+        {
+            progress += Time.deltaTime / fadeTime;
+            Color transparency = new Color(1f, 1f, 1f, 1 - progress);
+            show.transform.GetChild(0).gameObject.GetComponent<Text>().color = transparency;
+            show.GetComponent<Image>().color = transparency;
+            yield return null;
+        }
+
+        show.SetActive(false);
+        show.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+        show.transform.GetChild(0).gameObject.GetComponent<Text>().color = new Color(1f, 1f, 1f, 1f);
+    }
+
     public IEnumerator flashScreen()
     {
         screenFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
 
-        float flashTime = 0.15f;
+        float flashTime = 0.2f;
         float progress = 0f;
         while (progress < 1)
         {

@@ -6,6 +6,8 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
 {
     public static GameObject firstObject;
     public static GameObject secondObject;
+    public static Outline firstObjectOutline;
+    public static Outline secondObjectOutline;
 
     public static bool firstObjectPicked;
     public static Object firstObjectTurn;
@@ -145,9 +147,25 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
         GameObject.Find("EscudosButton").GetComponent<Button>().interactable = true;
     }
 
+    public static void changeOutline(int id, bool add)
+    {
+        if (add)
+        {
+            if (id == 1) firstObjectOutline.enabled = true;
+            else secondObjectOutline.enabled = true;
+        }
+        else
+        {
+            if (id == 1) firstObjectOutline.enabled = false;
+            else secondObjectOutline.enabled = false;
+        }
+    }
+
     void Start()
     {
         selectSound = GameObject.Find("ItemSelect").GetComponent<AudioSource>();
         eraseSound = GameObject.Find("EraseItems").GetComponent<AudioSource>();
+        firstObjectOutline = GameObject.Find("ObjetoElegido1").GetComponent<Outline>();
+        secondObjectOutline = GameObject.Find("ObjetoElegido2").GetComponent<Outline>();
     }
 }

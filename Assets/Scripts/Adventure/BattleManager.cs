@@ -16,7 +16,10 @@ public class BattleManager : MonoBehaviour
     public GameObject enemyDamage;
     public GameObject screenFlash;
     public GameObject eligeEnemigo;
+    public GameObject deathEffect;
+
     public AudioSource enemyHit;
+    public AudioSource sonidoMuerte;
 
     public static GameObject objectMenuFinal;
     public static GameObject pickedObjectsFinal;
@@ -139,6 +142,10 @@ public class BattleManager : MonoBehaviour
         //Bucle que representa ambos posibles movimientos del jugador
         for(int move = 1; move <= 2; move++)
         {
+            //No se avanza al siguiente turno si el jugador ha perdido toda la vida
+            if (Stats.health <= 0) break;
+
+            //Se remarca en la UI el objeto que va a utilizar el jugador
             if (move == 1)
             {
                 objectToUse = TurnObjects.firstObjectTurn;
@@ -150,17 +157,21 @@ public class BattleManager : MonoBehaviour
                 TurnObjects.changeOutline(2, true);
             }
 
+            //Movimiento en función del objeto utilizado
             if (objectToUse is Sword)
             {
                 //Movimiento: Ataque con espada
                 Sword sword = (Sword)objectToUse;
 
+                //Se activan los flags necesarios para permitir que el jugador pueda elegir a qué
+                //enemigo atacar haciéndole click.
                 eligeEnemigo.SetActive(true);
                 canClickEnemy = true;
                 while(!TargetEnemy.enemyTargeted) { yield return null; }
                 canClickEnemy = false;
                 eligeEnemigo.SetActive(false);
 
+                //Se guardan los datos del enemigo al que se le va a hacer el ataque
                 Enemy target = TargetEnemy.targetEnemy;
                 GameObject targetObject = TargetEnemy.targetEnemyObject;
                 Vector2 targetObjectPosition = targetObject.transform.position;
@@ -170,7 +181,7 @@ public class BattleManager : MonoBehaviour
                 float timeToMove = 0.20f;
                 float progress = 0f;
 
-                //Ida
+                //Animación de ida: el jugador se mueve hacia el enemigo que va a atacar
                 while (progress < 1)
                 {
                     progress += Time.deltaTime / timeToMove;
@@ -192,12 +203,24 @@ public class BattleManager : MonoBehaviour
                 yield return new WaitForSeconds(0.20f);
                 progress = 0f;
 
-                //Vuelta
+                //Animación de vuelta: el jugador vuelve a su posición original
                 while (progress < 1)
                 {
                     progress += Time.deltaTime / timeToMove;
                     avatar.transform.position = Vector2.Lerp(movement, avatarPosition, progress);
                     yield return null;
+                }
+
+                //Se comprueba si el enemigo que ha recibido el ataque ha perdido la vida o no y, en tal
+                //caso, se elimina del terreno de combate.
+                if(target.health <= 0)
+                {
+                    Instantiate(deathEffect, targetObjectPosition, Quaternion.identity);
+                    sonidoMuerte.Play();
+
+                    yield return new WaitForSeconds(0.5f);
+                    targetObject.SetActive(false);
+                    break;
                 }
             }
             else if (objectToUse is Shield)
@@ -231,7 +254,7 @@ public class BattleManager : MonoBehaviour
                     float timeToMove = 0.20f;
                     float progress = 0f;
 
-                    //Ida
+                    //Animación de ida: el enemigo se mueve hacia el jugador
                     while (progress < 1)
                     {
                         progress += Time.deltaTime / timeToMove;
@@ -253,7 +276,7 @@ public class BattleManager : MonoBehaviour
                     yield return new WaitForSeconds(0.20f);
                     progress = 0f;
 
-                    //Vuelta
+                    //Animación de vuelta: el jugador vuelve a su posición original
                     while (progress < 1)
                     {
                         progress += Time.deltaTime / timeToMove;
@@ -261,21 +284,36 @@ public class BattleManager : MonoBehaviour
                             avatar.transform.position, levelEnemiesPosition[i], progress);
                         yield return null;
                     }
+
+                    //Se comprueba si el jugador ha perdido toda la vida y, en tal caso, se elimina
+                    //del terreno de combate y este pierde.
+                    if(Stats.health <= 0)
+                    {
+                        Instantiate(deathEffect, avatarPosition, Quaternion.identity);
+                        sonidoMuerte.Play();
+
+                        yield return new WaitForSeconds(0.5f);
+                        avatar.SetActive(false);
+                        break;
+                    }
                 }
             }
 
+            //Se vuelve la defensa a su valor original, y el enemigo objetivo deja de serlo.
             Stats.defense = defenseValue;
             TurnObjects.changeOutline(1, false);
             TurnObjects.changeOutline(2, false);
             TargetEnemy.untargetEnemy();
         }
 
+        //Pausa antes de volver a elegir objeto.
         yield return new WaitForSeconds(1.0f);
         attacking = false;
         StartCoroutine(hidePickedObjects());
         StartCoroutine(showObjectMenu());
     }
 
+    //Método que muestra el menú de objetos a elegir
     public static IEnumerator showObjectMenu()
     {
         objectMenuFinal.transform.position = new Vector2(defaultMenuPosition.x + 10.5f, defaultMenuPosition.y);
@@ -299,6 +337,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    //Método que esconde el menú de objetos a elegir
     public static IEnumerator hideObjectMenu()
     {
         Vector2 move = new Vector2(defaultMenuPosition.x + 10.5f , defaultMenuPosition.y);
@@ -315,6 +354,7 @@ public class BattleManager : MonoBehaviour
         objectMenuFinal.SetActive(false);
     }
 
+    //Método que muestra los dos objetos elegidos.
     public static IEnumerator showPickedObjects()
     {
         Vector2 currentPosition = pickedObjectsFinal.transform.position;
@@ -329,6 +369,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    //Método que esconde los dos objetos elegidos.
     public static IEnumerator hidePickedObjects()
     {
         Vector2 move = new Vector2(pickedObjectsPosition.x, pickedObjectsPosition.y + 4.5f);
@@ -343,6 +384,9 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    //Método que muestra uno de dos avisos según la ID:
+    //1 - No se ha elegido ningún objeto, no se puede seguir el combate.
+    //2 - Sólo se ha elegido un objeto, se puede seguir el combate.
     public static IEnumerator showWarning(int id)
     {
         if (!showingWarning)
@@ -356,6 +400,7 @@ public class BattleManager : MonoBehaviour
         }
     }
 
+    //Se muestra el daño que ha recibido o bien el jugador, o bien alguno de los enemigos
     public IEnumerator showDamage(string type, int amount)
     {
         GameObject show = null;
@@ -382,6 +427,7 @@ public class BattleManager : MonoBehaviour
         show.transform.GetChild(0).gameObject.GetComponent<Text>().color = new Color(1f, 1f, 1f, 1f);
     }
 
+    //Flash blanco corto en la pantalla cuando se da o se recibe un ataque.
     public IEnumerator flashScreen()
     {
         screenFlash.SetActive(true);
@@ -400,6 +446,7 @@ public class BattleManager : MonoBehaviour
         screenFlash.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
     }
 
+    //Métodos para llamar a las diferentes corutinas
     public void showObjectMenuMethod()
     {
         StartCoroutine(showObjectMenu());
@@ -410,6 +457,7 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(hideObjectMenu());
     }
 
+    //Esconde cualquier aviso que haya en pantalla
     public void hideWarnings()
     {
         objectWarning1Final.SetActive(false);

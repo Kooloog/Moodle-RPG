@@ -135,6 +135,8 @@ public class BattleManager : MonoBehaviour
     {
         attacking = true;
 
+        int enemyAmount = EnemyLists.levelsFinal[currentLevel - 1].enemies.Length;
+        int enemiesDefeated = 0;
         yield return new WaitForSeconds(1.0f);
         Object objectToUse = null;
         int defenseValue = Stats.defense;
@@ -145,16 +147,26 @@ public class BattleManager : MonoBehaviour
             //No se avanza al siguiente turno si el jugador ha perdido toda la vida
             if (Stats.health <= 0) break;
 
+            //No se avanza al siguiente turno si todos los enemigos han perdido la vida
+            if (enemiesDefeated >= enemyAmount) break;
+
             //Se remarca en la UI el objeto que va a utilizar el jugador
             if (move == 1)
             {
                 objectToUse = TurnObjects.firstObjectTurn;
+                TurnObjects.reduceUses(objectToUse, 1);
                 TurnObjects.changeOutline(1, true);
             }
             else if (TurnObjects.secondObjectTurn != null)
             {
                 objectToUse = TurnObjects.secondObjectTurn;
+                TurnObjects.reduceUses(objectToUse, 2);
                 TurnObjects.changeOutline(2, true);
+            }
+            else
+            {
+                Debug.Log("No object");
+                objectToUse = null;
             }
 
             //Movimiento en función del objeto utilizado
@@ -162,6 +174,7 @@ public class BattleManager : MonoBehaviour
             {
                 //Movimiento: Ataque con espada
                 Sword sword = (Sword)objectToUse;
+                sword.usesLeft--;
 
                 //Se activan los flags necesarios para permitir que el jugador pueda elegir a qué
                 //enemigo atacar haciéndole click.
@@ -220,6 +233,13 @@ public class BattleManager : MonoBehaviour
 
                     yield return new WaitForSeconds(0.5f);
                     targetObject.SetActive(false);
+
+                    enemiesDefeated++;
+                    if(enemiesDefeated >= enemyAmount)
+                    {
+                        Debug.Log("Victoria");
+                    }
+
                     break;
                 }
             }
@@ -227,6 +247,7 @@ public class BattleManager : MonoBehaviour
             {
                 //Movimiento: Defensa con escudo
                 Shield shield = (Shield)objectToUse;
+                shield.usesLeft--;
 
                 //Aumentando la defensa dada por el escudo
                 Stats.defense += shield.defense;
@@ -294,6 +315,9 @@ public class BattleManager : MonoBehaviour
 
                         yield return new WaitForSeconds(0.5f);
                         avatar.SetActive(false);
+
+                        Debug.Log("Derrota");
+
                         break;
                     }
                 }
@@ -310,7 +334,12 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         attacking = false;
         StartCoroutine(hidePickedObjects());
-        StartCoroutine(showObjectMenu());
+
+        if (Stats.health > 0 && enemiesDefeated < enemyAmount)
+        {
+            InventoryMenu.swordInventory();
+            StartCoroutine(showObjectMenu());
+        }
     }
 
     //Método que muestra el menú de objetos a elegir
@@ -394,6 +423,7 @@ public class BattleManager : MonoBehaviour
             showingWarning = true;
             if(id == 1) objectWarning1Final.SetActive(true);
             else objectWarning2Final.SetActive(true);
+
             yield return new WaitForSeconds(2.0f);
             objectWarning1Final.SetActive(false);
             showingWarning = false;
@@ -446,6 +476,9 @@ public class BattleManager : MonoBehaviour
         screenFlash.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
     }
 
+    //Método que se llama cuando el jugador muere. Debe esperar 12 horas antes de volver a intentar la batalla,
+    //o utilizar una poción para revivir.
+
     //Métodos para llamar a las diferentes corutinas
     public void showObjectMenuMethod()
     {
@@ -462,5 +495,6 @@ public class BattleManager : MonoBehaviour
     {
         objectWarning1Final.SetActive(false);
         objectWarning2Final.SetActive(false);
+        showingWarning = false;
     }
 }

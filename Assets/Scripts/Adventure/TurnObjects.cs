@@ -9,8 +9,10 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
     public static GameObject firstObjectOutline;
     public static GameObject secondObjectOutline;
 
+    public static int firstObjectId;
     public static bool firstObjectPicked;
     public static Object firstObjectTurn;
+    public static int secondObjectId;
     public static bool secondObjectPicked;
     public static Object secondObjectTurn;
 
@@ -24,6 +26,7 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
             GameObject.Find("ImagenObjeto1").GetComponent<Image>().sprite = sprite;
             GameObject.Find("TextoObjeto1").GetComponent<Text>().text = text;
             selectSound.Play();
+            firstObjectId = id;
             firstObjectPicked = true;
 
             //Guardando primer objeto
@@ -43,6 +46,7 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
             GameObject.Find("ImagenObjeto2").GetComponent<Image>().sprite = sprite;
             GameObject.Find("TextoObjeto2").GetComponent<Text>().text = text;
             selectSound.Play();
+            secondObjectId = id;
             secondObjectPicked = true;
 
             //Guardando segundo objeto
@@ -126,6 +130,7 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
         }
         else if (!secondObjectPicked)
         {
+            Debug.Log("showing");
             StartCoroutine(BattleManager.showWarning(2));
         }
         else
@@ -140,6 +145,8 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
         GameObject.Find("TextoObjeto1").GetComponent<Text>().text = "";
         GameObject.Find("ImagenObjeto2").GetComponent<Image>().sprite = null;
         GameObject.Find("TextoObjeto2").GetComponent<Text>().text = "";
+        firstObjectTurn = null;
+        secondObjectTurn = null;
         firstObjectPicked = false;
         secondObjectPicked = false;
         eraseSound.Play();
@@ -158,6 +165,42 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
         {
             if (id == 1) firstObjectOutline.SetActive(false);
             else secondObjectOutline.SetActive(false);
+        }
+    }
+
+    public static void reduceUses(Object obj, int turn)
+    {
+        if (turn == 1)
+        {
+            if (obj is Sword)
+            {
+                InventoryManager.swords[firstObjectId].usesLeft--;
+                if (InventoryManager.swords[firstObjectId].usesLeft <= 0)
+                    InventoryManager.swords.Remove(InventoryManager.swords[firstObjectId]);
+            }
+            else if (obj is Shield)
+            {
+                InventoryManager.shields[firstObjectId].usesLeft--;
+                if (InventoryManager.shields[firstObjectId].usesLeft <= 0)
+                    InventoryManager.shields.Remove(InventoryManager.shields[firstObjectId]);
+            }
+            else if (obj is Item) InventoryManager.items.Remove(InventoryManager.items[firstObjectId]);
+        }
+        else if(turn == 2)
+        {
+            if (obj is Sword)
+            {
+                InventoryManager.swords[secondObjectId].usesLeft--;
+                if (InventoryManager.swords[secondObjectId].usesLeft <= 0)
+                    InventoryManager.swords.Remove(InventoryManager.swords[secondObjectId]);
+            }
+            else if (obj is Shield)
+            {
+                InventoryManager.shields[secondObjectId].usesLeft--;
+                if (InventoryManager.shields[secondObjectId].usesLeft <= 0)
+                    InventoryManager.shields.Remove(InventoryManager.shields[secondObjectId]);
+            }
+            else if (obj is Item) InventoryManager.items.Remove(InventoryManager.items[secondObjectId]);
         }
     }
 

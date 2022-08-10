@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class TurnObjects : MonoBehaviour, IPointerClickHandler
@@ -170,37 +171,75 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
 
     public static void reduceUses(Object obj, int turn)
     {
+        string updateUsesURL = "http://localhost/moodle/unity/updateInventoryUses.php";
+
         if (turn == 1)
         {
             if (obj is Sword)
             {
-                InventoryManager.swords[firstObjectId].usesLeft--;
+                InventoryManager.swords[firstObjectId].usesLeft -= 1;
+
+                UnityWebRequestAsyncOperation wr =
+                UnityWebRequest.Post(updateUsesURL + "?uses=" + InventoryManager.swords[firstObjectId].usesLeft +
+                                                     "&id=" + InventoryManager.swords[firstObjectId].id,
+                                                     "").SendWebRequest();
+
                 if (InventoryManager.swords[firstObjectId].usesLeft <= 0)
                     InventoryManager.swords.Remove(InventoryManager.swords[firstObjectId]);
             }
             else if (obj is Shield)
             {
-                InventoryManager.shields[firstObjectId].usesLeft--;
+                InventoryManager.shields[firstObjectId].usesLeft -= 1;
+
+                UnityWebRequestAsyncOperation wr =
+                UnityWebRequest.Post(updateUsesURL + "?uses=" + InventoryManager.shields[firstObjectId].usesLeft +
+                                                     "&id=" + InventoryManager.shields[firstObjectId].id,
+                                                     "").SendWebRequest();
+
                 if (InventoryManager.shields[firstObjectId].usesLeft <= 0)
                     InventoryManager.shields.Remove(InventoryManager.shields[firstObjectId]);
             }
-            else if (obj is Item) InventoryManager.items.Remove(InventoryManager.items[firstObjectId]);
+            else if (obj is Item) 
+            {
+                UnityWebRequest.Post(updateUsesURL + "?uses=0&id=" +  + InventoryManager.items[firstObjectId].id,
+                                                     "").SendWebRequest();
+
+                InventoryManager.items.Remove(InventoryManager.items[firstObjectId]); 
+            }
         }
         else if(turn == 2)
         {
             if (obj is Sword)
             {
-                InventoryManager.swords[secondObjectId].usesLeft--;
+                InventoryManager.swords[secondObjectId].usesLeft -= 1;
+
+                UnityWebRequestAsyncOperation wr =
+                UnityWebRequest.Post(updateUsesURL + "?uses=" + InventoryManager.swords[secondObjectId].usesLeft +
+                                                     "&id=" + InventoryManager.swords[secondObjectId].id,
+                                                     "").SendWebRequest();
+
                 if (InventoryManager.swords[secondObjectId].usesLeft <= 0)
                     InventoryManager.swords.Remove(InventoryManager.swords[secondObjectId]);
             }
             else if (obj is Shield)
             {
-                InventoryManager.shields[secondObjectId].usesLeft--;
+                InventoryManager.shields[secondObjectId].usesLeft -= 1;
+
+                UnityWebRequestAsyncOperation wr =
+                UnityWebRequest.Post(updateUsesURL + "?uses=" + InventoryManager.shields[secondObjectId].usesLeft +
+                                                     "&id=" + InventoryManager.shields[secondObjectId].id,
+                                                     "").SendWebRequest();
+
                 if (InventoryManager.shields[secondObjectId].usesLeft <= 0)
                     InventoryManager.shields.Remove(InventoryManager.shields[secondObjectId]);
             }
-            else if (obj is Item) InventoryManager.items.Remove(InventoryManager.items[secondObjectId]);
+            else if (obj is Item)
+            {
+                UnityWebRequest.Post(updateUsesURL + "?uses=0&id=" + +InventoryManager.items[secondObjectId].id,
+                                     "").SendWebRequest();
+
+                InventoryManager.items.Remove(InventoryManager.items[secondObjectId]);
+            }
         }
     }
 

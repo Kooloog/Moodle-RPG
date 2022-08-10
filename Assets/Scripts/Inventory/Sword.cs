@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 [System.Serializable] public class Sword : Object
 {
-    public Sword(Sword s)
+    public Sword(Sword s, int iId)
     {
+        id = iId;
         swordName = s.swordName;
         attack = s.attack;
         uses = s.uses;
@@ -15,6 +16,7 @@ using UnityEngine.UI;
         sprite = s.sprite;
     }
 
+    public int id;
     public string swordName;
     public int attack;
     public int uses;

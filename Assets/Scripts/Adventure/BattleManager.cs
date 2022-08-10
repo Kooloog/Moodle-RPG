@@ -174,7 +174,6 @@ public class BattleManager : MonoBehaviour
             {
                 //Movimiento: Ataque con espada
                 Sword sword = (Sword)objectToUse;
-                sword.usesLeft--;
 
                 //Se activan los flags necesarios para permitir que el jugador pueda elegir a qué
                 //enemigo atacar haciéndole click.
@@ -247,7 +246,6 @@ public class BattleManager : MonoBehaviour
             {
                 //Movimiento: Defensa con escudo
                 Shield shield = (Shield)objectToUse;
-                shield.usesLeft--;
 
                 //Aumentando la defensa dada por el escudo
                 Stats.defense += shield.defense;

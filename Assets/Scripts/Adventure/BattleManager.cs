@@ -16,10 +16,18 @@ public class BattleManager : MonoBehaviour
     public GameObject enemyDamage;
     public GameObject screenFlash;
     public GameObject eligeEnemigo;
+    public GameObject mostrarMenu;
     public GameObject deathEffect;
+    public GameObject victorySprite;
+    public GameObject defeatSprite;
+    public GameObject victoryInfo;
+    public GameObject defeatInfo;
 
+    public AudioSource backgroundMusic;
     public AudioSource enemyHit;
     public AudioSource sonidoMuerte;
+    public AudioSource victorySound;
+    public AudioSource defeatSound;
 
     public static GameObject objectMenuFinal;
     public static GameObject pickedObjectsFinal;
@@ -28,6 +36,7 @@ public class BattleManager : MonoBehaviour
 
     public static Vector2 defaultMenuPosition;
     public static Vector2 pickedObjectsPosition;
+    public static float scoreMultiplier;
 
     //Flags
     public static bool attacking;
@@ -89,6 +98,7 @@ public class BattleManager : MonoBehaviour
             }
 
             cont++;
+            if (scoreMultiplier < 1) scoreMultiplier = 1.0f;
         }
 
         //Guardando el menú de selección de objetos en una variable estática, y mostrándolo.
@@ -134,6 +144,7 @@ public class BattleManager : MonoBehaviour
     public IEnumerator turn()
     {
         attacking = true;
+        mostrarMenu.SetActive(false);
 
         int enemyAmount = EnemyLists.levelsFinal[currentLevel - 1].enemies.Length;
         int enemiesDefeated = 0;
@@ -209,7 +220,7 @@ public class BattleManager : MonoBehaviour
 
                 int damageDealt = Stats.attack + sword.attack - target.defense;
                 target.health -= damageDealt;
-                statManager.increaseScore(damageDealt * 5);
+                statManager.increaseScore((int)(damageDealt * 5 * scoreMultiplier));
                 StartCoroutine(showDamage("enemigo", damageDealt));
 
                 yield return new WaitForSeconds(0.20f);
@@ -233,10 +244,11 @@ public class BattleManager : MonoBehaviour
                     yield return new WaitForSeconds(0.5f);
                     targetObject.SetActive(false);
 
+                    //Si se han derrotado a todos los enemigos, la batalla se gana.
                     enemiesDefeated++;
                     if(enemiesDefeated >= enemyAmount)
                     {
-                        Debug.Log("Victoria");
+                        StartCoroutine(battleVictory());
                     }
 
                     break;
@@ -314,7 +326,7 @@ public class BattleManager : MonoBehaviour
                         yield return new WaitForSeconds(0.5f);
                         avatar.SetActive(false);
 
-                        Debug.Log("Derrota");
+                        StartCoroutine(battleDefeat());
 
                         break;
                     }
@@ -337,7 +349,11 @@ public class BattleManager : MonoBehaviour
         {
             InventoryMenu.swordInventory();
             StartCoroutine(showObjectMenu());
+            TurnObjects.playSound = false;
+            TurnObjects.clearAllItems();
         }
+
+        mostrarMenu.SetActive(true);
     }
 
     //Método que muestra el menú de objetos a elegir
@@ -474,8 +490,52 @@ public class BattleManager : MonoBehaviour
         screenFlash.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
     }
 
+    //Método que se utiliza cuando el jugador derrota a todos los enemigos y gana
+    public IEnumerator battleVictory()
+    {
+        Vector2 normalScale = victorySprite.transform.localScale;
+        victorySprite.transform.localScale = new Vector2(0f, 0f);
+        victorySprite.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+        backgroundMusic.Stop();
+        victorySound.Play();
+
+        float scaleTime = 0.33f;
+        float progress = 0f;
+        while (progress < 1)
+        {
+            progress += Time.deltaTime / scaleTime;
+            victorySprite.transform.localScale = Vector2.Lerp(new Vector2(0f, 0f), normalScale, progress);
+            yield return null;
+        }
+
+        statManager.nextMapLevel();
+        yield return new WaitForSeconds(3.5f);
+        victorySprite.SetActive(false);
+
+        //Se muestra la pantalla con información de la batalla, y a partir de ella el jugador puede ir directamente
+        //al siguiente nivel (recibe más puntuación) o volver a la villa (el multiplicador vuelve a 1)
+        victoryInfo.SetActive(true);
+        EnemyLoader.loadImageSlots();
+        EnemyLoader.loadEnemies();
+        GameObject.Find("CurrentMapLevel").GetComponent<Text>().text = Stats.mapLevel.ToString();
+        GameObject.Find("CurrentBattle").GetComponent<Text>().text = "Batalla " + Stats.mapLevel.ToString();
+        GameObject.Find("AventuraAtaqueText").GetComponent<Text>().text = Stats.attack.ToString();
+        GameObject.Find("AventuraDefensaText").GetComponent<Text>().text = Stats.defense.ToString();
+    }
+
     //Método que se llama cuando el jugador muere. Debe esperar 12 horas antes de volver a intentar la batalla,
     //o utilizar una poción para revivir.
+    public IEnumerator battleDefeat()
+    {
+        yield return new WaitForSeconds(0.5f);
+        defeatSprite.SetActive(true);
+        backgroundMusic.Stop();
+        defeatSound.Play();
+        yield return new WaitForSeconds(4.5f);
+        defeatSprite.SetActive(false);
+    }
 
     //Métodos para llamar a las diferentes corutinas
     public void showObjectMenuMethod()

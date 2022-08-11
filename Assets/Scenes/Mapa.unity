@@ -10192,126 +10192,150 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swords:
-  - swordName: Basica
+  - id: 0
+    swordName: Basica
     attack: 1
     uses: 10
     usesLeft: 10
     cost: 10
     sprite: {fileID: 21300000, guid: 4e98cc7713b3df34395239f729cf4b08, type: 3}
-  - swordName: 
+  - id: 0
+    swordName: 
     attack: 0
     uses: 0
     usesLeft: 0
     cost: 0
     sprite: {fileID: 0}
-  - swordName: 
+  - id: 0
+    swordName: 
     attack: 0
     uses: 0
     usesLeft: 0
     cost: 0
     sprite: {fileID: 0}
-  - swordName: 
+  - id: 0
+    swordName: 
     attack: 0
     uses: 0
     usesLeft: 0
     cost: 0
     sprite: {fileID: 0}
-  - swordName: 
+  - id: 0
+    swordName: 
     attack: 0
     uses: 0
     usesLeft: 0
     cost: 0
     sprite: {fileID: 0}
-  - swordName: 
+  - id: 0
+    swordName: 
     attack: 0
     uses: 0
     usesLeft: 0
     cost: 0
     sprite: {fileID: 0}
-  - swordName: 
+  - id: 0
+    swordName: 
     attack: 0
     uses: 0
     usesLeft: 0
     cost: 0
     sprite: {fileID: 0}
-  - swordName: 
+  - id: 0
+    swordName: 
     attack: 0
     uses: 0
     usesLeft: 0
     cost: 0
     sprite: {fileID: 0}
   shields:
-  - shieldName: Basico
+  - id: 0
+    shieldName: Basico
     defense: 1
     uses: 10
     usesLeft: 10
     cost: 10
     sprite: {fileID: 21300000, guid: 5b467feef492e7e459874468d6aa58ce, type: 3}
-  - shieldName: 
+  - id: 0
+    shieldName: 
     defense: 0
     uses: 0
     usesLeft: 0
     cost: 0
     sprite: {fileID: 0}
-  - shieldName: 
+  - id: 0
+    shieldName: 
     defense: 0
     uses: 0
     usesLeft: 0
     cost: 0
     sprite: {fileID: 0}
-  - shieldName: 
+  - id: 0
+    shieldName: 
     defense: 0
     uses: 0
     usesLeft: 0
     cost: 0
     sprite: {fileID: 0}
-  - shieldName: 
+  - id: 0
+    shieldName: 
     defense: 0
     uses: 0
     usesLeft: 0
     cost: 0
     sprite: {fileID: 0}
-  - shieldName: 
+  - id: 0
+    shieldName: 
     defense: 0
     uses: 0
     usesLeft: 0
     cost: 0
     sprite: {fileID: 0}
-  - shieldName: 
+  - id: 0
+    shieldName: 
     defense: 0
     uses: 0
     usesLeft: 0
     cost: 0
     sprite: {fileID: 0}
-  - shieldName: 
+  - id: 0
+    shieldName: 
     defense: 0
     uses: 0
     usesLeft: 0
     cost: 0
     sprite: {fileID: 0}
   items:
-  - itemName: Pocion de Salud
+  - id: 0
+    itemName: Pocion de Salud
     cost: 10
     sprite: {fileID: 21300000, guid: 3e764c75290630a46866fe76826d2936, type: 3}
-  - itemName: Pocion de Ataque
+  - id: 0
+    itemName: Pocion de Ataque
     cost: 10
     sprite: {fileID: 21300000, guid: 6e05ccd96d8e220459703e81830e41e0, type: 3}
-  - itemName: Pocion de Defensa
+  - id: 0
+    itemName: Pocion de Defensa
     cost: 10
     sprite: {fileID: 21300000, guid: d53ddb01b70593343a4d5f3b71e2af40, type: 3}
-  - itemName: 
+  - id: 0
+    itemName: 
     cost: 0
     sprite: {fileID: 0}
-  - itemName: 
+  - id: 0
+    itemName: 
     cost: 0
     sprite: {fileID: 0}
-  - itemName: 
+  - id: 0
+    itemName: 
     cost: 0
     sprite: {fileID: 0}
-  - itemName: 
+  - id: 0
+    itemName: 
     cost: 0
     sprite: {fileID: 0}
-  - itemName: 
+  - id: 0
+    itemName: 
     cost: 0
     sprite: {fileID: 0}
 --- !u!1 &805219241
@@ -11823,6 +11847,14 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
   levels:
   - levelNumber: 1
+    enemies:
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    expOnCompletion: 100
+  - levelNumber: 2
     enemies:
     - enemyName: Slime
       attack: 3

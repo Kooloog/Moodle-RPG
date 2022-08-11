@@ -19,9 +19,11 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
 
     public static AudioSource selectSound;
     public static AudioSource eraseSound;
+    public static bool playSound;
 
     public void selectObject(Sprite sprite, string text, int id)
     {
+        playSound = true;
         if (!firstObjectPicked)
         {
             GameObject.Find("ImagenObjeto1").GetComponent<Image>().sprite = sprite;
@@ -140,7 +142,7 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
         }
     }
 
-    public void clearAllItems()
+    public static void clearAllItems()
     {
         GameObject.Find("ImagenObjeto1").GetComponent<Image>().sprite = null;
         GameObject.Find("TextoObjeto1").GetComponent<Text>().text = "";
@@ -150,7 +152,7 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
         secondObjectTurn = null;
         firstObjectPicked = false;
         secondObjectPicked = false;
-        eraseSound.Play();
+        if(playSound) eraseSound.Play();
 
         GameObject.Find("EscudosButton").GetComponent<Button>().interactable = true;
     }

@@ -43,6 +43,7 @@ public class BattleManager : MonoBehaviour
     public static bool canClickEnemy;
     public static bool firstMenuOpen;
     public static bool showingWarning;
+    public static bool battleWon;
 
     private List<Enemy> levelEnemies;
     private List<Transform> levelEnemiesTF;
@@ -51,11 +52,13 @@ public class BattleManager : MonoBehaviour
     private Vector2 avatarPosition;
 
     private StatManager statManager;
+    private DeathManager deathManager;
 
     // Start is called before the first frame update
     void Start()
     {
         if (!GameObject.Find("Avatar")) SceneManager.LoadScene(1);
+        GameObject.Find("NumBatalla").GetComponent<Text>().text = "Batalla " + Stats.mapLevel.ToString();
 
         //Cargando jugador
         GameObject placeholder = GameObject.Find("AvatarPlaceholder");
@@ -119,6 +122,7 @@ public class BattleManager : MonoBehaviour
 
         //Guardando instancia de StatManager
         statManager = GameObject.Find("StatsManager").GetComponent<StatManager>();
+        deathManager = GameObject.Find("DeathManager").GetComponent<DeathManager>();
     }
 
     // Update is called once per frame
@@ -248,6 +252,7 @@ public class BattleManager : MonoBehaviour
                     enemiesDefeated++;
                     if(enemiesDefeated >= enemyAmount)
                     {
+                        battleWon = true;
                         StartCoroutine(battleVictory());
                     }
 
@@ -320,6 +325,7 @@ public class BattleManager : MonoBehaviour
                     //del terreno de combate y este pierde.
                     if(Stats.health <= 0)
                     {
+                        deathManager.killPlayer();
                         Instantiate(deathEffect, avatarPosition, Quaternion.identity);
                         sonidoMuerte.Play();
 
@@ -353,7 +359,7 @@ public class BattleManager : MonoBehaviour
             TurnObjects.clearAllItems();
         }
 
-        mostrarMenu.SetActive(true);
+        if(!battleWon) mostrarMenu.SetActive(true);
     }
 
     //Método que muestra el menú de objetos a elegir
@@ -523,6 +529,7 @@ public class BattleManager : MonoBehaviour
         GameObject.Find("CurrentBattle").GetComponent<Text>().text = "Batalla " + Stats.mapLevel.ToString();
         GameObject.Find("AventuraAtaqueText").GetComponent<Text>().text = Stats.attack.ToString();
         GameObject.Find("AventuraDefensaText").GetComponent<Text>().text = Stats.defense.ToString();
+        GameObject.Find("ComenzarBatallaText").GetComponent<Text>().text = "Comenzar (x" + (scoreMultiplier + 0.1f) + ")"; 
     }
 
     //Método que se llama cuando el jugador muere. Debe esperar 12 horas antes de volver a intentar la batalla,
@@ -533,8 +540,8 @@ public class BattleManager : MonoBehaviour
         defeatSprite.SetActive(true);
         backgroundMusic.Stop();
         defeatSound.Play();
-        yield return new WaitForSeconds(4.5f);
-        defeatSprite.SetActive(false);
+        yield return new WaitForSeconds(5.5f);
+        SceneManager.LoadScene(1);
     }
 
     //Métodos para llamar a las diferentes corutinas

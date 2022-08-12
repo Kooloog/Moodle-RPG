@@ -38,7 +38,7 @@ public class ShowObjectInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitH
                     enemyInfo.transform.GetChild(3).gameObject.GetComponent<Text>().text =
                         "Defensa: " + thisEnemy.defense.ToString();
                     enemyInfo.transform.GetChild(4).gameObject.GetComponent<Text>().text =
-                        "Ataque: " + thisEnemy.health.ToString();
+                        "Vida: " + thisEnemy.health.ToString();
                     enemyInfo.SetActive(true);
                 }
 
@@ -60,6 +60,8 @@ public class ShowObjectInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         {
             enemyInfo.SetActive(false);
             foreach (GameObject g in InventoryMenu.inventoryInfoScreens) g.SetActive(false);
+            if(BattleManager.battleWon) 
+                foreach (GameObject g in EnemyLoader.enemyInfoScreens) g.SetActive(false);
         }
     }
 

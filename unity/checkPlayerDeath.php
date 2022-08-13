@@ -20,17 +20,19 @@
         $death = mysqli_fetch_array($result);
 
         //Se obtiene la fecha y hora actuales.
-        $dateNow = date('Y-m-d H:i:s');
+        $dateNow = new DateTime();
         $dateRevive = new DateTime($death['DEADUNTIL']);
 
         //Se comprueba si el jugador puede revivir, o si debe continuar muerto
+        //Si debe continuar muerto, se devuelven las horas y minutos que deben pasar para revivir.
         if($dateNow < $dateRevive) {
-            //TODO
+            $interval = $dateNow->diff($dateRevive);
+            echo $interval->format('%h') . ":" . $interval->format('%i') . ":" . $interval->format('%s');
         }
         else {
             $query = "DELETE FROM game_deaths WHERE userid = " . $USER->id;
             $result = mysqli_query($dbConnection, $query) or die (mysqli_error($dbConnection));
-            $echo('revive');
+            echo('revive');
         }
     }
     else {

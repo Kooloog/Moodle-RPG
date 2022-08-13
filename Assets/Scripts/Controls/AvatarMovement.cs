@@ -8,6 +8,7 @@ public class AvatarMovement : MonoBehaviour
 
     private Rigidbody2D avatarRB;
     private Vector2 movement;
+    private DeathManager deathManager;
 
     // Start is called before the first frame update
     void Start()
@@ -26,21 +27,28 @@ public class AvatarMovement : MonoBehaviour
 
         //Reposicionando al personaje
         avatar.transform.position = new Vector2(0, 0);
+
+        //Comprobando si el personaje está vivo o no
+        deathManager = GameObject.Find("DeathManager").GetComponent<DeathManager>();
+        deathManager.checkAlive();
     }
 
     // Update is called once per frame
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        if (!DeathManager.isDead)
+        {
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            avatar.transform.rotation = Quaternion.Euler(0, 0, 0);
-        }
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            avatar.transform.rotation = Quaternion.Euler(0, 180f, 0);
+            if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                avatar.transform.rotation = Quaternion.Euler(0, 0, 0);
+            }
+            if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                avatar.transform.rotation = Quaternion.Euler(0, 180f, 0);
+            }
         }
     }
 

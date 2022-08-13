@@ -75,6 +75,8 @@ public class MapHandler : MonoBehaviour
 
         activated = false;
 
+        //Llamando a la función para comprobar si el personaje está muerto o no
+
         //Llamando a la función para obtener calificaciones recientes y convertirlas a monedas
         StartCoroutine(CheckGrades.checkDBGrades());
     }

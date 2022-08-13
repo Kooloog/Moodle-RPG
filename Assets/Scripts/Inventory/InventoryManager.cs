@@ -165,7 +165,6 @@ public class InventoryManager : MonoBehaviour
 
             foreach(Dictionary<string, string> entry in inventory)
             {
-                Debug.Log(entry["ID"]);
                 switch (entry["ITEMTYPE"])
                 {
                     case "sword":

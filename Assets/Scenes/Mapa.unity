@@ -12336,6 +12336,19 @@ MonoBehaviour:
       health: 3
       sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
     expOnCompletion: 100
+  - levelNumber: 2
+    enemies:
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    expOnCompletion: 100
 --- !u!4 &902294085
 Transform:
   m_ObjectHideFlags: 0

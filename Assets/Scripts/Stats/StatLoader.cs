@@ -57,6 +57,7 @@ public class StatLoader : MonoBehaviour
             Stats.attack = int.Parse(statData["ATTACK"]);
             Stats.defense = int.Parse(statData["DEFENSE"]);
             Stats.mapLevel = int.Parse(statData["MAPLEVEL"]);
+            Stats.nextUpgrade = (Stats.attack + Stats.defense - 1) * 500;
 
             txtVida.text = Stats.health + "/" + Stats.maxHealth;
             txtPuntos.text = Stats.score.ToString();

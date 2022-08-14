@@ -11,4 +11,5 @@ public class Stats : MonoBehaviour
     public static int attack;
     public static int defense;
     public static int mapLevel;
+    public static int nextUpgrade;
 }

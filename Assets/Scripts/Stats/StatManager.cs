@@ -103,6 +103,11 @@ public class StatManager : MonoBehaviour
         StartCoroutine(updateStats("maplevel", Stats.mapLevel));
     }
 
+    public void updateNextUpgrade()
+    {
+        Stats.nextUpgrade = (Stats.attack + Stats.defense - 1) * 500;
+    }
+
     IEnumerator updateStats(string stat, int value)
     {
         string postURL = manageStatsURL +

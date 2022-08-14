@@ -12,31 +12,42 @@ public class BattleManager : MonoBehaviour
     public GameObject pickedObjects;
     public GameObject objectWarning1;
     public GameObject objectWarning2;
+    public GameObject villaWarning;
     public GameObject avatarDamage;
     public GameObject enemyDamage;
     public GameObject screenFlash;
     public GameObject eligeEnemigo;
     public GameObject mostrarMenu;
     public GameObject deathEffect;
+    public GameObject itemUse;
+    public GameObject levelUpScreen;
     public GameObject victorySprite;
     public GameObject defeatSprite;
     public GameObject victoryInfo;
-    public GameObject defeatInfo;
 
     public AudioSource backgroundMusic;
     public AudioSource enemyHit;
     public AudioSource sonidoMuerte;
     public AudioSource victorySound;
     public AudioSource defeatSound;
+    public AudioSource itemUsedSound;
+    public AudioSource levelUpSound;
 
     public static GameObject objectMenuFinal;
     public static GameObject pickedObjectsFinal;
     public static GameObject objectWarning1Final;
     public static GameObject objectWarning2Final;
+    public static GameObject villaWarningFinal;
 
     public static Vector2 defaultMenuPosition;
     public static Vector2 pickedObjectsPosition;
     public static float scoreMultiplier;
+    public static int enemiesDefeated;
+
+    //Estadisticas
+    public static int attackAtStart;
+    public static int defenseAtStart;
+    public static int maxHealthAtStart;
 
     //Flags
     public static bool attacking;
@@ -64,9 +75,13 @@ public class BattleManager : MonoBehaviour
         GameObject placeholder = GameObject.Find("AvatarPlaceholder");
         avatar = GameObject.Find("Avatar");
 
-        avatar.transform.position = placeholder.transform.position;
-        avatar.transform.localScale = new Vector2(
-            avatar.transform.localScale.x * 2, avatar.transform.localScale.y * 2);
+        if (avatar.transform.localScale.x < 5)
+        {
+            avatar.transform.position = placeholder.transform.position;
+            avatar.transform.localScale = new Vector2(
+                avatar.transform.localScale.x * 2, avatar.transform.localScale.y * 2);
+        }
+
         avatarPosition = avatar.transform.position;
         placeholder.SetActive(false);
 
@@ -74,6 +89,7 @@ public class BattleManager : MonoBehaviour
         levelEnemies = new List<Enemy>();
         levelEnemiesTF = new List<Transform>();
         levelEnemiesPosition = new List<Vector2>();
+        enemiesDefeated = 0;
 
         currentLevel = Stats.mapLevel;
         int amount = EnemyLists.levelsFinal[currentLevel - 1].enemies.Length;
@@ -114,11 +130,18 @@ public class BattleManager : MonoBehaviour
         pickedObjectsPosition = pickedObjectsFinal.transform.position;
         pickedObjects.transform.position = new Vector2(pickedObjectsPosition.x, pickedObjectsPosition.y + 4.5f);
 
+        //Guardando estadísticas
+        attackAtStart = Stats.attack;
+        defenseAtStart = Stats.defense;
+        maxHealthAtStart = Stats.maxHealth;
+
         //Guardando mensajes de warning y ocultándolos.
         objectWarning1Final = objectWarning1;
         objectWarning2Final = objectWarning2;
+        villaWarningFinal = villaWarning;
         objectWarning1Final.SetActive(false);
         objectWarning2Final.SetActive(false);
+        villaWarningFinal.SetActive(false);
 
         //Guardando instancia de StatManager
         statManager = GameObject.Find("StatsManager").GetComponent<StatManager>();
@@ -151,7 +174,6 @@ public class BattleManager : MonoBehaviour
         mostrarMenu.SetActive(false);
 
         int enemyAmount = EnemyLists.levelsFinal[currentLevel - 1].enemies.Length;
-        int enemiesDefeated = 0;
         yield return new WaitForSeconds(1.0f);
         Object objectToUse = null;
         int defenseValue = Stats.defense;
@@ -242,14 +264,19 @@ public class BattleManager : MonoBehaviour
                 //caso, se elimina del terreno de combate.
                 if(target.health <= 0)
                 {
+                    Debug.Log("HOALDSASKDHSAJKLJDHSA");
                     Instantiate(deathEffect, targetObjectPosition, Quaternion.identity);
                     sonidoMuerte.Play();
+                    Debug.Log("Hello1");
 
                     yield return new WaitForSeconds(0.5f);
                     targetObject.SetActive(false);
+                    TargetEnemy.untargetEnemy();
+                    Debug.Log("Hello2");
 
                     //Si se han derrotado a todos los enemigos, la batalla se gana.
                     enemiesDefeated++;
+                    Debug.Log(enemiesDefeated + "|||" + enemyAmount);
                     if(enemiesDefeated >= enemyAmount)
                     {
                         battleWon = true;
@@ -274,8 +301,13 @@ public class BattleManager : MonoBehaviour
 
                 switch(item.itemName)
                 {
-
+                    case "Pocion de Salud": statManager.increaseHealth(5); break;
+                    case "Pocion de Ataque": Stats.attack += 2; break;
+                    case "Pocion de Defensa": Stats.defense += 2; break;
                 }
+
+                StartCoroutine(showItemDescription(item.itemName));
+                yield return new WaitForSeconds(2.0f);
             }
             else
             {
@@ -290,51 +322,54 @@ public class BattleManager : MonoBehaviour
                     float timeToMove = 0.20f;
                     float progress = 0f;
 
-                    //Animación de ida: el enemigo se mueve hacia el jugador
-                    while (progress < 1)
+                    if (levelEnemiesTF[i].gameObject.activeSelf)
                     {
-                        progress += Time.deltaTime / timeToMove;
-                        levelEnemiesTF[i].position = Vector2.Lerp(
-                            levelEnemiesPosition[i], avatar.transform.position, progress);
-                        yield return null;
-                    }
+                        //Animación de ida: el enemigo se mueve hacia el jugador
+                        while (progress < 1)
+                        {
+                            progress += Time.deltaTime / timeToMove;
+                            levelEnemiesTF[i].position = Vector2.Lerp(
+                                levelEnemiesPosition[i], avatar.transform.position, progress);
+                            yield return null;
+                        }
 
-                    yield return new WaitForSeconds(0.15f);
+                        yield return new WaitForSeconds(0.15f);
 
-                    //Cálculo del daño hecho, luego se resta
-                    StartCoroutine(flashScreen());
-                    enemyHit.Play();
+                        //Cálculo del daño hecho, luego se resta
+                        StartCoroutine(flashScreen());
+                        enemyHit.Play();
 
-                    int damageDealt = Mathf.Max((levelEnemies[i].attack - Stats.defense), 0);
-                    statManager.decreaseHealth(damageDealt);
-                    StartCoroutine(showDamage("avatar", damageDealt));
+                        int damageDealt = Mathf.Max((levelEnemies[i].attack - Stats.defense), 0);
+                        statManager.decreaseHealth(damageDealt);
+                        StartCoroutine(showDamage("avatar", damageDealt));
 
-                    yield return new WaitForSeconds(0.20f);
-                    progress = 0f;
+                        yield return new WaitForSeconds(0.20f);
+                        progress = 0f;
 
-                    //Animación de vuelta: el jugador vuelve a su posición original
-                    while (progress < 1)
-                    {
-                        progress += Time.deltaTime / timeToMove;
-                        levelEnemiesTF[i].position = Vector2.Lerp(
-                            avatar.transform.position, levelEnemiesPosition[i], progress);
-                        yield return null;
-                    }
+                        //Animación de vuelta: el jugador vuelve a su posición original
+                        while (progress < 1)
+                        {
+                            progress += Time.deltaTime / timeToMove;
+                            levelEnemiesTF[i].position = Vector2.Lerp(
+                                avatar.transform.position, levelEnemiesPosition[i], progress);
+                            yield return null;
+                        }
 
-                    //Se comprueba si el jugador ha perdido toda la vida y, en tal caso, se elimina
-                    //del terreno de combate y este pierde.
-                    if(Stats.health <= 0)
-                    {
-                        deathManager.killPlayer();
-                        Instantiate(deathEffect, avatarPosition, Quaternion.identity);
-                        sonidoMuerte.Play();
+                        //Se comprueba si el jugador ha perdido toda la vida y, en tal caso, se elimina
+                        //del terreno de combate y este pierde.
+                        if (Stats.health <= 0)
+                        {
+                            deathManager.killPlayer();
+                            Instantiate(deathEffect, avatarPosition, Quaternion.identity);
+                            sonidoMuerte.Play();
 
-                        yield return new WaitForSeconds(0.5f);
-                        avatar.SetActive(false);
+                            yield return new WaitForSeconds(0.5f);
+                            avatar.SetActive(false);
 
-                        StartCoroutine(battleDefeat());
+                            StartCoroutine(battleDefeat());
 
-                        break;
+                            break;
+                        }
                     }
                 }
             }
@@ -496,6 +531,24 @@ public class BattleManager : MonoBehaviour
         screenFlash.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
     }
 
+    //Método para mostrar por pantalla el efecto de un objeto cuando se utiliza
+    public IEnumerator showItemDescription(string name)
+    {
+        itemUse.SetActive(true);
+        itemUsedSound.Play();
+        Text itemUseText = itemUse.GetComponent<Text>();
+        
+        switch(name)
+        {
+            case "Pocion de Salud": itemUseText.text = "+5 vida"; break;
+            case "Pocion de Ataque": itemUseText.text = "+2 ataque"; break;
+            case "Pocion de Defensa": itemUseText.text = "+2 defensa"; break;
+        }
+
+        yield return new WaitForSeconds(2.0f);
+        itemUse.SetActive(false);
+    }
+
     //Método que se utiliza cuando el jugador derrota a todos los enemigos y gana
     public IEnumerator battleVictory()
     {
@@ -506,6 +559,7 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         backgroundMusic.Stop();
         victorySound.Play();
+        revertStats();
 
         float scaleTime = 0.33f;
         float progress = 0f;
@@ -516,9 +570,19 @@ public class BattleManager : MonoBehaviour
             yield return null;
         }
 
+        scoreMultiplier += 0.1f;
+        statManager.increaseScore(EnemyLists.levelsFinal[currentLevel - 1].expOnCompletion);
         statManager.nextMapLevel();
         yield return new WaitForSeconds(3.5f);
         victorySprite.SetActive(false);
+
+        if(Stats.score >= Stats.nextUpgrade)
+        {
+            levelUpSound.Play();
+            levelUpScreen.SetActive(true);
+            GameObject.Find("EstadisticaText").GetComponent<Text>().text = 
+                "¡Has alcanzado los\n" + Stats.nextUpgrade + " puntos!";
+        }
 
         //Se muestra la pantalla con información de la batalla, y a partir de ella el jugador puede ir directamente
         //al siguiente nivel (recibe más puntuación) o volver a la villa (el multiplicador vuelve a 1)
@@ -540,7 +604,48 @@ public class BattleManager : MonoBehaviour
         defeatSprite.SetActive(true);
         backgroundMusic.Stop();
         defeatSound.Play();
+        revertStats();
         yield return new WaitForSeconds(5.5f);
+        SceneManager.LoadScene(1);
+    }
+
+    //Método para revertir las estadísticas a sus valores iniciales
+    public void revertStats()
+    {
+        Stats.attack = attackAtStart;
+        Stats.defense = defenseAtStart;
+        Stats.maxHealth = maxHealthAtStart;
+    }
+
+    public void upgradeAttack()
+    {
+        statManager.increaseAttack(1);
+        Stats.nextUpgrade += 500;
+        levelUpScreen.SetActive(false);
+    }
+
+    public void upgradeDefense()
+    {
+        statManager.increaseDefense(1);
+        Stats.nextUpgrade += 500;
+        levelUpScreen.SetActive(false);
+    }
+
+    //Método para el aviso para volver a la villa
+    public void villageWarning()
+    {
+        villaWarningFinal.SetActive(true);
+        showingWarning = true;
+
+        if (battleWon)
+            GameObject.Find("VillaWarningText").GetComponent<Text>().text = "El multiplicador volvera a ser 1";
+        else
+            GameObject.Find("VillaWarningText").GetComponent<Text>().text = "El progreso de la batalla se perdera";
+    }
+
+    public void returnToVillage()
+    {
+        scoreMultiplier = 1.0f;
         SceneManager.LoadScene(1);
     }
 
@@ -560,6 +665,7 @@ public class BattleManager : MonoBehaviour
     {
         objectWarning1Final.SetActive(false);
         objectWarning2Final.SetActive(false);
+        villaWarningFinal.SetActive(false);
         showingWarning = false;
     }
 }

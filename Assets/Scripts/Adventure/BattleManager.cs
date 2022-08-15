@@ -264,19 +264,15 @@ public class BattleManager : MonoBehaviour
                 //caso, se elimina del terreno de combate.
                 if(target.health <= 0)
                 {
-                    Debug.Log("HOALDSASKDHSAJKLJDHSA");
                     Instantiate(deathEffect, targetObjectPosition, Quaternion.identity);
                     sonidoMuerte.Play();
-                    Debug.Log("Hello1");
 
                     yield return new WaitForSeconds(0.5f);
                     targetObject.SetActive(false);
                     TargetEnemy.untargetEnemy();
-                    Debug.Log("Hello2");
 
                     //Si se han derrotado a todos los enemigos, la batalla se gana.
                     enemiesDefeated++;
-                    Debug.Log(enemiesDefeated + "|||" + enemyAmount);
                     if(enemiesDefeated >= enemyAmount)
                     {
                         battleWon = true;

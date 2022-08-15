@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -19,6 +18,7 @@ public class MapHandler : MonoBehaviour
     public static GameObject inventoryCanvas;
     public static GameObject gradeCanvas;
     public static GameObject adventureCanvas;
+    public static GameObject rankingCanvas;
 
     private static AudioSource menuSound;
     private static AudioSource openMapSound;
@@ -38,6 +38,7 @@ public class MapHandler : MonoBehaviour
         inventoryCanvas = GameObject.Find("InventoryCanvas");
         gradeCanvas = GameObject.Find("GradeCheckCanvas");
         adventureCanvas = GameObject.Find("AdventureCanvas");
+        rankingCanvas = GameObject.Find("RankingCanvas");
 
         menuSound = GameObject.Find("MenuSelect").GetComponent<AudioSource>();
         openMapSound = GameObject.Find("OpenMap").GetComponent<AudioSource>();
@@ -71,6 +72,7 @@ public class MapHandler : MonoBehaviour
         tiendaCanvas.SetActive(false);
         gradeCanvas.SetActive(false);
         adventureCanvas.SetActive(false);
+        rankingCanvas.SetActive(false);
         noDinero.SetActive(false);
 
         activated = false;
@@ -100,7 +102,11 @@ public class MapHandler : MonoBehaviour
             case 3:
                 tiendaCanvas.SetActive(true);
                 break;
-            case 6:
+            case 4:
+                rankingCanvas.SetActive(true);
+                GameObject.Find("RankingManager").GetComponent<RankingManager>().loadRanking();
+                break;
+            case 5:
                 adventureCanvas.SetActive(true);
                 EnemyLoader.loadEnemies();
                 GameObject.Find("CurrentMapLevel").GetComponent<Text>().text = Stats.mapLevel.ToString();
@@ -109,6 +115,11 @@ public class MapHandler : MonoBehaviour
                 GameObject.Find("AventuraDefensaText").GetComponent<Text>().text = Stats.defense.ToString();
                 openMapSound.Play();
                 break;
+
+            /* No usado
+            case 6:
+                break;
+            */
         }
     }
 
@@ -122,6 +133,7 @@ public class MapHandler : MonoBehaviour
             case "TiendaX": tiendaCanvas.SetActive(false); break;
             case "InventoryX": inventoryCanvas.SetActive(false); break;
             case "AdventureX": adventureCanvas.SetActive(false); openMapSound.Play(); break;
+            case "RankingX": rankingCanvas.SetActive(false); break;
             case "GradeX": gradeCanvas.SetActive(false); break;
         }
     }

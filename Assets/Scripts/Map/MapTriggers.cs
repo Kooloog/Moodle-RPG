@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MapTriggers : MonoBehaviour
@@ -15,8 +12,8 @@ public class MapTriggers : MonoBehaviour
     //2 = Activar ventana forja
     //3 = Activar ventana tienda
     //4 = Activar ventana tablón
-    //5 = Activar ventana cofre
-    //6 = Activar ventana aventura
+    //5 = Activar ventana aventura
+    //6 = Sin usar
     private int openWindow = 0;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -43,16 +40,19 @@ public class MapTriggers : MonoBehaviour
                 currentPlaceText.text = "Clasificaciones";
                 openWindow = 4;
                 break;
-            case "CofreTrigger":
-                currentPlace.SetActive(true);
-                currentPlaceText.text = "Cofre magico";
-                openWindow = 5;
-                break;
             case "AdventureTrigger":
                 currentPlace.SetActive(true);
                 currentPlaceText.text = "Aventura";
+                openWindow = 5;
+                break;
+
+            /*No usado
+            case "CofreTrigger":
+                currentPlace.SetActive(true);
+                currentPlaceText.text = "Cofre magico";
                 openWindow = 6;
                 break;
+            */
         }
     }
 
@@ -90,14 +90,17 @@ public class MapTriggers : MonoBehaviour
                     MapHandler.activateCanvas(3);
                     break;
                 case 4:
-                    Debug.Log("Clasificaciones");
+                    MapHandler.activateCanvas(4);
                     break;
                 case 5:
+                    MapHandler.activateCanvas(5);
+                    break;
+
+                /* No usado
+                case 6:
                     Debug.Log("Abriendo cofre mágico");
                     break;
-                case 6:
-                    MapHandler.activateCanvas(6);
-                    break;
+                */
             }
         }
     }

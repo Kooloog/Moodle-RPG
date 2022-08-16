@@ -576,8 +576,12 @@ public class BattleManager : MonoBehaviour
         {
             levelUpSound.Play();
             levelUpScreen.SetActive(true);
+            if (!(Stats.nextUpgrade % 1000 == 0)) GameObject.Find("MaxVidaSubir").SetActive(false);
+            else statManager.increaseMaxHealth(5);
+
             GameObject.Find("EstadisticaText").GetComponent<Text>().text = 
                 "¡Has alcanzado los\n" + Stats.nextUpgrade + " puntos!";
+
         }
 
         //Se muestra la pantalla con información de la batalla, y a partir de ella el jugador puede ir directamente

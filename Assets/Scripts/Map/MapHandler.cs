@@ -72,7 +72,6 @@ public class MapHandler : MonoBehaviour
         tiendaCanvas.SetActive(false);
         gradeCanvas.SetActive(false);
         adventureCanvas.SetActive(false);
-        rankingCanvas.SetActive(false);
         noDinero.SetActive(false);
 
         activated = false;

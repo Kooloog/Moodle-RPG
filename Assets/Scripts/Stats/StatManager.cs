@@ -38,6 +38,7 @@ public class StatManager : MonoBehaviour
     {
         Stats.maxHealth += amount;
         Stats.health = Stats.maxHealth;
+        increaseHealth(Stats.maxHealth);
 
         sliderVida.maxValue = Stats.maxHealth;
         sliderVida.value = Stats.health;

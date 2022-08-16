@@ -55,10 +55,4 @@ public class TargetEnemy : MonoBehaviour, IPointerClickHandler, IPointerEnterHan
     {
         enemyTargeted = false;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

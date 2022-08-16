@@ -281,9 +281,4 @@ public class CharacterEdit : MonoBehaviour
 
         DontDestroyOnLoad(avatar);
     }
-
-    void Update()
-    {
-
-    }
 }

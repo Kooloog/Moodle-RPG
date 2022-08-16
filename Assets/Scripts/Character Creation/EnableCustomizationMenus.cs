@@ -157,10 +157,4 @@ public class EnableCustomizationMenus : MonoBehaviour
 
         blackWindowColors.SetActive(false);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

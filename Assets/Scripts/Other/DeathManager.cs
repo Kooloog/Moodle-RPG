@@ -85,10 +85,4 @@ public class DeathManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name.StartsWith("Editor")) StartCoroutine(checkDeath());
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

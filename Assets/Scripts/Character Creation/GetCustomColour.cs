@@ -81,10 +81,4 @@ public class GetCustomColour : MonoBehaviour, IPointerDownHandler
     {
         previousEventSystemStatic = previousEventSystem;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

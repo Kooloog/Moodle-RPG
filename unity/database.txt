@@ -1,0 +1,5 @@
+HOSTNAME=localhost
+USERNAME=root
+PASSWORD=
+DATABASE=moodle
+//

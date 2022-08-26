@@ -146,6 +146,8 @@ public class BattleManager : MonoBehaviour
         //Guardando instancia de StatManager
         statManager = GameObject.Find("StatsManager").GetComponent<StatManager>();
         deathManager = GameObject.Find("DeathManager").GetComponent<DeathManager>();
+
+        TurnObjects.clearAllItems();
     }
 
     // Update is called once per frame

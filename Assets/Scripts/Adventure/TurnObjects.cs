@@ -76,11 +76,11 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
             {
                 case "ESPADAS":
                     Sword pickedSword = InventoryManager.swords[selectedObjectNumber];
-                    selectObject(pickedSword.sprite, "Espada " + pickedSword.swordName, selectedObjectNumber);
+                    selectObject(pickedSword.sprite, pickedSword.swordName, selectedObjectNumber);
                     break;
                 case "ESCUDOS":
                     Shield pickedShield = InventoryManager.shields[selectedObjectNumber];
-                    selectObject(pickedShield.sprite, "Escudo " + pickedShield.shieldName, selectedObjectNumber);
+                    selectObject(pickedShield.sprite, pickedShield.shieldName, selectedObjectNumber);
                     break;
                 case "OBJETOS":
                     Item pickedItem = InventoryManager.items[selectedObjectNumber];

@@ -16,7 +16,7 @@ public class InventoryManager : MonoBehaviour
 
     private static AudioSource purchaseSound;
 
-    static InventoryManager instance;
+    private StatManager statManager;
 
     // Start is called before the first frame update
     void Start()
@@ -27,12 +27,12 @@ public class InventoryManager : MonoBehaviour
 
         purchaseSound = GameObject.Find("ItemPurchaseSound").GetComponent<AudioSource>();
 
-        instance = this;
+        statManager = GameObject.Find("StatsManager").GetComponent<StatManager>();
 
         StartCoroutine(LoadInventoryItems());
     }
 
-    public static void purchaseSword()
+    public void purchaseSword()
     {
         if(swords.Count < 10)
         {
@@ -42,24 +42,19 @@ public class InventoryManager : MonoBehaviour
 
             if (swordAux.cost > Stats.coins)
             {
-                instance.StartCoroutine(MapHandler.notEnoughMoney());
+                StartCoroutine(MapHandler.notEnoughMoney());
             }
             else
             {
                 swords.Add(swordAux);
-
-                GameObject load = new GameObject("InventoryPurchaseHandler");
-                StatManager makePurchase = load.AddComponent<StatManager>();
-                makePurchase.decreaseCoins(swordAux.cost);
-                Destroy(load);
-
-                instance.StartCoroutine(instance.AddInventoryItem("sword", swordNumber));
+                statManager.decreaseCoins(swordAux.cost);
+                StartCoroutine(AddInventoryItem("sword", swordNumber));
                 purchaseSound.Play();
             }
         }
     }
 
-    public static void purchaseShield()
+    public void purchaseShield()
     {
         if(shields.Count < 10)
         {
@@ -69,24 +64,19 @@ public class InventoryManager : MonoBehaviour
 
             if(shieldAux.cost > Stats.coins)
             {
-                instance.StartCoroutine(MapHandler.notEnoughMoney());
+                StartCoroutine(MapHandler.notEnoughMoney());
             }
             else
             {
                 shields.Add(shieldAux);
-
-                GameObject load = new GameObject("InventoryPurchaseHandler");
-                StatManager makePurchase = load.AddComponent<StatManager>();
-                makePurchase.decreaseCoins(shieldAux.cost);
-                Destroy(load);
-
-                instance.StartCoroutine(instance.AddInventoryItem("shield", shieldNumber));
+                statManager.decreaseCoins(shieldAux.cost);
+                StartCoroutine(AddInventoryItem("shield", shieldNumber));
                 purchaseSound.Play();
             }
         }
     }
 
-    public static void purchaseItem()
+    public void purchaseItem()
     {
         if(items.Count < 10)
         {
@@ -96,18 +86,13 @@ public class InventoryManager : MonoBehaviour
 
             if(itemAux.cost > Stats.coins)
             {
-                instance.StartCoroutine(MapHandler.notEnoughMoney());
+                StartCoroutine(MapHandler.notEnoughMoney());
             }
             else
             {
                 items.Add(itemAux);
-
-                GameObject load = new GameObject("InventoryPurchaseHandler");
-                StatManager makePurchase = load.AddComponent<StatManager>();
-                makePurchase.decreaseCoins(itemAux.cost);
-                Destroy(load);
-
-                instance.StartCoroutine(instance.AddInventoryItem("item", itemNumber));
+                statManager.decreaseCoins(itemAux.cost);
+                StartCoroutine(AddInventoryItem("item", itemNumber));
                 purchaseSound.Play();
             }
         }

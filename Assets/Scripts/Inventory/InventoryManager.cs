@@ -26,7 +26,6 @@ public class InventoryManager : MonoBehaviour
         items = new List<Item>();
 
         purchaseSound = GameObject.Find("ItemPurchaseSound").GetComponent<AudioSource>();
-
         statManager = GameObject.Find("StatsManager").GetComponent<StatManager>();
 
         StartCoroutine(LoadInventoryItems());
@@ -34,11 +33,31 @@ public class InventoryManager : MonoBehaviour
 
     public void purchaseSword()
     {
-        if(swords.Count < 10)
+        StartCoroutine(purchaseSwordCoroutine());
+    }
+
+    public void purchaseShield()
+    {
+        StartCoroutine(purchaseShieldCoroutine());
+    }
+
+    public void purchaseItem()
+    {
+        StartCoroutine(purchaseItemCoroutine());
+    }
+
+    public IEnumerator purchaseSwordCoroutine()
+    {
+        if (swords.Count < 10)
         {
             GameObject pickedSword = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
             int swordNumber = int.Parse(pickedSword.name.Split('_')[1]);
-            Sword swordAux = new Sword(ObjectLists.swordsFinal[swordNumber], returnHighestId() + 1);
+
+            UnityWebRequest highestIdGet = UnityWebRequest.Get(highestIdURL);
+            yield return highestIdGet.SendWebRequest();
+            int highestId = int.Parse(highestIdGet.downloadHandler.text);
+
+            Sword swordAux = new Sword(ObjectLists.swordsFinal[swordNumber], highestId + 1);
 
             if (swordAux.cost > Stats.coins)
             {
@@ -52,17 +71,24 @@ public class InventoryManager : MonoBehaviour
                 purchaseSound.Play();
             }
         }
+
+        yield return null;
     }
 
-    public void purchaseShield()
+    public IEnumerator purchaseShieldCoroutine()
     {
-        if(shields.Count < 10)
+        if (shields.Count < 10)
         {
             GameObject pickedShield = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
             int shieldNumber = int.Parse(pickedShield.name.Split('_')[1]);
-            Shield shieldAux = new Shield(ObjectLists.shieldsFinal[shieldNumber], returnHighestId() + 1);
 
-            if(shieldAux.cost > Stats.coins)
+            UnityWebRequest highestIdGet = UnityWebRequest.Get(highestIdURL);
+            yield return highestIdGet.SendWebRequest();
+            int highestId = int.Parse(highestIdGet.downloadHandler.text);
+
+            Shield shieldAux = new Shield(ObjectLists.shieldsFinal[shieldNumber], highestId + 1);
+
+            if (shieldAux.cost > Stats.coins)
             {
                 StartCoroutine(MapHandler.notEnoughMoney());
             }
@@ -74,17 +100,24 @@ public class InventoryManager : MonoBehaviour
                 purchaseSound.Play();
             }
         }
+
+        yield return null;
     }
 
-    public void purchaseItem()
+    public IEnumerator purchaseItemCoroutine()
     {
-        if(items.Count < 10)
+        if (items.Count < 10)
         {
             GameObject pickedItem = EventSystem.current.currentSelectedGameObject.transform.parent.gameObject;
             int itemNumber = int.Parse(pickedItem.name.Split('_')[1]);
-            Item itemAux = new Item(ObjectLists.itemsFinal[itemNumber], returnHighestId() + 1);
 
-            if(itemAux.cost > Stats.coins)
+            UnityWebRequest highestIdGet = UnityWebRequest.Get(highestIdURL);
+            yield return highestIdGet.SendWebRequest();
+            int highestId = int.Parse(highestIdGet.downloadHandler.text);
+
+            Item itemAux = new Item(ObjectLists.itemsFinal[itemNumber], highestId + 1);
+
+            if (itemAux.cost > Stats.coins)
             {
                 StartCoroutine(MapHandler.notEnoughMoney());
             }
@@ -96,14 +129,8 @@ public class InventoryManager : MonoBehaviour
                 purchaseSound.Play();
             }
         }
-    }
 
-    private static int returnHighestId()
-    {
-        UnityWebRequestAsyncOperation wr = UnityWebRequest.Get(highestIdURL).SendWebRequest();
-        while(!wr.isDone) { }
-        Debug.Log(wr.webRequest.downloadHandler.text);
-        return int.Parse(wr.webRequest.downloadHandler.text);
+        yield return null;
     }
 
     IEnumerator AddInventoryItem(string type, int number)

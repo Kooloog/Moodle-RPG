@@ -15,7 +15,7 @@ public class AvatarMovement : MonoBehaviour
     {
         if (GameObject.Find("Avatar") == null)
         {
-            SceneManager.LoadScene(0, LoadSceneMode.Single);
+            SceneManager.LoadScene(1, LoadSceneMode.Single);
         }
 
         avatar = GameObject.Find("Avatar");

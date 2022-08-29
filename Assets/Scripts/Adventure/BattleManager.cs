@@ -68,7 +68,7 @@ public class BattleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!GameObject.Find("Avatar")) SceneManager.LoadScene(1);
+        if (!GameObject.Find("Avatar")) SceneManager.LoadScene(2);
         GameObject.Find("NumBatalla").GetComponent<Text>().text = "Batalla " + Stats.mapLevel.ToString();
 
         //Cargando jugador
@@ -148,14 +148,6 @@ public class BattleManager : MonoBehaviour
         deathManager = GameObject.Find("DeathManager").GetComponent<DeathManager>();
 
         TurnObjects.clearAllItems();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z)) {
-            SceneManager.LoadScene(1);
-        }
     }
 
     public void battleMove()
@@ -608,7 +600,7 @@ public class BattleManager : MonoBehaviour
         defeatSound.Play();
         revertStats();
         yield return new WaitForSeconds(5.5f);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     //Método para revertir las estadísticas a sus valores iniciales
@@ -648,7 +640,7 @@ public class BattleManager : MonoBehaviour
     public void returnToVillage()
     {
         scoreMultiplier = 1.0f;
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     //Métodos para llamar a las diferentes corutinas

@@ -43,7 +43,7 @@ public class DeathManager : MonoBehaviour
         UnityWebRequest deathGet = UnityWebRequest.Post(isPlayerDeadURL, "");
         yield return deathGet.SendWebRequest();
         urlMessage = deathGet.downloadHandler.text;
-        if(urlMessage.Contains("yes")) SceneManager.LoadScene(1);
+        if(urlMessage.Contains("yes")) SceneManager.LoadScene(2);
     }
 
     IEnumerator loadDeath()

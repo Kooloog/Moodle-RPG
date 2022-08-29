@@ -37,7 +37,7 @@ public class SaveLoadCharacter : MonoBehaviour
         StartCoroutine(sendCharacter(postURL));
 
         Debug.Log("Done!");
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
     }
 
     public void loadCharacter()
@@ -324,6 +324,13 @@ public class SaveLoadCharacter : MonoBehaviour
         EnableCustomizationMenus.hideEverything();
         EnableCustomizationMenus.enableSingleMenu("BOTONES");
         EnableCustomizationMenus.enableSingleMenu("CARA");
+
+        //Accediendo al menú principal si así se indica, una vez esté el avatar cargado
+        if (MainMenuManager.fromMainMenu)
+        {
+            MainMenuManager.fromMainMenu = false;
+            SceneManager.LoadScene(2);
+        }
 
         //Eliminando pantalla de carga
         if (GameObject.Find("PantallaCarga"))

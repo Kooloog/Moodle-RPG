@@ -144,7 +144,7 @@ public class MapHandler : MonoBehaviour
     public static void openCharacterEditor()
     {
         if(GameObject.Find("Avatar").gameObject != null) Destroy(GameObject.Find("Avatar").gameObject);
-        SceneManager.LoadScene(0, LoadSceneMode.Single); 
+        SceneManager.LoadScene(1, LoadSceneMode.Single); 
     }
 
     public static void forjaAttackMenu()

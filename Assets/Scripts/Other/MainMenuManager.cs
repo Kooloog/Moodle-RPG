@@ -8,12 +8,16 @@ public class MainMenuManager : MonoBehaviour
 {
     public GameObject mainCanvas;
     public GameObject instructionCanvas;
+    public GameObject creditsCanvas;
 
     public GameObject tutorialImg;
     public GameObject tutorialTxt;
+    public GameObject tutorialPage;
 
     public string[] instructionTxt;
     public Sprite[] instructionImg;
+
+    public GameObject loadScreen;
 
     public static bool fromMainMenu;
     private string checkAvatar = "http://localhost/moodle/unity/checkAvatar.php";
@@ -37,13 +41,16 @@ public class MainMenuManager : MonoBehaviour
 
     public void startGame()
     {
+        loadScreen.SetActive(true);
         StartCoroutine(startGameCoroutine());
     }
 
     private void updateInstructions()
     {
+        int currentPage = page + 1;
         tutorialImg.GetComponent<Image>().sprite = instructionImg[page];
         tutorialTxt.GetComponent<Text>().text = instructionTxt[page];
+        tutorialPage.GetComponent<Text>().text = currentPage + "/" + maxSize;
     }
 
     public void showInstructions()
@@ -53,9 +60,16 @@ public class MainMenuManager : MonoBehaviour
         updateInstructions();
     }
 
+    public void showCredits()
+    {
+        mainCanvas.SetActive(false);
+        creditsCanvas.SetActive(true);
+    }
+
     public void nextPage()
     {
-        if(!(page + 1 >= maxSize)) page++;
+        if (!(page + 1 >= maxSize))
+        page++;   
         updateInstructions();
     }
 
@@ -68,6 +82,12 @@ public class MainMenuManager : MonoBehaviour
     public void hideInstructions()
     {
         instructionCanvas.SetActive(false);
+        mainCanvas.SetActive(true);
+    }
+
+    public void hideCredits()
+    {
+        creditsCanvas.SetActive(false);
         mainCanvas.SetActive(true);
     }
 

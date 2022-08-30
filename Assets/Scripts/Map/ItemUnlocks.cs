@@ -29,27 +29,27 @@ public class ItemUnlocks : MonoBehaviour
 
     public static void shopLockItems()
     {
-        for (int i = 0; i < swords.transform.childCount; i++)
+        for (int i = 0; i < swords.transform.childCount - 1; i++)
         {
             if (Stats.score < swordExpUnlocksFinal[i])
             {
-                swords.transform.GetChild(i).gameObject.SetActive(false);
+                swords.transform.GetChild(i+1).gameObject.SetActive(false);
             }
         }
 
-        for (int i = 0; i < shields.transform.childCount; i++)
+        for (int i = 0; i < shields.transform.childCount - 1; i++)
         {
             if (Stats.score < shieldExpUnlocksFinal[i])
             {
-                shields.transform.GetChild(i).gameObject.SetActive(false);
+                shields.transform.GetChild(i+1).gameObject.SetActive(false);
             }
         }
 
-        for (int i = 0; i < items.transform.childCount; i++)
+        for (int i = 0; i < items.transform.childCount - 1; i++)
         {
             if (Stats.score < itemExpUnlocksFinal[i])
             {
-                items.transform.GetChild(i).gameObject.SetActive(false);
+                items.transform.GetChild(i+1).gameObject.SetActive(false);
             }
         }
     }

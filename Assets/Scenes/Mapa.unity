@@ -22388,6 +22388,16 @@ MonoBehaviour:
     defense: 1
     health: 3
     sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+  - enemyName: Beast
+    attack: 4
+    defense: 2
+    health: 5
+    sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+  - enemyName: Helmguy
+    attack: 5
+    defense: 2
+    health: 8
+    sprite: {fileID: 21300000, guid: 9080f76f0233e6e43b34c79f53d400d0, type: 3}
   levels:
   - levelNumber: 1
     enemies:
@@ -22436,6 +22446,230 @@ MonoBehaviour:
       health: 3
       sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
     expOnCompletion: 100
+  - levelNumber: 5
+    enemies:
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    expOnCompletion: 100
+  - levelNumber: 6
+    enemies:
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    expOnCompletion: 150
+  - levelNumber: 7
+    enemies:
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    expOnCompletion: 150
+  - levelNumber: 8
+    enemies:
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    expOnCompletion: 150
+  - levelNumber: 9
+    enemies:
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    expOnCompletion: 100
+  - levelNumber: 10
+    enemies:
+    - enemyName: Helmguy
+      attack: 5
+      defense: 2
+      health: 8
+      sprite: {fileID: 21300000, guid: 9080f76f0233e6e43b34c79f53d400d0, type: 3}
+    expOnCompletion: 150
+  - levelNumber: 11
+    enemies:
+    - enemyName: Helmguy
+      attack: 5
+      defense: 2
+      health: 8
+      sprite: {fileID: 21300000, guid: 9080f76f0233e6e43b34c79f53d400d0, type: 3}
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    expOnCompletion: 150
+  - levelNumber: 12
+    enemies:
+    - enemyName: Helmguy
+      attack: 5
+      defense: 2
+      health: 8
+      sprite: {fileID: 21300000, guid: 9080f76f0233e6e43b34c79f53d400d0, type: 3}
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    expOnCompletion: 150
+  - levelNumber: 13
+    enemies:
+    - enemyName: Helmguy
+      attack: 5
+      defense: 2
+      health: 8
+      sprite: {fileID: 21300000, guid: 9080f76f0233e6e43b34c79f53d400d0, type: 3}
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    expOnCompletion: 150
+  - levelNumber: 14
+    enemies:
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    expOnCompletion: 150
+  - levelNumber: 15
+    enemies:
+    - enemyName: Helmguy
+      attack: 5
+      defense: 2
+      health: 8
+      sprite: {fileID: 21300000, guid: 9080f76f0233e6e43b34c79f53d400d0, type: 3}
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    expOnCompletion: 150
+  - levelNumber: 16
+    enemies:
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    - enemyName: Slime
+      attack: 3
+      defense: 1
+      health: 3
+      sprite: {fileID: 21300000, guid: 366ac9b5683db4d4e999c5eb864771ef, type: 3}
+    expOnCompletion: 200
+  - levelNumber: 17
+    enemies:
+    - enemyName: Helmguy
+      attack: 5
+      defense: 2
+      health: 8
+      sprite: {fileID: 21300000, guid: 9080f76f0233e6e43b34c79f53d400d0, type: 3}
+    - enemyName: Helmguy
+      attack: 5
+      defense: 2
+      health: 8
+      sprite: {fileID: 21300000, guid: 9080f76f0233e6e43b34c79f53d400d0, type: 3}
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    - enemyName: Beast
+      attack: 4
+      defense: 2
+      health: 5
+      sprite: {fileID: 21300000, guid: 786515e3362031d409a00126a5445ded, type: 3}
+    expOnCompletion: 200
 --- !u!4 &902294085
 Transform:
   m_ObjectHideFlags: 0

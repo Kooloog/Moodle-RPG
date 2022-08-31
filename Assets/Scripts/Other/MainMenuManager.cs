@@ -33,12 +33,6 @@ public class MainMenuManager : MonoBehaviour
         maxSize = instructionTxt.Length;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void startGame()
     {
         loadScreen.SetActive(true);
@@ -68,8 +62,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void nextPage()
     {
-        if (!(page + 1 >= maxSize))
-        page++;   
+        if (!(page + 1 >= maxSize)) page++;   
         updateInstructions();
     }
 
@@ -96,10 +89,8 @@ public class MainMenuManager : MonoBehaviour
         UnityWebRequest avatarGet = UnityWebRequest.Get(checkAvatar);
         yield return avatarGet.SendWebRequest();
 
-        if (avatarGet.downloadHandler.text.Contains("yes"))
-        {
-            fromMainMenu = true;
-        }
+        if (avatarGet.downloadHandler.text.Contains("yes")) fromMainMenu = true;
+
         SceneManager.LoadScene(1);
     }
 }

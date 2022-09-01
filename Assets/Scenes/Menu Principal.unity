@@ -546,10 +546,10 @@ MonoBehaviour:
     monedas suficientes. A m\xE1s puntos, m\xE1s armas habr\xE1."
   - "En la tienda, arriba a la izquierda, podr\xE1s comprar pociones tambi\xE9n con
     monedas y acceder al inventario pinchando en el bot\xF3n superior."
-  - "En tu inventario podr\xE1s ver en cualquier momento las armas, escudos y objetos
-    que tienes, junto a sus usos restantes."
   - "En el ranking, arriba a la izquierda, ver\xE1s el Top 10 jugadores por puntuaci\xF3n.
     Adem\xE1s, podr\xE1s ver tu rank actual total."
+  - "En tu inventario podr\xE1s ver en cualquier momento las armas, escudos y objetos
+    que tienes, junto a sus usos restantes."
   - "Para ir a la aventura, dir\xEDgete al puente en la parte superior. Una vez ah\xED,
     ver\xE1s informaci\xF3n sobre los enemigos que deber\xE1s derrotar."
   - "Pasando el rat\xF3n por cada enemigo, ver\xE1s informaci\xF3n sobre su vida,
@@ -587,8 +587,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: fc8e709a927fb304e9e966d09c20600d, type: 3}
   - {fileID: 21300000, guid: 605023e1a9ada6a4f9fd2d640ecb836d, type: 3}
   - {fileID: 21300000, guid: 71885796bb7ef974f8b7f54057f3a6b4, type: 3}
-  - {fileID: 21300000, guid: 42a9f37c51457ad408e068efbf851f21, type: 3}
   - {fileID: 21300000, guid: 9d70ba0c7a92fef48855273032c486e3, type: 3}
+  - {fileID: 21300000, guid: 42a9f37c51457ad408e068efbf851f21, type: 3}
   - {fileID: 21300000, guid: fd0241bb795573e4ab8b6fb3f85cbeb0, type: 3}
   - {fileID: 21300000, guid: 8a737490c521ec24da8f85706f35ed71, type: 3}
   - {fileID: 21300000, guid: 279916820be07c5419e9d690458db920, type: 3}
@@ -3991,10 +3991,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 9d68f46aed735c143a600ed838f852d5, type: 3}
-    m_FontSize: 57
+    m_FontSize: 55
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 5
     m_MaxSize: 100
     m_Alignment: 2
     m_AlignByGeometry: 0
@@ -4002,7 +4002,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 0.78
-  m_Text: "TUTORES DEL TFG - MANUEL PALOMO DUARTE\nANDR\xC9S mu\xF1oz ortega"
+  m_Text: "DIRECTORES DEL TFG - MANUEL PALOMO DUARTE\nANDR\xC9S mu\xF1oz ortega"
 --- !u!222 &2144569168
 CanvasRenderer:
   m_ObjectHideFlags: 0

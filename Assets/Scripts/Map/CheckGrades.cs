@@ -18,6 +18,7 @@ public class CheckGrades : MonoBehaviour
         if(!gradeDataText.Contains("null"))
         {
             int totalCoins = int.Parse(gradeDataText);
+            string totalCoinsText = (Stats.coins + totalCoins).ToString();
 
             GameObject load = new GameObject("IncreaseCoins");
             StatManager coinIncrease = load.AddComponent<StatManager>();
@@ -26,6 +27,9 @@ public class CheckGrades : MonoBehaviour
 
             MapHandler.gradeCanvas.SetActive(true);
             GameObject.Find("CoinGradesText").GetComponent<Text>().text = totalCoins.ToString();
+
+            yield return new WaitForSeconds(1.0f);
+            GameObject.Find("TextMonedas").GetComponent<Text>().text = totalCoinsText;
         }
     }
 }

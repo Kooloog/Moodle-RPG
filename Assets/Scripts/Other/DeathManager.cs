@@ -63,6 +63,10 @@ public class DeathManager : MonoBehaviour
             reviveMessage.SetActive(true);
             statManager.increaseHealth(Stats.maxHealth);
         }
+        else if (urlMessage.Contains("doesn't exist"))
+        {
+            Debug.Log("player is new");
+        }
         else
         {
             isDead = true;

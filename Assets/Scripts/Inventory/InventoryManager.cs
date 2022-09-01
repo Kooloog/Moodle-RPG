@@ -55,7 +55,10 @@ public class InventoryManager : MonoBehaviour
 
             UnityWebRequest highestIdGet = UnityWebRequest.Get(highestIdURL);
             yield return highestIdGet.SendWebRequest();
-            int highestId = int.Parse(highestIdGet.downloadHandler.text);
+
+            int highestId = 0;
+            if (!highestIdGet.downloadHandler.text.Contains("doesn't exist"))
+                highestId = int.Parse(highestIdGet.downloadHandler.text);
 
             Sword swordAux = new Sword(ObjectLists.swordsFinal[swordNumber], highestId + 1);
 

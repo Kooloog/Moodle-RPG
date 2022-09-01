@@ -294,6 +294,19 @@ public class BattleManager : MonoBehaviour
                     case "Pocion de Salud": statManager.increaseHealth(5); break;
                     case "Pocion de Ataque": Stats.attack += 2; break;
                     case "Pocion de Defensa": Stats.defense += 2; break;
+                    case "Pocion de Salud+": statManager.increaseHealth(20); break;
+                    case "Pocion de Ataque+": Stats.attack += 5; break;
+                    case "Pocion de Defensa+": Stats.defense += 5; break;
+                    case "Pocion Total":
+                        statManager.increaseHealth(5);
+                        Stats.attack += 2;
+                        Stats.defense += 2;
+                        break;
+                    case "Pocion Total+":
+                        statManager.increaseHealth(20);
+                        Stats.attack += 5;
+                        Stats.defense += 5;
+                        break;
                 }
 
                 StartCoroutine(showItemDescription(item.itemName));
@@ -533,6 +546,11 @@ public class BattleManager : MonoBehaviour
             case "Pocion de Salud": itemUseText.text = "+5 vida"; break;
             case "Pocion de Ataque": itemUseText.text = "+2 ataque"; break;
             case "Pocion de Defensa": itemUseText.text = "+2 defensa"; break;
+            case "Pocion Total": itemUseText.text = "+5 vida, +2 ATQ/DEF"; break;
+            case "Pocion de Salud+": itemUseText.text = "+20 vida"; break;
+            case "Pocion de Ataque+": itemUseText.text = "+5 ataque"; break;
+            case "Pocion de Defensa+": itemUseText.text = "+5 defensa"; break;
+            case "Pocion Total+": itemUseText.text = "+20 vida, +5 ATQ/DEF"; break;
         }
 
         yield return new WaitForSeconds(2.0f);

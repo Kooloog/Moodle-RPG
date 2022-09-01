@@ -62,7 +62,7 @@ public class SaveLoadCharacter : MonoBehaviour
         string charDataText = charGet.downloadHandler.text;
         Debug.Log(charDataText);
 
-        if (!charDataText.Contains("null")) {
+        if (!charDataText.Contains("nullnullnullnull") && !charDataText.Contains("doesn't exist")) {
             Dictionary<string, string> charData = new Dictionary<string, string>();
 
             string[] charFields = charDataText.Split('\n');

@@ -56,5 +56,5 @@
         echo("CHARNAME," . $character['CHARNAME'] . "\n");
         echo("CHARGENDER," . $character['CHARGENDER']);
     }
-    else echo("null");
+    else echo("nullnullnullnull");
 ?>

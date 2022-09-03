@@ -49,18 +49,14 @@ public class SaveLoadCharacter : MonoBehaviour
     {
         UnityWebRequest charPost = UnityWebRequest.Post(fullURL, "");
         yield return charPost.SendWebRequest();
-        Debug.Log(charPost.responseCode);
-        Debug.Log(charPost.downloadHandler.text);
     }
 
     IEnumerator getCharacter(string fullURL)
     {
         UnityWebRequest charGet = UnityWebRequest.Get(fullURL);
         yield return charGet.SendWebRequest();
-        Debug.Log(charGet.responseCode);
 
         string charDataText = charGet.downloadHandler.text;
-        Debug.Log(charDataText);
 
         if (!charDataText.Contains("nullnullnullnull") && !charDataText.Contains("doesn't exist")) {
             Dictionary<string, string> charData = new Dictionary<string, string>();

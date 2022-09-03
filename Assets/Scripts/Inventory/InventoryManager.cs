@@ -74,6 +74,10 @@ public class InventoryManager : MonoBehaviour
                 purchaseSound.Play();
             }
         }
+        else
+        {
+            StartCoroutine(MapHandler.notEnoughSpace());
+        }
 
         yield return null;
     }
@@ -103,6 +107,10 @@ public class InventoryManager : MonoBehaviour
                 purchaseSound.Play();
             }
         }
+        else
+        {
+            StartCoroutine(MapHandler.notEnoughSpace());
+        }
 
         yield return null;
     }
@@ -131,6 +139,10 @@ public class InventoryManager : MonoBehaviour
                 StartCoroutine(AddInventoryItem("item", itemNumber));
                 purchaseSound.Play();
             }
+        }
+        else
+        {
+            StartCoroutine(MapHandler.notEnoughSpace());
         }
 
         yield return null;

@@ -23,6 +23,7 @@ public class MapHandler : MonoBehaviour
     private static AudioSource menuSound;
     private static AudioSource openMapSound;
     private static GameObject noDinero;
+    private static GameObject noSpace;
     private static bool playSound;
 
     // Start is called before the first frame update
@@ -43,6 +44,7 @@ public class MapHandler : MonoBehaviour
         menuSound = GameObject.Find("MenuSelect").GetComponent<AudioSource>();
         openMapSound = GameObject.Find("OpenMap").GetComponent<AudioSource>();
         noDinero = GameObject.Find("NoDinero");
+        noSpace = GameObject.Find("NoEspacio");
 
         MapTriggers.linkMapTriggers();
 
@@ -73,6 +75,7 @@ public class MapHandler : MonoBehaviour
         gradeCanvas.SetActive(false);
         adventureCanvas.SetActive(false);
         noDinero.SetActive(false);
+        noSpace.SetActive(false);
 
         activated = false;
 
@@ -172,5 +175,12 @@ public class MapHandler : MonoBehaviour
         noDinero.SetActive(true);
         yield return new WaitForSeconds(1.3f);
         noDinero.SetActive(false);
+    }
+
+    public static IEnumerator notEnoughSpace()
+    {
+        noSpace.SetActive(true);
+        yield return new WaitForSeconds(1.3f);
+        noSpace.SetActive(false);
     }
 }

@@ -1665,7 +1665,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: como jugar
+  m_Text: "c\xF3mo jugar"
 --- !u!222 &1058230762
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1911,7 +1911,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: creditos
+  m_Text: "cr\xE9ditos"
 --- !u!222 &1093587264
 CanvasRenderer:
   m_ObjectHideFlags: 0

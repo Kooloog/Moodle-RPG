@@ -196,7 +196,6 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                Debug.Log("No object");
                 objectToUse = null;
             }
 

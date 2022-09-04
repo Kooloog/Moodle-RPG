@@ -170,7 +170,6 @@ public class InventoryManager : MonoBehaviour
         yield return inventoryGet.SendWebRequest();
 
         string inventoryDataText = inventoryGet.downloadHandler.text;
-        Debug.Log("RECIBIDO: " + inventoryDataText);
 
         if (!inventoryDataText.Contains("doesn't exist") && !inventoryDataText.Contains("null"))
         {

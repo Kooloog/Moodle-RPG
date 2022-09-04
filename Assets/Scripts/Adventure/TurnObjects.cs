@@ -88,10 +88,6 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
                     break;
             }
         }
-        else
-        {
-            Debug.Log("All objects picked.");
-        }
     }
 
     private static void fillSelectedItemBox(int id, Object obj)
@@ -133,7 +129,6 @@ public class TurnObjects : MonoBehaviour, IPointerClickHandler
         }
         else if (!secondObjectPicked)
         {
-            Debug.Log("showing");
             StartCoroutine(BattleManager.showWarning(2));
         }
         else

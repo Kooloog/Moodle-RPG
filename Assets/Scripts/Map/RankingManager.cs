@@ -164,10 +164,4 @@ public class RankingManager : MonoBehaviour
         foreach(Transform rank in GameObject.Find("RankingPlacements").transform) rankList.Add(rank.gameObject);
         MapHandler.rankingCanvas.SetActive(false);
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

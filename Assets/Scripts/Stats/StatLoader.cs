@@ -30,7 +30,6 @@ public class StatLoader : MonoBehaviour
         yield return statGet.SendWebRequest();
 
         string statDataText = statGet.downloadHandler.text;
-        Debug.Log(statDataText);
 
         if (statDataText.Contains("doesn't exist") || statDataText.Contains("null"))
         {

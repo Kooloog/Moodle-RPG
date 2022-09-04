@@ -115,11 +115,6 @@ public class MapHandler : MonoBehaviour
                 GameObject.Find("AventuraDefensaText").GetComponent<Text>().text = Stats.defense.ToString();
                 openMapSound.Play();
                 break;
-
-            /* No usado
-            case 6:
-                break;
-            */
         }
     }
 

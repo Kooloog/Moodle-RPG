@@ -13,7 +13,6 @@ public class CheckGrades : MonoBehaviour
         yield return gradeTotalGet.SendWebRequest();
 
         string gradeDataText = gradeTotalGet.downloadHandler.text;
-        Debug.Log("RECIBIDO: " + gradeDataText);
 
         if(!gradeDataText.Contains("null"))
         {

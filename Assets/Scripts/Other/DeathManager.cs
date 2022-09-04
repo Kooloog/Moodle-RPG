@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
@@ -51,11 +49,10 @@ public class DeathManager : MonoBehaviour
         UnityWebRequest deathGet = UnityWebRequest.Post(checkAliveURL, "");
         yield return deathGet.SendWebRequest();
         urlMessage = deathGet.downloadHandler.text;
-        Debug.Log(urlMessage);
 
         if (urlMessage.Contains("alive"))
         {
-            Debug.Log("player is alive");
+            //Do nothing. Player is alive.
         }
         else if (urlMessage.Contains("revive"))
         {
@@ -65,13 +62,12 @@ public class DeathManager : MonoBehaviour
         }
         else if (urlMessage.Contains("doesn't exist"))
         {
-            Debug.Log("player is new");
+            //Do nothing. The player was just created.
         }
         else
         {
             isDead = true;
             string[] time = urlMessage.Split(':');
-            Debug.Log(time[0] + ":" + time[1] + ":" + time[2]);
 
             deathMessage.SetActive(true);
             GameObject.Find("MuerteHora").GetComponent<Text>().text = time[0];

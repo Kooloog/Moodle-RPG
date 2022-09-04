@@ -13,7 +13,6 @@ public class MapTriggers : MonoBehaviour
     //3 = Activar ventana tienda
     //4 = Activar ventana tablón
     //5 = Activar ventana aventura
-    //6 = Sin usar
     private int openWindow = 0;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -45,14 +44,6 @@ public class MapTriggers : MonoBehaviour
                 currentPlaceText.text = "Aventura";
                 openWindow = 5;
                 break;
-
-            /*No usado
-            case "CofreTrigger":
-                currentPlace.SetActive(true);
-                currentPlaceText.text = "Cofre magico";
-                openWindow = 6;
-                break;
-            */
         }
     }
 
@@ -95,12 +86,6 @@ public class MapTriggers : MonoBehaviour
                 case 5:
                     MapHandler.activateCanvas(5);
                     break;
-
-                /* No usado
-                case 6:
-                    Debug.Log("Abriendo cofre mágico");
-                    break;
-                */
             }
         }
     }

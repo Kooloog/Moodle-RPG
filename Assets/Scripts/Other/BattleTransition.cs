@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,12 +11,6 @@ public class BattleTransition : MonoBehaviour
         {
             StartCoroutine(endBattleTransitionCoroutine());
         }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 
     public void startBattleTransition()
@@ -42,12 +35,6 @@ public class BattleTransition : MonoBehaviour
         }
 
         SceneManager.LoadScene(3);
-    }
-
-    public IEnumerator showBattleData()
-    {
-        Debug.Log("TBD");
-        yield return null;
     }
 
     public IEnumerator endBattleTransitionCoroutine()

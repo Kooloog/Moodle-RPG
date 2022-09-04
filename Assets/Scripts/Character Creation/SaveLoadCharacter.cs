@@ -33,11 +33,7 @@ public class SaveLoadCharacter : MonoBehaviour
             "&charname=" + CharacterEdit.characterName +
             "&chargender=" + CharacterEdit.characterGender;
 
-        Debug.Log(postURL);
         StartCoroutine(sendCharacter(postURL));
-
-        Debug.Log("Done!");
-        SceneManager.LoadScene(2);
     }
 
     public void loadCharacter()
@@ -49,6 +45,7 @@ public class SaveLoadCharacter : MonoBehaviour
     {
         UnityWebRequest charPost = UnityWebRequest.Post(fullURL, "");
         yield return charPost.SendWebRequest();
+        SceneManager.LoadScene(2);
     }
 
     IEnumerator getCharacter(string fullURL)

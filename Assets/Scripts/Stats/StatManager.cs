@@ -59,7 +59,6 @@ public class StatManager : MonoBehaviour
         Stats.coins -= amount;
         if (Stats.coins < 0) Stats.coins = 0;
 
-        Debug.Log(txtMonedas.text);
         txtMonedas.text = Stats.coins.ToString();
         StartCoroutine(updateStats("coins", Stats.coins));
     }
@@ -101,6 +100,7 @@ public class StatManager : MonoBehaviour
     public void nextMapLevel()
     {
         Stats.mapLevel += 1;
+        if (Stats.mapLevel > 17) Stats.mapLevel = 1;
         StartCoroutine(updateStats("maplevel", Stats.mapLevel));
     }
 
@@ -117,8 +117,6 @@ public class StatManager : MonoBehaviour
 
         UnityWebRequest statPost = UnityWebRequest.Post(postURL, "");
         yield return statPost.SendWebRequest();
-        Debug.Log(statPost.responseCode);
-        Debug.Log(statPost.downloadHandler.text);
     }
 
     IEnumerator playerRedFlash()
@@ -145,9 +143,11 @@ public class StatManager : MonoBehaviour
         avatar = GameObject.Find("Avatar");
     }
 
+    /*
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Y)) increaseHealth(1);
         if (Input.GetKeyDown(KeyCode.T)) decreaseHealth(1);
     }
+    */
 }
